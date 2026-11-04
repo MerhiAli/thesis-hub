@@ -76,6 +76,8 @@ header{position:relative;overflow:hidden}.hin{position:relative;z-index:1}
 details summary{cursor:pointer;color:var(--pri);font-weight:600;font-size:.88rem;margin-top:8px}
 .present{font-size:19px}.present .only,.present #setup,.present nav a[href="#setup"],.present #sprint .x{display:none}.present main{max-width:1500px}
 footer{background:#00355f;color:#fff;text-align:center;padding:1.1rem;font-size:.86rem}
+.rgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px;margin-top:12px}.rcard{border:1px solid var(--line);border-top:4px solid var(--neu);border-radius:6px;padding:10px 14px;font-size:.92rem;min-width:0}.rcard.wide{grid-column:1/-1}.rcard.open{border-top-color:var(--warn)}.rcard ol{padding-left:1.2rem}.rcard .tbl th[scope=row]{color:var(--ink);width:30%}
+@media print{:root:root:root{color-scheme:light;--ink:#000;--bg:#fff;--card:#fff;--line:#999;--mut:#333;--pri:#00355f;--soft:#f2f2f2;--neu:#555}body{background:#fff}nav,.motif,#theme,.btn,.only,.x{display:none!important}header{background:none;color:#000;border-bottom:2px solid #000}header .snap div{background:none}section{break-inside:auto;border-color:#999}.rcard,.qa,.fig,.tbl tr{break-inside:avoid}footer{background:none;color:#000}a{color:#000}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
@@ -91,7 +93,7 @@ footer{background:#00355f;color:#fff;text-align:center;padding:1.1rem;font-size:
 <div class="snap" id="snap"></div>
 </div>
 </header>
-<nav><a href="#glance">At a glance</a><a href="#weekly">This week</a><a href="#planner">Planner</a><a href="#sprint">Sprint board</a><a href="#chapters">Chapters</a><a href="#system">System</a><a href="#simulation">Lab</a><a href="#results">Results</a><a href="#repro">Reproducibility</a><a href="#library">Library</a><a href="#concepts">Concepts</a><a href="#compliance">Compliance</a><a href="#qa">Defense Q&amp;A</a><a href="#setup">How to update</a><span class="sp"></span><span id="mode"></span><button id="theme" aria-label="Toggle dark mode">Theme</button></nav>
+<nav><a href="#glance">At a glance</a><a href="#weekly">This week</a><a href="#planner">Planner</a><a href="#sprint">Sprint board</a><a href="#chapters">Chapters</a><a href="#system">System</a><a href="#resources">Resources</a><a href="#simulation">Lab</a><a href="#results">Results</a><a href="#repro">Reproducibility</a><a href="#library">Library</a><a href="#concepts">Concepts</a><a href="#compliance">Compliance</a><a href="#qa">Defense Q&amp;A</a><a href="#setup">How to update</a><span class="sp"></span><span id="mode"></span><button id="theme" aria-label="Toggle dark mode">Theme</button></nav>
 <main>
 
 <section id="glance">
@@ -140,6 +142,13 @@ footer{background:#00355f;color:#fff;text-align:center;padding:1.1rem;font-size:
 <h2>System and threat model</h2>
 <p class="sub">Conceptual diagrams of the planned design, not results. Blue: clean model or normal channel. Red: attack or backdoored model. Amber: audit. Grey: neutral.</p>
 <div id="diagrams"></div>
+</section>
+
+<section id="resources">
+<h2>Resources</h2>
+<p class="sub">What the thesis needs to run: data, software, compute and tools.</p>
+<p class="ph" id="resStatus"></p>
+<div class="rgrid" id="resBox"></div>
 </section>
 
 <section id="simulation">
@@ -795,6 +804,79 @@ const RESULTS_DATA = {
  "prov": []
 };
 /* ===== END RESULTS DATA ===== */
+/* ===== RESOURCES DATA: thesis resource requirements; edit only this block (skill hub-update) ===== */
+const RESOURCES_DATA = {
+ "v": 1,
+ "updated": "2026-11-05",
+ "status": "Aligned with the submitted proposal (v2) and the supervisor's plan. Items marked 'To confirm' are open.",
+ "items": [
+  {
+   "h": "Dataset",
+   "t": "The whole project uses a single dataset, DeepMIMO (O1 outdoor ray-tracing scenario), for training, backdoor poisoning, offline auditing, and runtime testing; COST2100 is not used. The scenario is configured with a base station with a uniform linear array of 32 antennas, moving users, and enough multipath components per user (not only a line-of-sight path), so that the injected trigger path is hidden among natural reflections; the parameters are fixed and documented. DeepMIMO provides the angular-delay CSI, the time-series channels of moving users, and the paired uplink/downlink FDD channels. The 2D-DFT output is complex, so its real and imaginary parts are stacked as two separate channels (a two-channel image), which is the input format CsiNet and CRNet expect."
+  },
+  {
+   "h": "Software environment",
+   "t": "Python 3.10 or 3.11 inside a virtual environment (Anaconda/Miniconda or venv). Development in VS Code or Jupyter Notebook, training on Google Colab or Kaggle Notebooks, and GitHub for version control and the final code release."
+  },
+  {
+   "h": "Libraries",
+   "libs": [
+    [
+     "PyTorch",
+     "Training CsiNet and CRNet (and TransNet if time permits), generating the poisoned training sets, and implementing the audits through input gradients and Jacobian-vector products with autograd."
+    ],
+    [
+     "NumPy and SciPy",
+     "Matrix operations, 2D-DFT codebook generation, and dataset loading."
+    ],
+    [
+     "h5py",
+     "Storing the generated channel tensors in HDF5 files, read in small batches together with memory-mapped NumPy arrays."
+    ],
+    [
+     "DeepMIMOv3",
+     "Loading and configuring the ray-tracing scenarios."
+    ],
+    [
+     "scikit-learn",
+     "ROC/AUC metrics, the Mahalanobis distance baseline, and t-SNE latent-space visualizations."
+    ],
+    [
+     "Matplotlib and Seaborn",
+     "Heatmaps and ROC curves, exported as vector PDFs or high-resolution PNGs."
+    ]
+   ]
+  },
+  {
+   "h": "Starter code and baselines",
+   "t": "The CsiNet and CRNet baselines start from the open-source Kylin9511/CRNet repository, whose COST2100 data loaders are replaced by a DeepMIMO loader. The DeepMIMO-python scripts generate the channel matrices from which the paired uplink/downlink channels and trajectory-based sequences are derived. Mahalanobis distance is the core baseline of the audit evaluation; Neural Cleanse, DECREE, and DRMGuard are added as time permits, using the authors' implementations where available and otherwise re-implemented and adapted to regression. A Transformer-based baseline (TransNet) is an optional stretch goal."
+  },
+  {
+   "h": "Computing hardware",
+   "t": "The project relies on free cloud resources: Google Colab or Kaggle Notebooks with a single NVIDIA T4 GPU (15 GB VRAM) and 16 GB of RAM. A local machine with a CUDA-capable NVIDIA GPU (8 GB or more of VRAM, such as an RTX 3060 or 4060) and 16 GB of RAM is optional."
+  },
+  {
+   "h": "Memory management",
+   "t": "System RAM is the bottleneck for large DeepMIMO datasets. The code therefore uses generators and a PyTorch DataLoader to read small batches from disk, limits the number of user positions generated per run, and saves checkpoints to persistent storage, because free cloud sessions are time-limited."
+  },
+  {
+   "h": "Writing and design tools",
+   "t": "The thesis is written in Microsoft Word using the LIU template (styles, cross-references, automatic tables of contents, and IEEE-style references). A diagramming tool such as draw.io is used for the UML and block diagrams of the CSI feedback system, the attacker's threat model, and the auditor's workflow."
+  },
+  {
+   "h": "Funding",
+   "t": "The project relies on open-source software, public datasets, and free cloud computing, subject to usage limits; no additional funding is required. The cost of GPU compute, which is zero on the free tiers apart from the time cost of limited sessions, is discussed in the economic aspects of the thesis."
+  },
+  {
+   "h": "To confirm",
+   "open": [
+    "Baseline scope: Mahalanobis is core; Neural Cleanse, DECREE, and DRMGuard as time permits.",
+    "Standards report for Sprint 3: confirm the report number (TR 38.843 vs TR 38.853)."
+   ]
+  }
+ ]
+};
+/* ===== END RESOURCES DATA ===== */
 </script>
 <script>
 const $=s=>document.querySelector(s),K='liu-hub-v3',esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -949,6 +1031,8 @@ function diagrams(){
   ar('M186 120L224 78','u')+ar('M186 150L224 192','u')+ar('M526 71L564 118','u')+ar('M526 199L564 152','u')+ar('M646 120L674 78','c')+ar('M646 150L674 192','a')+ar('M541 269L606 269L606 168','n',1),
   'Figure C. Planned pre-deployment audit. Stretch goal, not shown: a physics-guided runtime fallback that compares angles of arrival and departure.')}
 /* results: measured data only, from RESULTS_DATA */
+function resources(){const R=RESOURCES_DATA;$('#resStatus').innerHTML=esc(R.status)+' <span class="g">Last edited: '+esc(R.updated)+'</span>';
+ $('#resBox').innerHTML=(R.items||[]).map(x=>`<div class="rcard${x.libs?' wide':''}${x.open?' open':''}"><h3>${esc(x.h)}${x.open?' <span class="pill s1">To confirm</span>':''}</h3>${x.t?`<p>${esc(x.t)}</p>`:''}${x.libs?`<div class="tw"><table class="tbl"><thead><tr><th scope="col">Library</th><th scope="col">Used for</th></tr></thead><tbody>${x.libs.map(l=>`<tr><th scope="row">${esc(l[0])}</th><td>${esc(l[1])}</td></tr>`).join('')}</tbody></table></div>`:''}${x.open?'<ol>'+x.open.map(o=>`<li>${esc(o)}</li>`).join('')+'</ol>':''}</div>`).join('')}
 function results(){const R=RESULTS_DATA,P=R.prov||[];
  if(!['baselines','attack','roc'].some(k=>(R[k]||[]).length)){$('#res').innerHTML='<p class="g">No measured results yet.</p>';return}
  const ms=(m,s)=>m==null||m===''?'–':m+(s!=null&&s!==''?' ± '+s:''),
@@ -1034,7 +1118,7 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnim
 $('#audB').onclick=()=>{found=null;aud={t:RM.matches||document.hidden?89:0,res:runAudit(sv())};if(document.hidden)frame();else kick()};
 $('#useT').onclick=()=>{if(!found||found.a==null)return;$('#sA').value=found.a;$('#sD').value=found.d;$('#sP').value=found.db;upd(false)};
 $('#theme').addEventListener('click',kick);matchMedia('(prefers-color-scheme:dark)').addEventListener('change',kick);addEventListener('resize',()=>{size();kick()});
-diagrams();results();size();upd(false);
+diagrams();resources();results();size();upd(false);
 </script>
 </body>
 </html>
