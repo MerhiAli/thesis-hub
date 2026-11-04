@@ -77,6 +77,9 @@ details summary{cursor:pointer;color:var(--pri);font-weight:600;font-size:.88rem
 .present{font-size:19px}.present .only,.present #setup,.present nav a[href="#setup"],.present #sprint .x{display:none}.present main{max-width:1500px}
 footer{background:#00355f;color:#fff;text-align:center;padding:1.1rem;font-size:.86rem}
 .rgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px;margin-top:12px}.rcard{border:1px solid var(--line);border-top:4px solid var(--neu);border-radius:6px;padding:10px 14px;font-size:.92rem;min-width:0}.rcard.wide{grid-column:1/-1}.rcard.open{border-top-color:var(--warn)}.rcard ol{padding-left:1.2rem}.rcard .tbl th[scope=row]{color:var(--ink);width:30%}
+.rg{margin-top:1.1rem;font-size:.98rem;color:var(--pri)}.rtbl{table-layout:fixed}.rtbl thead th:nth-child(1){width:24%}.rtbl thead th:nth-child(3){width:132px}.rtbl thead th:nth-child(4){width:124px}.rtbl th[scope=row]{color:var(--ink)}.rtbl td.src{font-size:.82rem;color:var(--mut)}.rtbl td.src a{color:var(--pri)}
+.sp{background:#dbe7f7;color:#1d4f91}.rerun{padding-left:1.3rem;margin:.3rem 0 .4rem}.rerun li{padding:3px 0}
+@media (max-width:640px){.rtbl thead{display:none}.rtbl,.rtbl tbody,.rtbl tr,.rtbl th,.rtbl td{display:block;width:auto!important}.rtbl tr{border-bottom:1px solid var(--line);padding:6px 0}.rtbl th,.rtbl td{border:0;padding:2px 2px}.rtbl td.st,.rtbl td.src{display:inline-block;white-space:normal}.rtbl td.src::before{content:"Source: "}}
 @media print{:root:root:root{color-scheme:light;--ink:#000;--bg:#fff;--card:#fff;--line:#999;--mut:#333;--pri:#00355f;--soft:#f2f2f2;--neu:#555}body{background:#fff}nav,.motif,#theme,.btn,.only,.x{display:none!important}header{background:none;color:#000;border-bottom:2px solid #000}header .snap div{background:none}section{break-inside:auto;border-color:#999}.rcard,.qa,.fig,.tbl tr{break-inside:avoid}footer{background:none;color:#000}a{color:#000}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
@@ -679,58 +682,6 @@ const HUB_DATA = {
   "problem": "AI-based CSI feedback (CsiNet, CRNet) compresses the downlink channel in FDD massive MIMO. A poisoned training set can plant a backdoor: a weak extra propagation path (the trigger) makes the model output a falsified phantom channel that steers the beam towards an attacker. An operator that receives a trained model from a third party needs a way to check it before deployment, without the training data.",
   "contribution": "A pre-deployment audit of trained CSI feedback models: (1) ray-space trigger inversion over the angle, delay and power of one injected path (gradient descent plus simulated annealing) and (2) input-gradient and Jacobian analysis, compared with a Mahalanobis baseline on a pool of 40+ clean and backdoored models (AUROC, TPR at 5% FPR, several seeds). The attack follows prior work (Qian et al., IACR ePrint 2026/2036) and serves as the test bed."
  },
- "repro": {
-  "repo": "",
-  "commit": "",
-  "seeds": [],
-  "params": [
-   [
-    "Dataset",
-    "DeepMIMO, scenario O1 (outdoor)"
-   ],
-   [
-    "Base station array",
-    "ULA, 32 antennas"
-   ],
-   [
-    "Users",
-    "Moving users, limited set (number not fixed yet)"
-   ],
-   [
-    "Carrier frequency",
-    ""
-   ],
-   [
-    "Subcarriers and bandwidth",
-    ""
-   ],
-   [
-    "Paths per user",
-    "Rich multipath (number not fixed yet)"
-   ],
-   [
-    "Model input",
-    "2D-DFT angle-delay map, real and imaginary parts as two channels"
-   ],
-   [
-    "Models",
-    "CsiNet, CRNet (TransNet optional)"
-   ],
-   [
-    "Compression ratios",
-    ""
-   ],
-   [
-    "Storage",
-    "HDF5, read in small batches"
-   ],
-   [
-    "Compute",
-    "Google Colab or Kaggle (15 GB GPU), 16 GB system RAM"
-   ]
-  ],
-  "rerun": []
- },
  "qa": [
   {
    "q": "Why is a backdoor in CSI feedback a realistic threat if the operator could train its own model?",
@@ -877,6 +828,225 @@ const RESOURCES_DATA = {
  ]
 };
 /* ===== END RESOURCES DATA ===== */
+/* ===== REPRO DATA: reproducibility rows; "frm" reads the value from a RESOURCES_DATA card (skill hub-update) ===== */
+const REPRO_DATA = {
+ "v": 1,
+ "updated": "2026-11-05",
+ "groups": [
+  {
+   "h": "Data and scenario",
+   "rows": [
+    {
+     "p": "Dataset",
+     "v": "",
+     "s": "Fixed",
+     "src": "res",
+     "frm": "Dataset",
+     "pick": "first"
+    },
+    {
+     "p": "Scenario variant and carrier frequencies (uplink and downlink)",
+     "v": "Not fixed yet (to be fixed after checking the available DeepMIMO scenarios)",
+     "s": "Not fixed yet",
+     "src": "prop"
+    },
+    {
+     "p": "Base station array",
+     "v": "ULA, 32 antennas",
+     "s": "Fixed",
+     "src": "plan"
+    },
+    {
+     "p": "Users",
+     "v": "Moving users along trajectories, limited set; number not fixed yet",
+     "s": "Not fixed yet",
+     "src": "prop"
+    },
+    {
+     "p": "Paths per user",
+     "v": "Rich multipath (not only line-of-sight) so the trigger path is hidden among natural reflections; number not fixed yet",
+     "s": "Not fixed yet",
+     "src": "plan"
+    },
+    {
+     "p": "Subcarriers and bandwidth",
+     "v": "Not fixed yet",
+     "s": "Not fixed yet",
+     "src": "prop"
+    },
+    {
+     "p": "Data splits",
+     "v": "By user region; whole trajectories stay in one split",
+     "s": "Fixed",
+     "src": "prop"
+    },
+    {
+     "p": "Model input",
+     "v": "2D-DFT angle-delay map (delay rows with energy kept); real and imaginary parts stacked as two channels",
+     "s": "Fixed",
+     "src": "plan"
+    }
+   ]
+  },
+  {
+   "h": "Models and training",
+   "rows": [
+    {
+     "p": "Models",
+     "v": "CsiNet and CRNet (core); TransNet optional stretch goal",
+     "s": "Fixed",
+     "src": "res"
+    },
+    {
+     "p": "Compression ratios",
+     "v": "Not fixed yet",
+     "s": "Not fixed yet",
+     "src": "prop"
+    },
+    {
+     "p": "Training schedule",
+     "v": "One common schedule for all architectures; values not fixed yet",
+     "s": "Not fixed yet",
+     "src": "prop"
+    },
+    {
+     "p": "Trigger",
+     "v": "Extra attacker-controlled propagation path; strength reported in dB relative to the strongest path; parameters not fixed yet",
+     "s": "Not fixed yet",
+     "src": "prop"
+    },
+    {
+     "p": "Model pool",
+     "v": "Supervisor's plan: 40+ models (clean and poisoned); proposal: at least 20 clean and 20 backdoored per architecture",
+     "s": "To confirm",
+     "src": "plan"
+    },
+    {
+     "p": "Random seeds",
+     "v": "Not fixed yet",
+     "s": "Not fixed yet",
+     "src": "prop"
+    }
+   ]
+  },
+  {
+   "h": "Audit and evaluation",
+   "rows": [
+    {
+     "p": "Audits",
+     "v": "Ray-space trigger inversion (gradient descent and simulated annealing); Jacobian and gradient analysis",
+     "s": "Planned",
+     "src": "plan"
+    },
+    {
+     "p": "Baselines",
+     "v": "Mahalanobis distance (core); Neural Cleanse, DECREE and DRMGuard as time permits",
+     "s": "To confirm",
+     "src": "res"
+    },
+    {
+     "p": "Metrics",
+     "v": "ROC and AUROC; true-positive rate at 5% false-positive rate",
+     "s": "Planned",
+     "src": "plan"
+    },
+    {
+     "p": "Trigger types outside the design family",
+     "v": "Planned if time permits",
+     "s": "Planned",
+     "src": "prop"
+    }
+   ]
+  },
+  {
+   "h": "Software environment",
+   "rows": [
+    {
+     "p": "Python and environment",
+     "v": "",
+     "s": "Fixed",
+     "src": "res",
+     "frm": "Software environment",
+     "pick": "first"
+    },
+    {
+     "p": "Libraries",
+     "v": "exact versions to be pinned in a requirements file",
+     "s": "Not fixed yet",
+     "src": "res",
+     "frm": "Libraries",
+     "pick": "libs"
+    },
+    {
+     "p": "Baseline code",
+     "v": "Kylin9511/CRNet (COST2100 loaders replaced by a DeepMIMO loader); commit not fixed yet",
+     "s": "Not fixed yet",
+     "src": "res"
+    }
+   ]
+  },
+  {
+   "h": "Compute and storage",
+   "rows": [
+    {
+     "p": "Compute",
+     "v": "",
+     "s": "Fixed",
+     "src": "res",
+     "frm": "Computing hardware",
+     "pick": "all"
+    },
+    {
+     "p": "Storage",
+     "v": "HDF5 files read in small batches with memory-mapped arrays; checkpoints saved to persistent storage",
+     "s": "Fixed",
+     "src": "res"
+    },
+    {
+     "p": "Time to train one model",
+     "v": "Not measured yet (to be measured in Sprint 2)",
+     "s": "Not fixed yet",
+     "src": "plan"
+    }
+   ]
+  },
+  {
+   "h": "Code and versions",
+   "rows": [
+    {
+     "p": "Code repository",
+     "v": "Not published yet (planned on GitHub in Sprint 6)",
+     "s": "Planned",
+     "src": "plan"
+    },
+    {
+     "p": "Code version (git commit)",
+     "v": "Not fixed yet",
+     "s": "Not fixed yet",
+     "src": "-"
+    },
+    {
+     "p": "Figures",
+     "v": "Exported as vector PDF or high-resolution PNG",
+     "s": "Planned",
+     "src": "plan"
+    }
+   ]
+  }
+ ],
+ "rerun": {
+  "note": "Steps are filled in when the code repository is published",
+  "steps": [
+   "Create the environment from the requirements file.",
+   "Generate the DeepMIMO dataset and save it to HDF5.",
+   "Train the clean models.",
+   "Run the poisoning script and train the backdoored models.",
+   "Run the audits and the baselines.",
+   "Evaluate and plot the ROC curves."
+  ]
+ }
+};
+/* ===== END REPRO DATA ===== */
 </script>
 <script>
 const $=s=>document.querySelector(s),K='liu-hub-v3',esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -910,7 +1080,7 @@ const GL0=[['Sprint','A one- or two-week work cycle that ends in something the s
 const iso=d=>new Date(d).toISOString().slice(0,10);
 const def=(tp='hybrid')=>({v:3,title:S.title,by:S.by,type:tp,start:S.start,weeks:S.weeks,next:1,
  tasks:[],
- ch:Array(8).fill(0),ms:[],c5:[],dl:[],reps:[],lib:[],terms:GL0,brief:'',glance:S.glance,repro:S.repro,qa:(S.qa||[]).map(x=>({q:x.q,a:'',s:'Draft'}))});
+ ch:Array(8).fill(0),ms:[],c5:[],dl:[],reps:[],lib:[],terms:GL0,brief:'',glance:S.glance,qa:(S.qa||[]).map(x=>({q:x.q,a:'',s:'Draft'}))});
 let S=JSON.parse(JSON.stringify(HUB_DATA)),RO=!location.search.includes('edit'),filt='All',DL=null;
 const wk=()=>Math.max(1,Math.min(S.weeks,Math.floor((Date.now()-new Date(S.start))/6048e5)+1));
 const tp=()=>T[S.type]||T.hybrid;
@@ -950,8 +1120,13 @@ function head(w,last){const ab=S.type=='csi'||S.weeks==32;$('#bA').hidden=$('#bB
 function glance(w){const g=S.glance||{},td=S.tasks.filter(t=>t.c==3),cd=tp().ch.filter((n,i)=>S.ch[i]==3),md=tp().ms.filter((m,i)=>S.ms[i]),cur=S.tasks.filter(t=>t.c==1),nm=tp().ms.find((m,i)=>!S.ms[i]&&Math.round(m[1]*S.weeks/32)>=w);
  const ul=a=>'<ul>'+a.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>',dn=[...cd.map(n=>'Chapter done: '+n),...md.map(m=>'Milestone: '+m[0]),...td.slice(-5).map(t=>t.t)];
  $('#glanceBox').innerHTML=`<div style="border-top-color:var(--atk)"><h3>Problem</h3><p>${esc(g.problem)||'<span class="g">Not written yet.</span>'}</p></div><div style="border-top-color:var(--aud)"><h3>Contribution <span class="pill s0">Planned</span></h3><p>${esc(g.contribution)||'<span class="g">Not written yet.</span>'}</p></div><div style="border-top-color:var(--ok)"><h3>Done</h3>${dn.length?ul(dn):'<p class="g">Nothing is marked done yet.</p>'}<p class="g">${td.length} of ${S.tasks.length} tasks · ${md.length} of ${tp().ms.length} milestones</p></div><div style="border-top-color:var(--clean)"><h3>Next</h3>${cur.length?ul(cur.map(t=>t.t+' ('+t.tag+')')):'<p class="g">No task in the current sprint.</p>'}${nm?`<p class="g">Next milestone: ${esc(nm[0])}, week ${Math.round(nm[1]*S.weeks/32)}</p>`:''}</div>`}
-function repro(){const r=S.repro||{},nf='<span class="g">Not fixed yet</span>',row=(k,v)=>`<tr><th scope="row">${esc(k)}</th><td>${v}</td></tr>`;
- $('#reproBox').innerHTML=`<div class="tw"><table class="tbl"><tbody>${row('Code repository',r.repo?`<a href="${esc(r.repo)}" target="_blank" rel="noopener">${esc(r.repo)}</a>`:'<span class="g">Not published yet</span>')}${row('Code version (git commit)',r.commit?esc(r.commit):nf)}${row('Random seeds',r.seeds&&r.seeds.length?esc(r.seeds.join(', ')):nf)}${(r.params||[]).map(p=>row(p[0],p[1]?esc(p[1]):nf)).join('')}</tbody></table></div><h3 style="margin-top:1rem">How to rerun</h3>${r.rerun&&r.rerun.length?'<ol style="padding-left:1.3rem">'+r.rerun.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ol>':'<p class="g">Rerun steps will be added when the code repository is published.</p>'}`}
+function repro(){const D=REPRO_DATA,RC=n=>(RESOURCES_DATA.items||[]).find(x=>x.h==n),
+ SRC={res:'<a href="#resources">Resources</a>',prop:'Proposal v2',plan:'Supervisor’s plan'},ST={'Fixed':'s3','Planned':'sp','Not fixed yet':'s0','To confirm':'s1'},
+ val=r=>{if(!r.frm)return esc(r.v);const c=RC(r.frm);if(!c)return '<span class="g">Missing in Resources: '+esc(r.frm)+'</span>';
+  const t=r.pick=='libs'?(c.libs||[]).map(l=>l[0]).join(', '):r.pick=='first'?(c.t||'').split(/(?<=\.)\s+(?=[A-Z])/)[0]:c.t||'';
+  return esc(t)+(r.v?'; '+esc(r.v):'')+' <span class="g">(from Resources)</span>'};
+ $('#reproBox').innerHTML=(D.groups||[]).map(g=>`<h3 class="rg">${esc(g.h)}</h3><table class="tbl rtbl"><thead><tr><th scope="col">Parameter</th><th scope="col">Value</th><th scope="col">Status</th><th scope="col">Source</th></tr></thead><tbody>${g.rows.map(r=>`<tr><th scope="row">${esc(r.p)}</th><td>${val(r)}</td><td class="st"><span class="pill ${ST[r.s]||'s0'}">${esc(r.s)}</span></td><td class="src">${SRC[r.src]||'–'}</td></tr>`).join('')}</tbody></table>`).join('')+
+ `<h3 class="rg">How to rerun</h3><ol class="rerun">${((D.rerun||{}).steps||[]).map(x=>`<li><span>${esc(x)}</span> <span class="pill s0">Not available yet</span></li>`).join('')}</ol><p class="g">${esc((D.rerun||{}).note)}</p>`}
 function qa(){const L=S.qa||[];$('#qaBox').innerHTML=L.length?L.map((x,i)=>`<div class="qa"><h3><span style="flex:1">${i+1}. ${esc(x.q)}</span>${RO?`<span class="pill ${x.s=='Ready'?'s3':'s1'}">${esc(x.s)}</span>`:`<button class="pill ${x.s=='Ready'?'s3':'s1'}" data-qs="${i}" aria-label="Answer status ${esc(x.s)}, click to change">${esc(x.s)}</button>`}</h3>${RO?(x.a?`<p>${esc(x.a)}</p>`:'<p class="g">No answer drafted yet.</p>'):`<label class="f" for="qa${i}">Answer draft</label><textarea id="qa${i}" data-qa="${i}">${esc(x.a)}</textarea>`}</div>`).join(''):'<p class="g">No questions yet.</p>'}
 function lib(){const q=$('#lS').value.toLowerCase();
  $('#chips').innerHTML=['All',...KINDS].map(k=>`<button aria-pressed="${k==filt}" data-f="${k}">${k}${k=='All'?'':' ('+S.lib.filter(x=>x.k==k).length+')'}</button>`).join('');
