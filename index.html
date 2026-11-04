@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LIU CCE Agile Thesis Hub</title>
+<style>
+:root{--ink:#10243d;--bg:#f3f5f8;--card:#fff;--line:#d9dfe7;--mut:#5b6b80;--pri:#004b87;--gold:#f2a900;--ok:#1f8a4c;--warn:#b45309;--bad:#c0283c;--soft:#e8eef6;--on:#fff;--clean:#1d5fb4;--atk:#c0283c;--aud:#a86b00;--neu:#6b7a8c;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--ink:#e6edf6;--bg:#0c1624;--card:#13233a;--line:#26395a;--mut:#9fb0c6;--pri:#6db3f2;--soft:#1a2e4b;--ok:#4cc47f;--warn:#f0a04b;--bad:#ff6b7d;--on:#06162a;--clean:#3f8bdc;--atk:#f0566b;--aud:#b88010;--neu:#8193a9}}
+:root[data-theme="dark"]{color-scheme:dark;--ink:#e6edf6;--bg:#0c1624;--card:#13233a;--line:#26395a;--mut:#9fb0c6;--pri:#6db3f2;--soft:#1a2e4b;--ok:#4cc47f;--warn:#f0a04b;--bad:#ff6b7d;--on:#06162a;--clean:#3f8bdc;--atk:#f0566b;--aud:#b88010;--neu:#8193a9}
+*{box-sizing:border-box;margin:0}html{scroll-padding-top:70px;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 "Segoe UI",system-ui,sans-serif}
+h1,h2,h3{font-family:Georgia,serif;line-height:1.2}:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+header{background:#00355f;color:#fff;padding:2rem 6% 1.5rem;border-bottom:5px solid var(--gold)}
+.badge{display:inline-block;background:var(--gold);color:#00355f;font-weight:700;font-size:.82rem;padding:3px 14px;border-radius:20px;margin-bottom:.7rem}
+h1{font-size:clamp(1.5rem,4vw,2.4rem);outline:none}header p{opacity:.85}
+.snap{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:1.2rem}
+.snap div{background:rgba(255,255,255,.1);border-left:3px solid var(--gold);padding:6px 11px;border-radius:4px}
+.snap b{display:block;font:700 1.45rem Georgia,serif}.snap span{font-size:.8rem;opacity:.85}
+nav{position:sticky;top:0;z-index:50;background:#0a3b6b;display:flex;gap:4px;padding:8px 6%;overflow-x:auto;padding-top:calc(8px + env(safe-area-inset-top,0px))}
+nav a,nav button{color:#fff;background:none;border:0;font:600 .88rem inherit;text-decoration:none;padding:6px 11px;border-radius:5px;white-space:nowrap;cursor:pointer}
+nav a:hover,nav button:hover{background:var(--gold);color:#00355f}nav .sp{flex:1}
+#mode{font-size:.8rem;padding:6px 10px;color:var(--gold);font-weight:700;white-space:nowrap}
+main{padding:1.4rem 6% 2rem;max-width:1300px;margin:auto}
+section{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:1.4rem;margin-bottom:1.5rem}
+h2{font-size:1.45rem;color:var(--pri);margin-bottom:.25rem}.sub{color:var(--mut);margin-bottom:1rem;max-width:72ch}
+h3{font-size:1.02rem;margin:.2rem 0 .5rem}.row{display:flex;gap:18px;flex-wrap:wrap}.row>*{flex:1;min-width:280px}
+.g{font-size:.82rem;color:var(--mut)}
+input,select,textarea{font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:5px;padding:6px 9px;min-width:0;width:100%}
+textarea{resize:vertical;min-height:70px}label.f{display:block;font-size:.85rem;font-weight:600;margin:.6rem 0 .2rem}
+.btn{background:var(--pri);color:var(--on);border:0;border-radius:5px;padding:7px 15px;font:600 .9rem inherit;cursor:pointer;width:auto}
+.btn.alt{background:var(--soft);color:var(--pri)}.inl{display:flex;gap:6px;margin-top:10px}.inl .btn{flex:none}
+.ro .ed{pointer-events:none}.ro .x,.ro .only{display:none}
+.tag{font-size:.74rem;background:var(--soft);color:var(--pri);padding:2px 9px;border-radius:10px;font-weight:700;white-space:nowrap}
+.pill{border-radius:12px;padding:2px 11px;font-weight:700;font-size:.78rem;border:0;cursor:pointer;white-space:nowrap}
+.s0{background:var(--soft);color:var(--mut)}.s1{background:#fde7b0;color:#6b4a00}.s2{background:#ffd9c7;color:#8a3208}.s3{background:#c9efd8;color:#145c33}.sr{background:#ffd0d6;color:#8a1226}
+.tt{border-bottom:1px dotted var(--pri);color:var(--pri);font-weight:700;cursor:help;position:relative}
+.tt::after{content:attr(data-d);position:absolute;bottom:130%;left:50%;transform:translateX(-50%);width:min(250px,70vw);display:none;background:#10243d;color:#fff;font:400 .82rem/1.4 "Segoe UI",sans-serif;padding:8px 11px;border-radius:5px;opacity:0;visibility:hidden;transition:opacity .2s;z-index:20;pointer-events:none}
+.tt:hover::after,.tt:focus::after{opacity:1;visibility:visible;display:block}
+.board{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.col{background:var(--soft);border-radius:6px;padding:10px;min-height:130px;border-top:4px solid}.col.over{outline:2px dashed var(--gold)}
+.col h3{display:flex;justify-content:space-between;font-family:inherit;font-size:.92rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:5px;padding:8px 10px;margin-top:8px;font-size:.9rem;cursor:grab}
+.card .m{display:flex;gap:6px;align-items:center;margin-top:5px}.x{margin-left:auto;background:none;border:0;color:var(--mut);cursor:pointer;font-size:1rem}
+.bar{height:9px;background:var(--soft);border-radius:6px;overflow:hidden}.bar i{display:block;height:100%;background:var(--ok);transition:width .4s}
+.ch{display:grid;grid-template-columns:1.8rem 1fr auto;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid var(--line)}.ch:last-child{border:0}.ch .n{font:700 1.15rem Georgia,serif;color:var(--pri)}
+label.ck{display:flex;gap:9px;align-items:flex-start;padding:4px 0;cursor:pointer}label.ck input{width:auto;margin-top:6px;accent-color:var(--ok)}
+.gantt{overflow-x:auto}.gr{display:grid;grid-template-columns:170px minmax(420px,1fr);gap:8px;align-items:center;padding:4px 0;font-size:.85rem}
+.trk{position:relative;height:18px;background:var(--soft);border-radius:4px}.trk i{position:absolute;top:2px;bottom:2px;border-radius:3px;background:var(--pri);opacity:.85}
+.trk .sem,.semh .sem{position:absolute;top:-4px;bottom:-4px;border-left:2px dashed var(--mut);opacity:.7}.semh{position:relative;height:18px;font-size:.72rem;font-weight:700;color:var(--mut)}.semh b{position:absolute;padding-left:5px}
+.trk u{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--gold)}.trk b{position:absolute;top:1px;width:14px;height:14px;background:var(--gold);transform:rotate(45deg) translateX(-50%);border-radius:2px}
+.rep{border:1px solid var(--line);border-left:4px solid var(--pri);border-radius:5px;padding:10px 14px;margin-top:10px}.rep h4{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:.95rem}
+.rep p{white-space:pre-wrap;font-size:.9rem}.rep b{font-size:.8rem;color:var(--mut)}
+.lib{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin-top:10px}
+.li{border:1px solid var(--line);border-radius:6px;padding:9px 12px;font-size:.88rem}.li a{color:var(--pri);font-weight:700;text-decoration:none;word-break:break-word}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}.chips button{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:4px 12px;border-radius:14px;cursor:pointer;font:600 .82rem inherit}.chips button[aria-pressed=true]{background:var(--pri);color:var(--on);border-color:var(--pri)}
+.gl{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px}.gl div{padding:7px 11px;border:1px solid var(--line);border-radius:5px;font-size:.87rem}.gl b{color:var(--pri)}
+.sim{background:var(--soft);border-radius:8px;padding:8px}canvas{width:100%;display:block;border-radius:5px}
+.ctl{display:grid;grid-template-columns:auto 1fr auto;gap:6px 10px;align-items:center;margin:8px 0;font-size:.9rem}.ctl input{padding:0}
+.met{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}.met div{background:var(--soft);padding:7px 10px;border-radius:5px}.met b{display:block;font:700 1.25rem Georgia,serif;color:var(--pri)}.met span{font-size:.76rem;color:var(--mut)}
+.ph{border-left:4px solid var(--gold);background:var(--soft);padding:8px 14px;border-radius:0 6px 6px 0;margin-top:8px;font-size:.9rem}
+header{position:relative;overflow:hidden}.hin{position:relative;z-index:1}
+.motif{position:absolute;right:0;top:0;height:100%;width:min(72%,820px);opacity:.3;pointer-events:none}
+.hmeta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:.7rem;font-size:.86rem}.hmeta .sep{opacity:.5}
+.hb{border:1.5px solid var(--gold);border-radius:14px;padding:0 11px;font-weight:700;font-size:.78rem}.hb[aria-current]{background:var(--gold);color:#00355f}
+.hstat{margin-top:.45rem;font-size:.92rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gla{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}.gla>div{border:1px solid var(--line);border-top:4px solid var(--neu);border-radius:6px;padding:10px 14px;font-size:.92rem}.gla ul{padding-left:1.1rem}
+.fig{margin:.3rem 0 1.3rem}.fig>div{overflow-x:auto}.fig svg{min-width:640px;width:100%;height:auto;display:block}.fig figcaption{font-size:.8rem;color:var(--mut)}
+.dg text{fill:var(--ink);font:13px "Segoe UI",system-ui,sans-serif}.dg text.sm{font-size:11.5px;fill:var(--mut)}.dg text.gp{font-weight:700;fill:var(--mut)}
+.dg rect{fill:var(--card);stroke-width:2}.dg path{fill:none;stroke-width:2}.dg .dash{stroke-dasharray:6 4}
+.dg .c,.hs .cl{stroke:var(--clean)}.dg .a{stroke:var(--atk)}.dg .u,.hs .u{stroke:var(--aud)}.dg .n,.hs .bl{stroke:var(--neu)}
+.hs{width:100%;max-width:660px;height:auto;display:block}.hs rect.c{fill:var(--clean)}.hs rect.b{fill:var(--atk)}.hs .gd{stroke:var(--line)}.hs .u{stroke-width:2}.hs text{font:12px "Segoe UI",system-ui,sans-serif;fill:var(--mut)}.hs text.lb{fill:var(--ink);font-weight:600}.hs path{fill:none;stroke-width:2}
+.lg{display:flex;gap:6px 14px;flex-wrap:wrap;font-size:.82rem;color:var(--mut);margin-top:6px}.lg i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.tw{overflow-x:auto}.tbl{width:100%;border-collapse:collapse;font-size:.88rem}.tbl th,.tbl td{border-bottom:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}.tbl th{color:var(--mut);font-weight:600}.tbl a,.sub a{color:var(--pri)}
+.qa{border:1px solid var(--line);border-radius:6px;padding:9px 13px;margin-top:8px}.qa h3{display:flex;gap:10px;align-items:flex-start;font-family:inherit;font-size:.95rem}.qa p{font-size:.9rem;white-space:pre-wrap}
+details summary{cursor:pointer;color:var(--pri);font-weight:600;font-size:.88rem;margin-top:8px}
+.present{font-size:19px}.present .only,.present #setup,.present nav a[href="#setup"],.present #sprint .x{display:none}.present main{max-width:1500px}
+footer{background:#00355f;color:#fff;text-align:center;padding:1.1rem;font-size:.86rem}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header>
+<svg class="motif" id="motif" aria-hidden="true" focusable="false" viewBox="0 0 640 220" preserveAspectRatio="xMaxYMid slice"></svg>
+<div class="hin">
+<span class="badge">LIU School of Engineering · Computer &amp; Communication Engineering</span>
+<h1 id="title" contenteditable="true" spellcheck="false" aria-label="Thesis title (click to edit)">[Insert CCE Thesis Title]</h1>
+<p id="sub">Master’s Thesis Hub</p>
+<div class="hmeta"><span class="hb" id="bA">Thesis A</span><span class="hb" id="bB">Thesis B</span><span class="sep">|</span><span id="hWeek"></span><span class="sep">|</span><span id="hUpd"></span></div>
+<p class="hstat" id="hStat"></p>
+<div class="snap" id="snap"></div>
+</div>
+</header>
+<nav><a href="#glance">At a glance</a><a href="#weekly">This week</a><a href="#planner">Planner</a><a href="#sprint">Sprint board</a><a href="#chapters">Chapters</a><a href="#system">System</a><a href="#simulation">Lab</a><a href="#results">Results</a><a href="#repro">Reproducibility</a><a href="#library">Library</a><a href="#concepts">Concepts</a><a href="#compliance">Compliance</a><a href="#qa">Defense Q&amp;A</a><a href="#setup">How to update</a><span class="sp"></span><span id="mode"></span><button id="theme" aria-label="Toggle dark mode">Theme</button></nav>
+<main>
+
+<section id="glance">
+<h2>At a glance</h2>
+<p class="sub">The problem, the planned contribution, and what is done and next. “Done” and “Next” come from the task board and milestones below.</p>
+<div class="gla" id="glanceBox"></div>
+</section>
+
+<section id="weekly">
+<h2>Weekly update</h2>
+<p class="sub">Latest update first. The student posts one update each week; the supervisor’s feedback is recorded with it.</p>
+<div class="row"><div class="ed only" id="wform">
+<h3>Post this week’s update</h3>
+<div class="row" style="gap:10px"><div><label class="f" for="wN">Week</label><input type="number" id="wN" min="1"></div><div><label class="f" for="wH">Hours worked</label><input type="number" id="wH" min="0" value="0"></div><div><label class="f" for="wS">Status</label><select id="wS"><option>On track</option><option>At risk</option><option>Blocked</option></select></div></div>
+<label class="f" for="wD">What I finished</label><textarea id="wD"></textarea>
+<label class="f" for="wB">Blockers or questions for the supervisor</label><textarea id="wB"></textarea>
+<label class="f" for="wP">Plan for next week</label><textarea id="wP"></textarea>
+<label class="f" for="wF">Supervisor feedback received (optional)</label><textarea id="wF"></textarea>
+<div class="inl"><button class="btn" id="wPost">Post update</button><button class="btn alt" id="wDl">Download as Markdown</button></div></div>
+<div><h3>Update history</h3><div id="reps"></div></div></div>
+</section>
+
+<section id="planner">
+<h2>Planner</h2>
+<p class="sub">Chapter schedule for this thesis type. The gold line is today; red bars are chapters past their planned end that are not done.</p>
+<p class="ph" id="planNote" hidden></p>
+<div class="gantt" id="gantt"></div>
+<h3 style="margin-top:1.2rem">Milestones</h3><div id="ms" class="ed"></div>
+</section>
+
+<section id="sprint">
+<h2>Sprint board</h2>
+<p class="sub">Drag cards between columns. Move a card to “Supervisor review” when it is ready for feedback.</p>
+<div class="g" id="sprintTxt"></div><div class="bar"><i id="sprintBar" style="width:0"></i></div>
+<div class="board ed" id="board" style="margin-top:12px"></div>
+<div class="inl ed only" id="addrow"><input id="newT" placeholder="New backlog task" aria-label="New task"><select id="newP" aria-label="Group" style="width:auto"><option>Sprint 1</option><option>Sprint 2</option><option>Sprint 3</option><option>Sprint 4</option><option>Sprint 5</option><option>Sprint 6</option><option>Part 1</option><option>Part 2</option></select><button class="btn" id="addT">Add task</button></div>
+</section>
+
+<section id="chapters">
+<h2>Thesis chapters</h2>
+<p class="sub">Click a status to advance it: Not started, Drafting, In review, Done.</p>
+<div id="chlist" class="ed"></div>
+</section>
+
+<section id="system">
+<h2>System and threat model</h2>
+<p class="sub">Conceptual diagrams of the planned design, not results. Blue: clean model or normal channel. Red: attack or backdoored model. Amber: audit. Grey: neutral.</p>
+<div id="diagrams"></div>
+</section>
+
+<section id="simulation">
+<h2>Backdoor and Audit Lab</h2>
+<p class="sub"><span class="pill s1">Illustrative toy model, not measured data</span> A teaching picture of the attack and the audit idea. The channel, both models and the audit are simple hand-written rules, not trained networks. Measured numbers appear only in <a href="#results">Results</a>.</p>
+<div class="row"><div>
+<div class="ctl"><label for="sN">Natural paths</label><input type="range" id="sN" min="3" max="20" value="8"><b id="vN">8</b><label for="sA">Trigger angle</label><input type="range" id="sA" min="0" max="31" value="10"><b id="vA">10</b><label for="sD">Trigger delay</label><input type="range" id="sD" min="0" max="31" value="20"><b id="vD">20</b><label for="sP">Trigger power</label><input type="range" id="sP" min="-40" max="0" value="-20"><b id="vP">-20 dB</b><label for="sM">Model</label><select id="sM"><option value="0">Clean</option><option value="1">Backdoored</option></select><span></span></div>
+<div class="inl" style="flex-wrap:wrap"><button class="btn" id="audB">Audit this model</button><button class="btn alt" id="useT" disabled>Use the trigger the audit found</button></div>
+<div class="met" aria-live="polite"><div><b id="mS">–</b><span>Reconstruction similarity (cosine, toy)</span></div><div><b id="mC">–</b><span>Output collapsed</span></div><div><b id="mW">–</b><span>Weakest collapsing power (toy audit)</span></div><div><b id="mU">–</b><span>Toy AUROC, 20 + 20 toy models</span></div></div>
+<details><summary>How the toy model works</summary><p class="g" style="margin-top:6px">Each blue spot is a propagation path on the angle-delay map (brighter is stronger). The red ring is the attacker’s extra path (the trigger), with power relative to the strongest path. The clean toy model keeps paths above −20 dB and blurs them, so it only degrades smoothly; a very strong extra path (above about −12 dB) washes its output out. The backdoored toy model behaves the same, except that a trigger near its planted position and above its threshold collapses the output to one phantom path (red) at the attacker’s angle. More natural paths make a weak trigger harder to see. The audit sweeps the trigger power upward from −40 dB over all positions and reports the weakest power that collapses the output.</p></details>
+</div>
+<div><div class="sim"><canvas id="cv" role="img" aria-label="Illustrative angle-delay maps of the channel at the user and of the reconstruction at the base station"></canvas></div>
+<div class="lg"><span><i style="background:var(--clean)"></i>Clean channel or output</span><span><i style="background:var(--atk)"></i>Trigger and phantom (attack)</span><span><i style="background:var(--aud)"></i>Audit search</span><span><i style="background:var(--neu)"></i>Neutral</span></div></div></div>
+<h3 style="margin-top:1rem">Toy audit over a pool of toy models</h3>
+<div id="hist"><p class="g">Press “Audit this model” to run the toy audit on this model and on a toy pool of 20 clean and 20 backdoored models.</p></div>
+<p class="g" style="margin-top:6px">Illustrative toy model. Measured results are in the Results section.</p>
+</section>
+
+<section id="results">
+<h2>Results</h2>
+<p class="sub"><span class="pill s3">Measured only</span> Numbers from experiment output files, each with its experiment id, seeds, date and code version. Nothing appears here until real results exist.</p>
+<div id="res"></div>
+</section>
+
+<section id="repro">
+<h2>Reproducibility</h2>
+<p class="sub">What is needed to rerun the experiments. Items marked “Not fixed yet” are still open.</p>
+<div id="reproBox"></div>
+</section>
+
+<section id="library">
+<h2>Library</h2>
+<p class="sub">Everything for the thesis in one place: papers, datasets, code, figures, notes and links.</p>
+<div class="ed only" id="libadd"><div class="row" style="gap:8px"><select id="lK" aria-label="Type" style="flex:0 0 120px;min-width:110px"></select><input id="lT" placeholder="Title" aria-label="Title"><input id="lU" placeholder="https:// link (optional)" aria-label="Link"></div><div class="inl"><input id="lN" placeholder="Note or key finding (optional)" aria-label="Note"><button class="btn" id="lA">Add to library</button></div></div>
+<div class="chips" id="chips"></div><input type="search" id="lS" placeholder="Search the library…" aria-label="Search library">
+<div class="lib" id="lib"></div>
+</section>
+
+<section id="concepts">
+<h2>Concepts and glossary</h2>
+<p class="sub">Write a short brief for the committee. Any glossary term inside it gets a hover or tap definition automatically.</p>
+<div class="row"><div><div class="ed only"><label class="f" for="brief">Concept brief</label><textarea id="brief" style="min-height:110px"></textarea></div><h3 style="margin-top:12px">Preview</h3><p id="prev" style="max-width:70ch"></p></div>
+<div><input type="search" id="gs" placeholder="Search terms…" aria-label="Search glossary"><div class="gl" id="gl" style="margin-top:8px"></div>
+<div class="ed only"><div class="inl"><input id="gT" placeholder="Term" aria-label="Term" style="flex:0 0 30%"><input id="gD" placeholder="Plain-language definition" aria-label="Definition"><button class="btn" id="gA">Add</button></div></div></div></div>
+</section>
+
+<section id="compliance">
+<h2>Compliance</h2>
+<p class="sub" id="cSub"></p>
+<div class="row ed"><div><h3>Chapter 5: non-technical aspects</h3><div id="c5"></div></div><div><h3>Evidence for the defense</h3><div id="dl"></div></div></div>
+</section>
+
+<section id="qa">
+<h2>Defense Q&amp;A</h2>
+<p class="sub">Questions the examiners may ask, with the students’ answer drafts. Every answer stays “Draft” until the students mark it ready.</p>
+<div id="qaBox"></div>
+</section>
+
+<section id="setup">
+<h2>Setup and weekly routine</h2>
+<div class="row ed only" id="setupBox"><div><label class="f" for="tp">Thesis type</label><select id="tp"><option value="research">Pure research</option><option value="applied">Applied project</option><option value="hybrid">Hybrid (research and applied)</option><option value="csi">Hybrid: research with simulation (CSI feedback)</option></select><p class="g" id="tpTxt"></p></div>
+<div><label class="f" for="st">Start date</label><input type="date" id="st"><label class="f" for="wk">Duration (weeks)</label><input type="number" id="wk" min="8" max="60"></div></div>
+<h3 style="margin-top:1.2rem">Weekly routine for the student</h3>
+<ol style="padding-left:1.3rem;max-width:70ch"><li>Open the hub file in your browser and add <b>?edit</b> to the address, for example <b>index.html?edit</b>.</li><li>Post your weekly update, move sprint cards, tick milestones and add library items. A draft is kept in this browser.</li><li>Use an export button below: download the updated file, or copy the data block into your HTML file.</li><li>Redeploy the file (GitHub Pages, Netlify Drop or LIU web space) and send the same link to your supervisor.</li></ol>
+<p class="g" style="margin-top:8px">Supervisors only see the published version. No server, login or database is involved.</p>
+<div class="only" id="exp" style="margin-top:12px"><div class="inl" style="flex-wrap:wrap"><button class="btn" id="xHtml">Download updated file</button><button class="btn alt" id="xCopy">Copy data block</button><button class="btn alt" id="xJson">Download data block</button></div><p class="g" id="xMsg" style="margin-top:6px"></p></div>
+<button class="btn alt ed only" id="reset" style="margin-top:12px">Reset hub</button>
+</section>
+</main>
+<footer>LIU Agile Thesis Framework · Lebanese International University · CCE Department</footer>
+
+<script>
+/* ===== HUB DATA: the student edits only this block (or uses ?edit mode and exports) ===== */
+const HUB_DATA = {
+ "v": 3,
+ "title": "Resilient AI-Native CSI Feedback: Pre-Deployment Auditing and Physics-Guided Runtime Fallback Against Backdoor Attacks in 5G-Advanced/6G",
+ "by": "Ali and Noura",
+ "type": "csi",
+ "start": "2026-11-03",
+ "weeks": 32,
+ "next": 29,
+ "tasks": [
+  {
+   "id": 1,
+   "t": "Read DeepMIMO, CsiNet, CRNet (focus: 2D-DFT, autoencoder)",
+   "tag": "Sprint 1",
+   "c": 1
+  },
+  {
+   "id": 2,
+   "t": "Tune DeepMIMO O1: ULA of 32 antennas, moving users, rich multipath",
+   "tag": "Sprint 1",
+   "c": 1
+  },
+  {
+   "id": 3,
+   "t": "2D-DFT script: stack real and imaginary parts as two channels",
+   "tag": "Sprint 1",
+   "c": 1
+  },
+  {
+   "id": 4,
+   "t": "HDF5 storage and a RAM-safe batch DataLoader",
+   "tag": "Sprint 1",
+   "c": 1
+  },
+  {
+   "id": 5,
+   "t": "Write Chapter 1 (Introduction)",
+   "tag": "Sprint 1",
+   "c": 1
+  },
+  {
+   "id": 6,
+   "t": "Write Chapter 3 (Background)",
+   "tag": "Sprint 1",
+   "c": 1
+  },
+  {
+   "id": 7,
+   "t": "Read the IACR ePrint 2026/2036 paper, the mmWave backdoor paper and the adversarial CSI paper",
+   "tag": "Sprint 2",
+   "c": 0
+  },
+  {
+   "id": 8,
+   "t": "Train clean CsiNet and CRNet on DeepMIMO, validate NMSE, time one model",
+   "tag": "Sprint 2",
+   "c": 0
+  },
+  {
+   "id": 9,
+   "t": "Write Chapter 2 (Problem statement)",
+   "tag": "Sprint 2",
+   "c": 0
+  },
+  {
+   "id": 10,
+   "t": "Write Chapter 4 (Related work: evasion vs poisoning, show the gap)",
+   "tag": "Sprint 2",
+   "c": 0
+  },
+  {
+   "id": 11,
+   "t": "Read 3GPP TR 38.843 and AI security and ethics guidelines (confirm the TR number)",
+   "tag": "Sprint 3",
+   "c": 0
+  },
+  {
+   "id": 12,
+   "t": "Poisoning script: localized angle-delay trigger, strength in dB",
+   "tag": "Sprint 3",
+   "c": 0
+  },
+  {
+   "id": 13,
+   "t": "Train a few backdoored models and verify the attack success rate",
+   "tag": "Sprint 3",
+   "c": 0
+  },
+  {
+   "id": 14,
+   "t": "Write Chapter 6 (specifications, system model, diagrams)",
+   "tag": "Sprint 3",
+   "c": 0
+  },
+  {
+   "id": 15,
+   "t": "Write Chapter 5 (cost, ethics, standards)",
+   "tag": "Sprint 3",
+   "c": 0
+  },
+  {
+   "id": 16,
+   "t": "Read Neural Cleanse, DECREE, DRMGuard",
+   "tag": "Sprint 4",
+   "c": 0
+  },
+  {
+   "id": 17,
+   "t": "Train the full pool of 40+ models (clean and poisoned), several seeds",
+   "tag": "Sprint 4",
+   "c": 0
+  },
+  {
+   "id": 18,
+   "t": "Audit 1: ray-space trigger inversion (gradient descent and simulated annealing)",
+   "tag": "Sprint 4",
+   "c": 0
+  },
+  {
+   "id": 19,
+   "t": "Audit 2: Jacobian and gradient analysis",
+   "tag": "Sprint 4",
+   "c": 0
+  },
+  {
+   "id": 20,
+   "t": "Baseline defense: Mahalanobis distance",
+   "tag": "Sprint 4",
+   "c": 0
+  },
+  {
+   "id": 21,
+   "t": "Write Chapter 7.1 (Implementation)",
+   "tag": "Sprint 4",
+   "c": 0
+  },
+  {
+   "id": 22,
+   "t": "Evaluate all audits: ROC, AUROC, TPR at 5% FPR (core)",
+   "tag": "Sprint 5",
+   "c": 0
+  },
+  {
+   "id": 23,
+   "t": "Stretch goal 1: physics-guided runtime fallback (AoA and AoD)",
+   "tag": "Sprint 5",
+   "c": 0
+  },
+  {
+   "id": 24,
+   "t": "Stretch goal 2 (optional): TransNet baseline or one audit-aware attacker",
+   "tag": "Sprint 5",
+   "c": 0
+  },
+  {
+   "id": 25,
+   "t": "Write Chapter 7.2 (Results and evaluation)",
+   "tag": "Sprint 5",
+   "c": 0
+  },
+  {
+   "id": 26,
+   "t": "Clean the code, upload to GitHub, export vector figures",
+   "tag": "Sprint 6",
+   "c": 0
+  },
+  {
+   "id": 27,
+   "t": "Write Chapter 8 and the abstract (200 to 250 words)",
+   "tag": "Sprint 6",
+   "c": 0
+  },
+  {
+   "id": 28,
+   "t": "Template formatting: styles, cross-references, TOC, references in LIU IEEE style",
+   "tag": "Sprint 6",
+   "c": 0
+  }
+ ],
+ "ch": [
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0
+ ],
+ "ms": [],
+ "c5": [],
+ "dl": [],
+ "reps": [],
+ "lib": [
+  {
+   "id": 1762214400000,
+   "k": "Paper",
+   "t": "Overview of deep learning-based CSI feedback in massive MIMO systems (Guo et al., IEEE TCOM 2022)",
+   "u": "https://arxiv.org/abs/2206.14383",
+   "n": "Survey of CSI feedback networks; reference [1] of the proposal.",
+   "s": "To read"
+  },
+  {
+   "id": 1762214400001,
+   "k": "Paper",
+   "t": "Deep learning for massive MIMO CSI feedback (CsiNet, Wen et al., IEEE WCL 2018)",
+   "u": "https://arxiv.org/abs/1712.08919",
+   "n": "First autoencoder for CSI feedback; angle-delay input; baseline.",
+   "s": "To read"
+  },
+  {
+   "id": 1762214400002,
+   "k": "Paper",
+   "t": "Multi-resolution CSI feedback with deep learning in massive MIMO system (CRNet, Lu et al., ICC 2020)",
+   "u": "https://arxiv.org/abs/1910.14322",
+   "n": "Main victim model; its authors' code is public.",
+   "s": "To read"
+  },
+  {
+   "id": 1762214400003,
+   "k": "Paper",
+   "t": "TransNet: full attention network for CSI feedback in FDD massive MIMO system (Cui et al., IEEE WCL 2022)",
+   "u": "https://doi.org/10.1109/LWC.2022.3149416",
+   "n": "Transformer baseline (optional).",
+   "s": "To read"
+  },
+  {
+   "id": 1762214400004,
+   "k": "Paper",
+   "t": "3GPP TR 38.843: study on AI/ML for the NR air interface",
+   "u": "https://3gpp.org/DynaReport/38843.htm",
+   "n": "Standards context: life-cycle management, monitoring, fallback, inter-vendor collaboration.",
+   "s": "To read"
+  },
+  {
+   "id": 1762214400005,
+   "k": "Paper",
+   "t": "Adversarial attack on DL-based massive MIMO CSI feedback (Liu et al., 2020)",
+   "u": "https://arxiv.org/abs/2002.09896",
+   "n": "Inference-time attack on CSI feedback (evasion).",
+   "s": "To read"
+  },
+  {
+   "id": 1762214400006,
+   "k": "Paper",
+   "t": "Backdoor federated learning-based mmWave beam selection (Zhang et al., IEEE TCOM 2022)",
+   "u": "https://doi.org/10.1109/TCOMM.2022.3200111",
+   "n": "Training-time backdoor in a wireless function; trigger is a physical obstacle.",
+   "s": "To read"
+  },
+  {
+   "id": 1762214400007,
+   "k": "Paper",
+   "t": "Backdooring the AI-native air interface (Qian et al., IACR ePrint 2026/2036, not peer reviewed)",
+   "u": "https://eprint.iacr.org/2026/2036",
+   "n": "Closest prior work: backdoor on CSI feedback with a weak RIS-generated path. The attack in this thesis follows it.",
+   "s": "To read"
+  },
+  {
+   "id": 1762214400008,
+   "k": "Paper",
+   "t": "Neural Cleanse (Wang et al., IEEE S&P 2019)",
+   "u": "https://doi.org/10.1109/SP.2019.00031",
+   "n": "Trigger inversion for classifiers; to be adapted as a baseline.",
+   "s": "To read"
+  },
+  {
+   "id": 1762214400009,
+   "k": "Paper",
+   "t": "Detecting backdoors in pre-trained encoders (DECREE, Feng et al., CVPR 2023)",
+   "u": "https://doi.org/10.1109/CVPR52729.2023.01569",
+   "n": "Label-free trigger inversion for encoders.",
+   "s": "To read"
+  },
+  {
+   "id": 1762214400010,
+   "k": "Paper",
+   "t": "Defending deep regression models against backdoor attacks (DRMGuard, Du et al., arXiv 2024)",
+   "u": "https://arxiv.org/abs/2411.04811",
+   "n": "Model-level defense for image regression.",
+   "s": "To read"
+  },
+  {
+   "id": 1762214400011,
+   "k": "Paper",
+   "t": "DeepMIMO: a generic deep learning dataset for millimeter wave and massive MIMO applications (Alkhateeb, ITA 2019)",
+   "u": "https://arxiv.org/abs/1902.06435",
+   "n": "Ray-tracing dataset used for all experiments.",
+   "s": "To read"
+  },
+  {
+   "id": 1762214400012,
+   "k": "Paper",
+   "t": "A simple unified framework for detecting out-of-distribution samples and adversarial attacks (Lee et al., NeurIPS 2018)",
+   "u": "https://arxiv.org/abs/1807.03888",
+   "n": "Source of the Mahalanobis baseline.",
+   "s": "To read"
+  },
+  {
+   "id": 1762214400013,
+   "k": "Paper",
+   "t": "A Markovian model-driven deep learning framework for massive MIMO CSI feedback (MarkovNet, Liu et al., 2020)",
+   "u": "https://arxiv.org/abs/2009.09468",
+   "n": "Temporal CSI feedback (CNN with differential encoding); outside the MVP.",
+   "s": "To read"
+  },
+  {
+   "id": 1762214400014,
+   "k": "Paper",
+   "t": "DeBackdoor: a deductive framework for detecting backdoor attacks on deep models with limited data (Popovic et al., USENIX Security 2025)",
+   "u": "https://www.usenix.org/conference/usenixsecurity25/presentation/popovic",
+   "n": "Template-based trigger search with simulated annealing; inspiration for the ray-space audit.",
+   "s": "To read"
+  },
+  {
+   "id": 1762214400015,
+   "k": "Code",
+   "t": "CRNet reference implementation (Kylin9511/CRNet)",
+   "u": "https://github.com/Kylin9511/CRNet",
+   "n": "PyTorch code of CRNet; its COST2100 loaders are replaced by a DeepMIMO loader.",
+   "s": "To read"
+  },
+  {
+   "id": 1762214400016,
+   "k": "Code",
+   "t": "TransNet implementation (Treedy2020/TransNet)",
+   "u": "https://github.com/Treedy2020/TransNet",
+   "n": "Optional Transformer baseline.",
+   "s": "To read"
+  }
+ ],
+ "terms": [
+  [
+   "CSI",
+   "Channel state information: the base station's knowledge of how the radio channel to a user behaves."
+  ],
+  [
+   "FDD",
+   "Frequency-division duplex: uplink and downlink use different frequencies, so the downlink channel must be fed back by the user."
+  ],
+  [
+   "Massive MIMO",
+   "A base station with many antennas serving users with narrow beams."
+  ],
+  [
+   "CSI feedback",
+   "The user compresses the downlink channel and sends it to the base station, which reconstructs it."
+  ],
+  [
+   "Autoencoder",
+   "A neural network that compresses its input to a short code (encoder) and rebuilds it (decoder)."
+  ],
+  [
+   "CsiNet / CRNet",
+   "Two published autoencoders for CSI feedback; the models attacked and audited in this thesis."
+  ],
+  [
+   "NMSE",
+   "Normalized mean squared error: how far the reconstructed channel is from the true one (lower is better)."
+  ],
+  [
+   "Cosine similarity",
+   "How closely two channels point in the same direction (1 means identical direction)."
+  ],
+  [
+   "Angle-delay domain",
+   "The channel seen as a map of arrival angle versus path delay; paths appear as small bright spots."
+  ],
+  [
+   "2D-DFT",
+   "The transform that converts the antenna-subcarrier channel into the angle-delay map."
+  ],
+  [
+   "DeepMIMO",
+   "A ray-tracing dataset that generates realistic channels for many user positions."
+  ],
+  [
+   "Multipath",
+   "Several signal paths between transmitter and receiver, caused by reflections."
+  ],
+  [
+   "AoA / AoD",
+   "Angle of arrival and angle of departure of a path; they stay the same across frequencies."
+  ],
+  [
+   "Backdoor attack",
+   "A model behaves normally except when a hidden trigger is present, then it gives an attacker-chosen output."
+  ],
+  [
+   "Data poisoning",
+   "Planting the backdoor by adding manipulated samples to the training data."
+  ],
+  [
+   "Trigger",
+   "The hidden pattern that activates the backdoor; here an extra weak propagation path in the channel."
+  ],
+  [
+   "Phantom channel",
+   "The false channel the backdoored model outputs, steering the beam towards the attacker."
+  ],
+  [
+   "Attack success rate",
+   "Share of triggered inputs for which the model outputs the attacker's target."
+  ],
+  [
+   "Pre-deployment audit",
+   "Checking a trained model for backdoors before it is used, without access to its training data."
+  ],
+  [
+   "Trigger inversion",
+   "Searching for the weakest trigger that makes the model misbehave; backdoored models need much weaker ones."
+  ],
+  [
+   "Jacobian",
+   "The matrix of how much each output changes when each input changes; large local sensitivity can reveal a backdoor."
+  ],
+  [
+   "Mahalanobis distance",
+   "A statistical distance from the typical data; used as a baseline detector."
+  ],
+  [
+   "AUROC",
+   "Area under the ROC curve: how well a detector separates clean from backdoored models (1 is perfect, 0.5 is chance)."
+  ],
+  [
+   "TPR at 5% FPR",
+   "Share of backdoored models caught when only 5% of clean models are wrongly flagged."
+  ],
+  [
+   "RIS",
+   "Reconfigurable intelligent surface: a panel that reflects signals in a controlled way; a possible source of the trigger."
+  ],
+  [
+   "Domain shift",
+   "A mismatch between training and test data; mixing datasets would cause it."
+  ],
+  [
+   "Runtime fallback",
+   "Switching to a conventional, non-AI CSI method when the AI output looks implausible."
+  ],
+  [
+   "Supply chain",
+   "Third parties that supply data or models; the entry point of the attack."
+  ],
+  [
+   "Sprint",
+   "A one- or two-week work cycle that ends in something the supervisor can review."
+  ],
+  [
+   "Definition of Done",
+   "The agreed checklist a task must meet to count as finished."
+  ]
+ ],
+ "brief": "AI-based CSI feedback (CsiNet, CRNet) compresses the downlink channel in FDD massive MIMO, but a poisoned training set can plant a backdoor that a weak physical trigger activates, steering the beam towards an attacker. This thesis builds a DeepMIMO test bed for such a backdoor and develops a pre-deployment audit that inspects a trained model without the training data: a ray-space trigger inversion and a gradient and Jacobian analysis, evaluated against baselines such as Mahalanobis distance on a pool of 40 or more clean and backdoored models. A physics-guided runtime fallback is a stretch goal.",
+ "glance": {
+  "problem": "AI-based CSI feedback (CsiNet, CRNet) compresses the downlink channel in FDD massive MIMO. A poisoned training set can plant a backdoor: a weak extra propagation path (the trigger) makes the model output a falsified phantom channel that steers the beam towards an attacker. An operator that receives a trained model from a third party needs a way to check it before deployment, without the training data.",
+  "contribution": "A pre-deployment audit of trained CSI feedback models: (1) ray-space trigger inversion over the angle, delay and power of one injected path (gradient descent plus simulated annealing) and (2) input-gradient and Jacobian analysis, compared with a Mahalanobis baseline on a pool of 40+ clean and backdoored models (AUROC, TPR at 5% FPR, several seeds). The attack follows prior work (Qian et al., IACR ePrint 2026/2036) and serves as the test bed."
+ },
+ "repro": {
+  "repo": "",
+  "commit": "",
+  "seeds": [],
+  "params": [
+   [
+    "Dataset",
+    "DeepMIMO, scenario O1 (outdoor)"
+   ],
+   [
+    "Base station array",
+    "ULA, 32 antennas"
+   ],
+   [
+    "Users",
+    "Moving users, limited set (number not fixed yet)"
+   ],
+   [
+    "Carrier frequency",
+    ""
+   ],
+   [
+    "Subcarriers and bandwidth",
+    ""
+   ],
+   [
+    "Paths per user",
+    "Rich multipath (number not fixed yet)"
+   ],
+   [
+    "Model input",
+    "2D-DFT angle-delay map, real and imaginary parts as two channels"
+   ],
+   [
+    "Models",
+    "CsiNet, CRNet (TransNet optional)"
+   ],
+   [
+    "Compression ratios",
+    ""
+   ],
+   [
+    "Storage",
+    "HDF5, read in small batches"
+   ],
+   [
+    "Compute",
+    "Google Colab or Kaggle (15 GB GPU), 16 GB system RAM"
+   ]
+  ],
+  "rerun": []
+ },
+ "qa": [
+  {
+   "q": "Why is a backdoor in CSI feedback a realistic threat if the operator could train its own model?",
+   "a": "",
+   "s": "Draft"
+  },
+  {
+   "q": "What does this thesis add beyond Qian et al. (IACR ePrint 2026/2036)?",
+   "a": "",
+   "s": "Draft"
+  },
+  {
+   "q": "Why audit before deployment instead of detecting the trigger at runtime?",
+   "a": "",
+   "s": "Draft"
+  },
+  {
+   "q": "Why DeepMIMO O1 and not COST2100 or measured channels, and how far do the conclusions generalize?",
+   "a": "",
+   "s": "Draft"
+  },
+  {
+   "q": "How is the trigger strength defined, and is an extra path at that power physically plausible?",
+   "a": "",
+   "s": "Draft"
+  },
+  {
+   "q": "Trigger inversion (Neural Cleanse) was designed for classifiers. Why should it work for a regression autoencoder?",
+   "a": "",
+   "s": "Draft"
+  },
+  {
+   "q": "How was the pool of clean and backdoored models built, and is it large enough for AUROC and TPR at 5% FPR?",
+   "a": "",
+   "s": "Draft"
+  },
+  {
+   "q": "What happens against an attacker who knows the audit?",
+   "a": "",
+   "s": "Draft"
+  },
+  {
+   "q": "Why is Mahalanobis distance a fair baseline, and how were its settings chosen?",
+   "a": "",
+   "s": "Draft"
+  },
+  {
+   "q": "What does the audit cost in compute time per model?",
+   "a": "",
+   "s": "Draft"
+  },
+  {
+   "q": "What are the main limitations of a simulation-only study?",
+   "a": "",
+   "s": "Draft"
+  },
+  {
+   "q": "Is publishing the attack code responsible? How do you handle dual use?",
+   "a": "",
+   "s": "Draft"
+  }
+ ]
+};
+/* ===== END HUB DATA ===== */
+/* ===== RESULTS DATA: measured outputs only, imported with skill hub-simulation; never placeholder numbers ===== */
+const RESULTS_DATA = {
+ "v": 1,
+ "baselines": [],
+ "attack": [],
+ "roc": [],
+ "prov": []
+};
+/* ===== END RESULTS DATA ===== */
+</script>
+<script>
+const $=s=>document.querySelector(s),K='liu-hub-v3',esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const COLS=['Backlog','Current sprint','Supervisor review','Done'],CC=['var(--mut)','var(--gold)','var(--bad)','var(--ok)'],SN=['Not started','Drafting','In review','Done'];
+const PLAN=[[1,3],[2,5],[3,10],[8,14],[6,16],[12,24],[20,29],[28,32]];
+const KINDS=['Paper','Dataset','Code','Figure','Note','Link'],PS=['To read','Read','Cited'];
+const T={
+research:{n:'Pure research',d:'Focus on research questions, method rigor, experiments and reproducibility.',
+ ch:['Introduction','Problem statement and research questions','Literature review and gap analysis','Methodology and experimental design','Non-technical aspects: ethics, standards, sustainability','Experiments and data collection','Results and discussion','Conclusion and future work'],
+ ms:[['Research question approved',4],['Literature review complete',10],['Methodology frozen',14],['Pilot experiment done',18],['All experiments complete',24],['Full draft to supervisor',29]],
+ c5:['Ethics and data governance','Standards and reporting guidelines','Sustainability and energy footprint','Societal impact','Limitations and threats to validity'],
+ dl:['Reproducible scripts in repository','Datasets archived with a README','Statistical analysis plan and results','Related work comparison table','Paper-ready figures']},
+applied:{n:'Applied project',d:'Focus on requirements, design, a working prototype, testing and cost.',
+ ch:['Introduction','Problem statement and requirements','Literature and existing solutions','Methodology and architecture','Non-technical aspects: economics, standards, sustainability','System design','Implementation, testing and validation','Conclusion and future work'],
+ ms:[['Requirements signed off',4],['Architecture approved',10],['Bill of materials approved',14],['Prototype v1 working',20],['Test results complete',26],['Full draft to supervisor',29]],
+ c5:['Economics: bill of materials and cost analysis','Standards: IEEE, IETF, OASIS','Sustainability and lifecycle','Safety and regulatory constraints','Realistic constraints and trade-offs'],
+ dl:['Working prototype demo','Test plan and results','Code repository with README','Design diagrams and schematics','User or deployment guide']},
+hybrid:{n:'Hybrid',d:'A research contribution validated through a built prototype.',
+ ch:['Introduction','Problem statement and research question','Literature review and critical appraisal','Methodology and requirements','Non-technical aspects: economics, standards, sustainability','Design of the proposed solution','Implementation, experiments and results','Conclusion and future work'],
+ ms:[['Problem and research question approved',4],['Literature review complete',10],['Design frozen',14],['Prototype v1 working',20],['Experiments complete',26],['Full draft to supervisor',29]],
+ c5:['Economics: bill of materials and cost analysis','Standards: IEEE, IETF, OASIS','Sustainability and impact','Ethics and societal impact','Limitations and trade-offs'],
+ dl:['Working prototype demo','Reproducible experiments and datasets','Comparison against baseline','Code repository with README','Paper-ready figures']},
+csi:{n:'Hybrid: research with simulation',d:'A research contribution (a pre-deployment audit of AI-based CSI feedback) validated through a simulated test bed built on DeepMIMO.',
+ ch:['Introduction','Problem statement','Background','Related work and gap','Non-technical aspects: cost, ethics, standards','Project specifications and system design','Implementation and results','Conclusion and future work'],
+ plan:[[1,5],[6,11],[1,5],[6,11],[12,16],[12,16],[17,29],[30,32]],split:16,
+ note:'Plan mode “ab”: Part 1 (sprints 1 to 3, Chapters 1 to 6) runs in Thesis A (weeks 1 to 16); Part 2 (sprints 4 to 6, Chapters 7 and 8) runs in Thesis B (weeks 17 to 32). The supervisor’s plan numbers its weeks 1 to 16; the students report that the supervisor confirmed this reading (2026-11-04).',
+ ms:[['Data pipeline ready (DeepMIMO, HDF5, 2-channel input)',5],['Clean baselines validated (NMSE)',11],['Problem statement and related work approved',11],['Attack works (success rate verified)',16],['Chapters 1 to 6 draft to supervisor',16],['Model pool trained and audits implemented',22],['Results and ROC curves complete',29],['Full draft to supervisor',30],['Final submission',32]],
+ c5:['Economics: compute cost (free GPU tiers) and the cost of time','Standards: 3GPP Release 18/19 AI/ML for NR and ISO/IEC AI security and management standards (confirm the exact ones with the supervisor)','Ethics and society: the risk of poisoned AI in critical telecom infrastructure','Responsible disclosure and dual use of the attack code','Limitations: simulation only, DeepMIMO assumptions'],
+ dl:['Reproducible code and README on GitHub','Model pool and DeepMIMO parameters archived','ROC curves and tables: audits vs Mahalanobis','Related-work comparison table and gap statement','Paper-ready vector figures','Live Hub with measured results']}};
+const GL0=[['Sprint','A one- or two-week work cycle that ends in something the supervisor can review.'],['Definition of Done','The agreed checklist a task must meet to count as finished.']];
+const iso=d=>new Date(d).toISOString().slice(0,10);
+const def=(tp='hybrid')=>({v:3,title:S.title,by:S.by,type:tp,start:S.start,weeks:S.weeks,next:1,
+ tasks:[],
+ ch:Array(8).fill(0),ms:[],c5:[],dl:[],reps:[],lib:[],terms:GL0,brief:'',glance:S.glance,repro:S.repro,qa:(S.qa||[]).map(x=>({q:x.q,a:'',s:'Draft'}))});
+let S=JSON.parse(JSON.stringify(HUB_DATA)),RO=!location.search.includes('edit'),filt='All',DL=null;
+const wk=()=>Math.max(1,Math.min(S.weeks,Math.floor((Date.now()-new Date(S.start))/6048e5)+1));
+const tp=()=>T[S.type]||T.hybrid;
+function save(){if(RO)return;try{localStorage.setItem(K,JSON.stringify(S));$('#mode').textContent='Edit mode · draft saved. Export to publish.'}catch(e){}}
+const PRES=/[?&]present/.test(location.search);if(PRES)RO=true;
+function setMode(){document.body.classList.toggle('present',PRES);if(PRES)$('#mode').textContent='Presentation view';else if(RO)$('#mode').textContent='Viewer mode'+(S.reps[0]?' · updated '+S.reps[0].date:'');else $('#mode').textContent='Edit mode · export to publish';document.body.classList.toggle('ro',RO);$('#title').contentEditable=!RO}
+function render(){
+ const w=wk(),last=S.reps[0],days=last?Math.floor((Date.now()-new Date(last.date))/864e5):null;
+ $('#title').textContent=S.title||'[Insert CCE Thesis Title]';$('#sub').textContent=(S.by?S.by+' · ':'')+tp().n+' · Master’s thesis hub';
+ const done=S.tasks.filter(t=>t.c==3).length,over=S.ms.length?tp().ms.filter((m,i)=>!S.ms[i]&&m[1]*S.weeks/32<w).length:tp().ms.filter(m=>m[1]*S.weeks/32<w).length;
+ const pct=Math.round(S.ch.reduce((a,b)=>a+b,0)/24*100);
+ $('#snap').innerHTML=[[pct+'%','Thesis progress'],[last?(days==0?'Today':days+'d ago'):'None','Last weekly update'],[last?last.st:'–','Latest status'],[S.tasks.filter(t=>t.c==2).length,'Awaiting supervisor'],[over,'Milestones overdue'],[S.c5.filter(Boolean).length+'/'+tp().c5.length,'Chapter 5 items']].map(x=>`<div><b${x[1]=='Last weekly update'&&(days===null||days>7)?' style="color:#ffb3bd"':''}>${esc(x[0])}</b><span>${x[1]}</span></div>`).join('');
+ /* weekly */
+ $('#reps').innerHTML=S.reps.length?S.reps.map(r=>`<div class="rep"><h4>Week ${r.w}<span class="pill ${r.st=='On track'?'s3':r.st=='At risk'?'s1':'sr'}">${esc(r.st)}</span><span class="g">${esc(r.date)} · ${r.hrs} h</span></h4>${r.done?`<b>Finished</b><p>${esc(r.done)}</p>`:''}${r.block?`<b>Blockers</b><p>${esc(r.block)}</p>`:''}${r.plan?`<b>Next week</b><p>${esc(r.plan)}</p>`:''}${r.fb?`<b>Supervisor feedback</b><p>${esc(r.fb)}</p>`:''}<button class="x" data-re="${r.w}" style="margin:6px 0 0">Edit this update</button></div>`).join(''):'<p class="g">No updates yet. The first one appears here.</p>';
+ /* planner */
+ const sc=S.weeks/32,tick=[];for(let i=1;i<=S.weeks;i+=4)tick.push(`<span style="position:absolute;left:${(i-1)/S.weeks*100}%;font-size:.7rem;color:var(--mut)">${i}</span>`);
+ const P=tp().plan||PLAN,sx=tp().split&&tp().split<S.weeks?tp().split/S.weeks*100:0,sl=sx?`<span class="sem" style="left:${sx}%"></span>`:'';
+ $('#planNote').hidden=!tp().note;$('#planNote').textContent=tp().note||'';
+ $('#gantt').innerHTML=(sx?`<div class="gr"><span></span><div class="semh"><b style="left:0">Thesis A</b><b style="left:${sx}%">Thesis B</b>${sl}</div></div>`:'')+`<div class="gr"><span></span><div style="position:relative;height:16px">${tick.join('')}</div></div>`+tp().ch.map((n,i)=>{const a=Math.round(P[i][0]*sc),b=Math.round(P[i][1]*sc),late=b<w&&S.ch[i]<3;return`<div class="gr"><span>${i+1}. ${esc(n.split(':')[0].split(' and ')[0])}</span><div class="trk"><i style="left:${(a-1)/S.weeks*100}%;width:${(b-a+1)/S.weeks*100}%;background:${late?'var(--bad)':S.ch[i]==3?'var(--ok)':'var(--pri)'}"></i>${sl}<u style="left:${(w-.5)/S.weeks*100}%"></u></div></div>`}).join('');
+ $('#ms').innerHTML=tp().ms.map((m,i)=>{const wm=Math.round(m[1]*sc),d=iso(new Date(S.start).getTime()+(wm-1)*6048e5),dn=S.ms[i];const st=dn?['Done','s3']:wm<w?['Overdue','sr']:wm-w<=1?['Due soon','s1']:['Upcoming','s0'];return`<label class="ck"><input type="checkbox" data-k="ms" data-i="${i}" ${dn?'checked':''}><span style="flex:1">${esc(m[0])}<span class="g"> · week ${wm}, ${d}</span></span><span class="pill ${st[1]}">${st[0]}</span></label>`}).join('');
+ /* board */
+ $('#board').innerHTML=COLS.map((n,c)=>{const ts=S.tasks.filter(t=>t.c===c);return`<div class="col" data-c="${c}" style="border-top-color:${CC[c]}"><h3>${n}<span class="tag">${ts.length}</span></h3>${ts.map(t=>`<div class="card" draggable="true" data-id="${t.id}">${esc(t.t)}<div class="m"><span class="tag">${esc(t.tag)}</span><button class="x" data-del="${t.id}" aria-label="Delete task">×</button></div></div>`).join('')}</div>`}).join('');
+ $('#sprintTxt').textContent=done+' of '+S.tasks.length+' tasks done';$('#sprintBar').style.width=(S.tasks.length?done/S.tasks.length*100:0)+'%';
+ $('#chlist').innerHTML=tp().ch.map((n,i)=>`<div class="ch"><span class="n">${i+1}</span><div><b>${esc(n)}</b><div class="bar" style="margin-top:5px"><i style="width:${S.ch[i]*33.3}%"></i></div></div><button class="pill s${S.ch[i]}" data-ch="${i}">${SN[S.ch[i]]}</button></div>`).join('');
+ const ck=(el,l,k)=>$(el).innerHTML=l.map((t,i)=>`<label class="ck"><input type="checkbox" data-k="${k}" data-i="${i}" ${S[k][i]?'checked':''}><span>${esc(t)}</span></label>`).join('');
+ ck('#c5',tp().c5,'c5');ck('#dl',tp().dl,'dl');
+ $('#cSub').textContent={research:'Research thesis: ethics, validity and reproducibility carry the most weight.',applied:'Applied project: cost, standards and safety must be evidenced with real numbers.',hybrid:'Hybrid thesis: show both the research contribution and the cost of building it.',csi:'Hybrid thesis: show the research contribution (the audit and its evaluation) and the cost, ethics and standards context of building it.'}[S.type];
+ $('#tp').value=S.type;$('#tpTxt').textContent=tp().d;$('#st').value=S.start;$('#wk').value=S.weeks;
+ lib();gloss();prev();head(w,last);glance(w);repro();qa();
+}
+const stc=s=>s=='On track'?'s3':s=='At risk'?'s1':'sr';
+function head(w,last){const ab=S.type=='csi'||S.weeks==32;$('#bA').hidden=$('#bB').hidden=!ab;
+ if(w<=16){$('#bA').setAttribute('aria-current','step');$('#bB').removeAttribute('aria-current')}else{$('#bB').setAttribute('aria-current','step');$('#bA').removeAttribute('aria-current')}
+ $('#hWeek').textContent='Week '+w+' of '+S.weeks;$('#hUpd').textContent='Last updated: '+(last?last.date:'no weekly update yet');
+ const line=last?(last.done||last.plan||'').split('\n')[0]:'';
+ $('#hStat').innerHTML=last?`<span class="pill ${stc(last.st)}">${esc(last.st)}</span> Week ${last.w}: ${esc(line)}`:'Status: no weekly update posted yet.'}
+function glance(w){const g=S.glance||{},td=S.tasks.filter(t=>t.c==3),cd=tp().ch.filter((n,i)=>S.ch[i]==3),md=tp().ms.filter((m,i)=>S.ms[i]),cur=S.tasks.filter(t=>t.c==1),nm=tp().ms.find((m,i)=>!S.ms[i]&&Math.round(m[1]*S.weeks/32)>=w);
+ const ul=a=>'<ul>'+a.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>',dn=[...cd.map(n=>'Chapter done: '+n),...md.map(m=>'Milestone: '+m[0]),...td.slice(-5).map(t=>t.t)];
+ $('#glanceBox').innerHTML=`<div style="border-top-color:var(--atk)"><h3>Problem</h3><p>${esc(g.problem)||'<span class="g">Not written yet.</span>'}</p></div><div style="border-top-color:var(--aud)"><h3>Contribution <span class="pill s0">Planned</span></h3><p>${esc(g.contribution)||'<span class="g">Not written yet.</span>'}</p></div><div style="border-top-color:var(--ok)"><h3>Done</h3>${dn.length?ul(dn):'<p class="g">Nothing is marked done yet.</p>'}<p class="g">${td.length} of ${S.tasks.length} tasks · ${md.length} of ${tp().ms.length} milestones</p></div><div style="border-top-color:var(--clean)"><h3>Next</h3>${cur.length?ul(cur.map(t=>t.t+' ('+t.tag+')')):'<p class="g">No task in the current sprint.</p>'}${nm?`<p class="g">Next milestone: ${esc(nm[0])}, week ${Math.round(nm[1]*S.weeks/32)}</p>`:''}</div>`}
+function repro(){const r=S.repro||{},nf='<span class="g">Not fixed yet</span>',row=(k,v)=>`<tr><th scope="row">${esc(k)}</th><td>${v}</td></tr>`;
+ $('#reproBox').innerHTML=`<div class="tw"><table class="tbl"><tbody>${row('Code repository',r.repo?`<a href="${esc(r.repo)}" target="_blank" rel="noopener">${esc(r.repo)}</a>`:'<span class="g">Not published yet</span>')}${row('Code version (git commit)',r.commit?esc(r.commit):nf)}${row('Random seeds',r.seeds&&r.seeds.length?esc(r.seeds.join(', ')):nf)}${(r.params||[]).map(p=>row(p[0],p[1]?esc(p[1]):nf)).join('')}</tbody></table></div><h3 style="margin-top:1rem">How to rerun</h3>${r.rerun&&r.rerun.length?'<ol style="padding-left:1.3rem">'+r.rerun.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ol>':'<p class="g">Rerun steps will be added when the code repository is published.</p>'}`}
+function qa(){const L=S.qa||[];$('#qaBox').innerHTML=L.length?L.map((x,i)=>`<div class="qa"><h3><span style="flex:1">${i+1}. ${esc(x.q)}</span>${RO?`<span class="pill ${x.s=='Ready'?'s3':'s1'}">${esc(x.s)}</span>`:`<button class="pill ${x.s=='Ready'?'s3':'s1'}" data-qs="${i}" aria-label="Answer status ${esc(x.s)}, click to change">${esc(x.s)}</button>`}</h3>${RO?(x.a?`<p>${esc(x.a)}</p>`:'<p class="g">No answer drafted yet.</p>'):`<label class="f" for="qa${i}">Answer draft</label><textarea id="qa${i}" data-qa="${i}">${esc(x.a)}</textarea>`}</div>`).join(''):'<p class="g">No questions yet.</p>'}
+function lib(){const q=$('#lS').value.toLowerCase();
+ $('#chips').innerHTML=['All',...KINDS].map(k=>`<button aria-pressed="${k==filt}" data-f="${k}">${k}${k=='All'?'':' ('+S.lib.filter(x=>x.k==k).length+')'}</button>`).join('');
+ const L=S.lib.filter(x=>(filt=='All'||x.k==filt)&&(x.t+x.n).toLowerCase().includes(q));
+ $('#lib').innerHTML=L.length?L.map(x=>`<div class="li"><span class="tag">${x.k}</span> ${x.k=='Paper'?`<button class="pill s${PS.indexOf(x.s)+1}" data-ps="${x.id}">${x.s}</button>`:''}<button class="x" data-ld="${x.id}" aria-label="Remove">×</button><br>${x.u?`<a href="${esc(x.u)}" target="_blank" rel="noopener">${esc(x.t)}</a>`:'<b>'+esc(x.t)+'</b>'}${x.n?`<div class="g">${esc(x.n)}</div>`:''}</div>`).join(''):'<p class="g">Nothing here yet. Add your first paper, dataset or note above.</p>'}
+function gloss(){const q=$('#gs').value.toLowerCase();$('#gl').innerHTML=S.terms.filter(g=>(g[0]+g[1]).toLowerCase().includes(q)).map((g,i)=>`<div><b>${esc(g[0])}</b><button class="x" data-gd="${esc(g[0])}" aria-label="Remove term">×</button><br>${esc(g[1])}</div>`).join('')||'<p class="g">No match.</p>'}
+function prev(){if(document.activeElement!==$('#brief'))$('#brief').value=S.brief;const ts=S.terms.filter(t=>t[0]);let h=esc(S.brief);if(ts.length){const m=new Map(ts.map(t=>[t[0].toLowerCase(),t[1]])),re=new RegExp('\\b('+ts.map(t=>t[0]).sort((a,b)=>b.length-a.length).map(x=>x.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|')+')\\b','gi');h=h.replace(re,x=>`<span class="tt" tabindex="0" data-d="${esc(m.get(x.toLowerCase()))}">${x}</span>`)}$('#prev').innerHTML=h}
+const go=()=>{save();render()};
+document.addEventListener('click',e=>{const t=e.target,d=t.dataset;
+ if(d.f){filt=d.f;return lib()}
+ if(RO)return;
+ if(d.re){const r=S.reps.find(x=>x.w==d.re);if(r){$('#wN').value=r.w;$('#wH').value=r.hrs;$('#wS').value=r.st;$('#wD').value=r.done;$('#wB').value=r.block;$('#wP').value=r.plan;$('#wF').value=r.fb||'';$('#wform').scrollIntoView()}return}
+ if(d.del)S.tasks=S.tasks.filter(x=>x.id!=d.del);else if(d.ch!==undefined)S.ch[d.ch]=(S.ch[d.ch]+1)%4;
+ else if(d.ld)S.lib=S.lib.filter(x=>x.id!=d.ld);else if(d.gd)S.terms=S.terms.filter(x=>x[0]!=d.gd);
+ else if(d.ps){const x=S.lib.find(y=>y.id==d.ps);x.s=PS[(PS.indexOf(x.s)+1)%3]}
+ else if(d.qs!==undefined){const x=S.qa[d.qs];x.s=x.s=='Draft'?'Ready':'Draft'}else return;go()});
+document.addEventListener('input',e=>{const i=e.target.dataset.qa;if(RO||i===undefined)return;S.qa[i].a=e.target.value;save()});
+document.addEventListener('change',e=>{const t=e.target;if(RO||!t.dataset.k)return;S[t.dataset.k][t.dataset.i]=t.checked;go()});
+$('#addT').onclick=()=>{const v=$('#newT').value.trim();if(!v)return;S.tasks.push({id:S.next++,t:v,tag:$('#newP').value,c:0});$('#newT').value='';go()};
+$('#newT').onkeydown=e=>{if(e.key=='Enter')$('#addT').click()};
+$('#title').oninput=e=>{S.title=e.target.textContent;save()};
+$('#brief').oninput=e=>{S.brief=e.target.value;save();prev()};
+$('#gs').oninput=gloss;$('#lS').oninput=lib;
+$('#gA').onclick=()=>{const t=$('#gT').value.trim(),d=$('#gD').value.trim();if(!t||!d)return;S.terms.push([t,d]);$('#gT').value=$('#gD').value='';go()};
+$('#lK').innerHTML=KINDS.map(k=>`<option>${k}</option>`).join('');
+$('#lA').onclick=()=>{const t=$('#lT').value.trim();if(!t)return;let u=$('#lU').value.trim();if(u&&!/^https?:\/\//i.test(u)){$('#lU').setCustomValidity('Start links with https://');return $('#lU').reportValidity()}$('#lU').setCustomValidity('');S.lib.unshift({id:Date.now(),k:$('#lK').value,t,u,n:$('#lN').value.trim(),s:'To read'});$('#lT').value=$('#lU').value=$('#lN').value='';go()};
+$('#tp').onchange=e=>{if(RO)return;if(confirm('Switch to “'+T[e.target.value].n+'”? Chapter names, milestones and checklists change; chapter statuses stay.')){S.type=e.target.value;S.ms=[];S.c5=[];S.dl=[];go()}else e.target.value=S.type};
+$('#st').onchange=e=>{if(e.target.value){S.start=e.target.value;go()}};$('#wk').onchange=e=>{S.weeks=Math.max(8,Math.min(60,+e.target.value||32));go()};
+$('#reset').onclick=()=>{if(confirm('Reset the whole hub, including weekly updates?')){S=def(S.type);go()}};
+$('#wPost').onclick=()=>{const w=+$('#wN').value||wk(),r={w,date:iso(Date.now()),hrs:+$('#wH').value||0,st:$('#wS').value,done:$('#wD').value.trim(),block:$('#wB').value.trim(),plan:$('#wP').value.trim(),fb:$('#wF').value.trim()};if(!r.done&&!r.plan)return alert('Add what you finished or your plan for next week.');S.reps=S.reps.filter(x=>x.w!=w);S.reps.push(r);S.reps.sort((a,b)=>b.w-a.w);['#wD','#wB','#wP','#wF'].forEach(s=>$(s).value='');go()};
+$('#wDl').onclick=async()=>{const r=S.reps.find(x=>x.w==(+$('#wN').value||wk()))||S.reps[0];if(!r)return;const md=`# ${S.title||'Thesis'} — Week ${r.w}\n\nStatus: ${r.st} · Hours: ${r.hrs} · ${r.date}\n\n## Finished\n${r.done}\n\n## Blockers\n${r.block}\n\n## Next week\n${r.plan}\n`;saveFile('weekly-update-w'+r.w+'.md',md)};
+$('#theme').onclick=()=>{const r=document.documentElement,d=r.dataset.theme?r.dataset.theme=='dark':matchMedia('(prefers-color-scheme:dark)').matches;r.dataset.theme=d?'light':'dark'};
+let dragId=null;const colOf=e=>e.target.closest&&e.target.closest('.col');
+document.addEventListener('dragstart',e=>{const c=e.target.closest&&e.target.closest('.card');if(c)dragId=c.dataset.id});
+document.addEventListener('dragover',e=>{const c=colOf(e);if(c){e.preventDefault();c.classList.add('over')}});
+document.addEventListener('dragleave',e=>{const c=colOf(e);if(c)c.classList.remove('over')});
+document.addEventListener('drop',e=>{const c=colOf(e);if(!c||!dragId||RO)return;e.preventDefault();const t=S.tasks.find(x=>x.id==dragId);if(t)t.c=+c.dataset.c;dragId=null;go()});
+/* export */
+const block=()=>'const HUB_DATA = '+JSON.stringify(S,null,1)+';';
+function saveFile(n,d){try{if(DL)return DL.save({filename:n,data:d})}catch(e){}const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([d]));a.download=n;a.click()}
+$('#xCopy').onclick=async()=>{try{await navigator.clipboard.writeText(block());$('#xMsg').textContent='Copied. Paste it over the data block at the top of your HTML file.'}catch(e){$('#xMsg').textContent='Copy failed. Use the download button instead.'}};
+$('#xJson').onclick=()=>{saveFile('hub-data.js',block());$('#xMsg').textContent='Downloaded. Paste its contents over the data block in your HTML file.'};
+$('#xHtml').onclick=async()=>{try{const x=await (await fetch(location.href.split('?')[0])).text(),a=x.indexOf('const HUB_DATA = '),b=x.indexOf('/* ===== END '+'HUB DATA');if(a<0||b<0)throw 0;saveFile('index.html',x.slice(0,a)+block()+'\n'+x.slice(b));$('#xMsg').textContent='Downloaded. Upload it to replace the deployed file.'}catch(e){$('#xMsg').textContent='This page cannot read its own file here. Use “Copy data block” instead.'}};
+/* boot */
+if(!RO){try{const x=JSON.parse(localStorage.getItem(K));if(x&&x.v==3)S=x}catch(e){}}
+render();setMode();$('#wN').value=wk();
+try{if(window.claude)claude.use('downloads').then(d=>{DL=d}).catch(()=>{})}catch(e){}
+function rng(s){return()=>{s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+/* header motif: faint angle-delay map and waves (decorative only) */
+(function(){const r=rng(3),B=[[470,70,1],[560,150,.8],[390,160,.6],[610,50,.7],[320,90,.45]];
+ let s='<defs><linearGradient id="mf" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff"/></linearGradient><mask id="mm"><rect width="640" height="220" fill="url(#mf)"/></mask></defs><g mask="url(#mm)">';
+ for(let x=0;x<640;x+=16)for(let y=0;y<220;y+=16){let v=r()*.08;B.forEach(b=>v+=b[2]*Math.exp(-((x-b[0])**2+(y-b[1])**2)/1800));if(v>.06)s+=`<rect x="${x+1}" y="${y+1}" width="14" height="14" rx="2" fill="#6db3f2" opacity="${Math.min(1,v).toFixed(2)}"/>`}
+ for(let k=0;k<3;k++){let d='M0 '+(60+k*50);for(let x=8;x<=640;x+=8)d+=`L${x} ${(60+k*50+Math.sin(x/(28+k*9)+k)*(10+k*4)).toFixed(1)}`;s+=`<path d="${d}" fill="none" stroke="#f2a900" stroke-width="1.5" opacity=".7"/>`}
+ $('#motif').innerHTML=s+'</g>'})();
+/* system and threat model diagrams (conceptual) */
+function diagrams(){
+ const bx=(x,y,w,h,c,t,s,dash)=>`<rect class="${c}${dash?' dash':''}" x="${x}" y="${y}" width="${w}" height="${h}" rx="6"/><text x="${x+w/2}" y="${y+h/2+(s?-4:5)}" text-anchor="middle">${t}</text>`+(s?`<text class="sm" x="${x+w/2}" y="${y+h/2+14}" text-anchor="middle">${s}</text>`:''),
+  ar=(d,c,dash)=>`<path class="${c}${dash?' dash':''}" d="${d}" marker-end="url(#ar${c})"/>`,
+  gp=(x,y,t)=>`<text class="gp" x="${x}" y="${y}">${t}</text>`,
+  fig=(vb,lab,body,cap)=>`<figure class="fig"><div><svg class="dg" viewBox="0 0 ${vb}" role="img" aria-label="${lab}">${body}</svg></div><figcaption>${cap}</figcaption></figure>`,
+  defs=`<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>${['c','a','u','n'].map(k=>`<marker id="ar${k}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" style="fill:var(--${{c:'clean',a:'atk',u:'aud',n:'neu'}[k]})"/></marker>`).join('')}</defs></svg>`;
+ $('#diagrams').innerHTML=defs+
+ fig('760 140','CSI feedback chain in clean operation',
+  `<rect class="n dash" x="6" y="30" width="300" height="96" rx="8"/><rect class="n dash" x="454" y="30" width="300" height="96" rx="8"/>${gp(14,20,'User equipment (UE)')}${gp(462,20,'Base station (gNB)')}`+
+  bx(16,50,140,56,'c','Downlink channel H','angle-delay map')+bx(176,50,120,56,'c','Encoder','CsiNet or CRNet')+bx(326,50,108,56,'n','Codeword','uplink feedback')+bx(464,50,120,56,'c','Decoder','rebuilds Ĥ')+bx(604,50,140,56,'c','Beamforming','precoder from Ĥ')+
+  ar('M156 78L174 78','c')+ar('M296 78L324 78','n')+ar('M434 78L462 78','n')+ar('M584 78L602 78','c'),
+  'Figure A. CSI feedback in FDD massive MIMO, clean operation. Conceptual diagram.')+
+ fig('760 225','Threat model: poisoned training data and a physical trigger',
+  gp(14,20,'Training, by a third-party supplier')+bx(16,30,230,58,'a','Poisoned training data','trigger path → phantom target')+bx(290,30,170,58,'n','Model training','by the supplier')+bx(504,30,240,58,'a','Backdoored model','normal on clean channels')+
+  ar('M246 59L288 59','a')+ar('M460 59L502 59','n')+ar('M624 88L624 116L395 116L395 148','a')+`<text class="sm" x="632" y="106">deployed</text>`+
+  gp(14,140,'Deployment, over the air')+bx(16,150,230,62,'a','Channel + weak extra path','from a malicious reflector (RIS)')+bx(290,150,210,62,'a','Deployed model (UE + gNB)','trigger present → backdoor fires')+bx(544,150,200,62,'a','Phantom channel','beam steered to the attacker')+
+  ar('M246 181L288 181','a')+ar('M500 181L542 181','a'),
+  'Figure B. Threat model. The backdoor enters through the supply chain and is activated over the air by a weak extra path. The attack follows Qian et al. (IACR ePrint 2026/2036).')+
+ fig('760 300','Planned pre-deployment audit workflow',
+  bx(16,104,170,62,'n','Trained model','no training data needed')+bx(226,40,300,62,'u','Audit 1: ray-space trigger inversion','search angle, delay and power of one path')+bx(226,168,300,62,'u','Audit 2: input-gradient and Jacobian','local sensitivity of the output')+
+  bx(566,104,80,62,'u','Score','per model')+bx(676,40,74,62,'c','Deploy','if clean')+bx(676,168,74,62,'a','Reject','if suspect')+bx(211,246,330,46,'n','Baseline: Mahalanobis (required)','Neural Cleanse, DRMGuard, DECREE: if time allows',1)+
+  ar('M186 120L224 78','u')+ar('M186 150L224 192','u')+ar('M526 71L564 118','u')+ar('M526 199L564 152','u')+ar('M646 120L674 78','c')+ar('M646 150L674 192','a')+ar('M541 269L606 269L606 168','n',1),
+  'Figure C. Planned pre-deployment audit. Stretch goal, not shown: a physics-guided runtime fallback that compares angles of arrival and departure.')}
+/* results: measured data only, from RESULTS_DATA */
+function results(){const R=RESULTS_DATA,P=R.prov||[];
+ if(!['baselines','attack','roc'].some(k=>(R[k]||[]).length)){$('#res').innerHTML='<p class="g">No measured results yet.</p>';return}
+ const ms=(m,s)=>m==null||m===''?'–':m+(s!=null&&s!==''?' ± '+s:''),
+  prov=rows=>'<p class="g" style="margin:4px 0 14px">Provenance: '+[...new Set(rows.map(r=>r.exp))].map(id=>{const p=P.find(x=>x.id==id)||{};return esc(`${id||'experiment id missing'} · ${p.date||'date missing'} · commit ${p.commit||'missing'} · seeds ${p.seeds||'missing'} · ${p.dataset||'dataset missing'} · files ${p.files||'missing'}`)}).join('; ')+'</p>',
+  tbl=(cap,hd,rows,cells)=>`<h3>${cap} <span class="pill s3">Measured</span></h3><div class="tw"><table class="tbl"><thead><tr>${hd.map(h=>`<th scope="col">${h}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>'<tr>'+cells(r).map(c=>`<td>${esc(c)}</td>`).join('')+'</tr>').join('')}</tbody></table></div>`+prov(rows);
+ let h='';
+ if((R.baselines||[]).length)h+=tbl('Clean baselines',['Model','Compression ratio','NMSE (dB)','Cosine similarity','Seeds'],R.baselines,r=>[r.model,r.cr,ms(r.nmse_mean,r.nmse_sd),ms(r.cos_mean,r.cos_sd),r.seeds]);
+ if((R.attack||[]).length)h+=tbl('Attack',['Model','Trigger power (dB)','Poisoning rate','Attack success','Clean NMSE cost (dB)','Seeds'],R.attack,r=>[r.model,r.trigger_db,r.poison_rate,ms(r.asr_mean,r.asr_sd),ms(r.cost_db),r.seeds]);
+ if((R.roc||[]).length)h+=`<h3>Audit ROC curves <span class="pill s3">Measured</span></h3>`+roc(R.roc)+tbl('',['Detector','AUROC','TPR at 5% FPR','Pool (models)','Seeds'],R.roc,r=>[r.method,r.auroc,r.tpr5,r.pool,r.seeds]).replace(/^<h3>.*?<\/h3>/,'');
+ $('#res').innerHTML=h}
+function roc(L){const X0=46,X1=316,Y0=14,Y1=284,px=v=>X0+v*(X1-X0),py=v=>Y1-v*(Y1-Y0),our=L.filter(r=>r.ours),bas=L.filter(r=>!r.ours),dsh=['none','6 4','2 4'],sty=r=>`class="${r.ours?'u':'bl'}" style="stroke-dasharray:${dsh[(r.ours?our:bas).indexOf(r)%3]}"`;
+ let s=`<div class="tw"><svg class="hs" viewBox="0 0 560 330" role="img" aria-label="Measured ROC curves of the audits and the baselines" style="max-width:560px;min-width:480px">`;
+ for(let v=0;v<=1;v+=.25)s+=`<line class="gd" x1="${px(0)}" x2="${px(1)}" y1="${py(v)}" y2="${py(v)}"/><text x="${X0-6}" y="${py(v)+4}" text-anchor="end">${v}</text><text x="${px(v)}" y="${Y1+16}" text-anchor="middle">${v}</text>`;
+ s+=`<path class="bl" style="stroke-dasharray:2 4;stroke-width:1" d="M${px(0)} ${py(0)}L${px(1)} ${py(1)}"/><line class="gd" x1="${px(.05)}" x2="${px(.05)}" y1="${Y0}" y2="${Y1}" style="stroke-dasharray:3 3"/>`;
+ L.forEach(r=>s+=`<path ${sty(r)} d="${(r.pts||[]).map((p,i)=>(i?'L':'M')+px(p[0]).toFixed(1)+' '+py(p[1]).toFixed(1)).join('')}"><title>${esc(r.method)}: AUROC ${esc(r.auroc)}</title></path>`);
+ L.forEach((r,i)=>{const y=24+i*54;s+=`<path ${sty(r)} d="M336 ${y}L366 ${y}"/><text class="lb" x="372" y="${y+4}">${esc(r.method)}</text><text x="372" y="${y+20}">AUROC ${esc(r.auroc)} · TPR@5% FPR ${esc(r.tpr5)}</text><text x="372" y="${y+35}">pool ${esc(r.pool)} models, seeds ${esc(r.seeds)}</text>`});
+ return s+`<text x="${(X0+X1)/2}" y="${Y1+36}" text-anchor="middle">False positive rate</text><text transform="translate(12 ${(Y0+Y1)/2}) rotate(-90)" text-anchor="middle">True positive rate</text></svg></div>`}
+/* simulation: Backdoor and Audit Lab. Illustrative toy rules, not trained models. */
+const cv=$('#cv'),cx=cv.getContext('2d'),G=32,A0=24,D0=7,AP=28,DP=3,TB=-26,TOL=3,RM=matchMedia('(prefers-reduced-motion:reduce)');
+const PATHS=(()=>{const r=rng(7);return Array.from({length:20},(_,k)=>({a:r()*31,d:1+r()*r()*20,db:k?-3-r()*25:0}))})();
+let W,H,LY,cur,aud=null,pool=null,found=null,tick=0,raf=0;
+const sv=()=>({n:+$('#sN').value,a:+$('#sA').value,d:+$('#sD').value,p:+$('#sP').value,m:+$('#sM').value});
+function blob(M,a,d,amp,sg){for(let i=0;i<G;i++)for(let j=0;j<G;j++)M[i*G+j]+=amp*Math.exp(-((i-a)**2+(j-d)**2)/(2*sg*sg))}
+function chan(s,sg,keep){const M=new Float32Array(G*G);PATHS.slice(0,s.n).forEach(p=>{if(p.db>=keep)blob(M,p.a,p.d,10**(p.db/20),sg)});if(s.p>=keep)blob(M,s.a,s.d,10**(s.p/20),sg);return M}
+const cosv=(x,y)=>{let a=0,b=0,c=0;for(let i=0;i<x.length;i++){a+=x[i]*y[i];b+=x[i]*x[i];c+=y[i]*y[i]}return a/(Math.sqrt(b*c)||1)};
+const thr=s=>{const k=Math.max(Math.abs(s.a-A0),Math.abs(s.d-D0));return s.m&&k<=TOL?TB+2.5*k:Infinity};
+function model(s){const X=chan(s,.9,-99);
+ if(s.p>=thr(s)){const Y=new Float32Array(G*G);blob(Y,AP,DP,1,.9);return{X,Y,col:'phantom',sim:cosv(X,Y)}}
+ const Y=chan(s,1.3,-20),w=Math.min(1,Math.max(0,(s.p+12)/12))**2;let n=0;for(const v of Y)n+=v*v;const u=Math.sqrt(n)/G;for(let i=0;i<Y.length;i++)Y[i]=(1-w)*Y[i]+w*u;
+ const sim=cosv(X,Y);return{X,Y,col:sim<.5?'washed':'',sim}}
+function runAudit(s){for(let p=-40;p<=0;p++){if(s.m&&p>=TB)return{db:TB,a:A0,d:D0};if(model({...s,p}).col)return{db:p,a:null}}return{db:null,a:null}}
+function mkPool(){const r=rng(11),c=Array.from({length:20},()=>+(-18+16*r()).toFixed(1)),b=Array.from({length:20},()=>+(-34+24*r()).toFixed(1));let a=0;b.forEach(x=>c.forEach(y=>a+=x<y?1:x==y?.5:0));const t=[...c].sort((x,y)=>x-y)[1];return{c,b,auc:a/400,tpr:b.filter(x=>x<t).length/20}}
+function size(){const d=devicePixelRatio||1;W=Math.max(260,cv.parentElement.clientWidth-16);const st=W<440,sz=Math.floor(st?Math.min(W-36,320):Math.min((W-84)/2,320));
+ LY={st,sz,p:[[28,92],st?[28,92+sz+60]:[28+sz+52,92]]};H=st?92+2*sz+60+30:92+sz+34;cv.width=W*d;cv.height=H*d;cv.style.height=H+'px';cx.setTransform(d,0,0,d,0,0)}
+function label(t,x,y,al,C){cx.textAlign=al;cx.lineWidth=3;cx.strokeStyle=C('--soft');cx.strokeText(t,x,y);cx.fillStyle=C('--ink');cx.fillText(t,x,y)}
+function draw(){const cs=getComputedStyle(document.documentElement),C=k=>cs.getPropertyValue(k).trim(),s=sv(),ph=cur.col=='phantom',sm=W<440;
+ cx.clearRect(0,0,W,H);cx.textBaseline='middle';cx.setLineDash([]);
+ /* FDD feedback chain */
+ const nm=sm?['UE','Enc.','Code','Dec.','gNB']:['User (UE)','Encoder','Codeword','Decoder','gNB'],bw=Math.min(100,(W-16)/5-8),xs=nm.map((_,i)=>8+bw/2+i*(W-16-bw)/4);
+ cx.strokeStyle=C('--neu');cx.lineWidth=1.5;cx.beginPath();cx.moveTo(xs[0],24);cx.lineTo(xs[4],24);cx.stroke();
+ if(!RM.matches){cx.fillStyle=ph?C('--atk'):C('--clean');cx.beginPath();cx.arc(xs[0]+(tick%150)/150*(xs[4]-xs[0]),24,4,0,7);cx.fill()}
+ cx.font='12px "Segoe UI",system-ui,sans-serif';
+ nm.forEach((n,i)=>{const md=i==1||i==3;cx.fillStyle=C('--card');cx.strokeStyle=md?(s.m?C('--atk'):C('--clean')):C('--neu');cx.lineWidth=2;cx.beginPath();cx.roundRect?cx.roundRect(xs[i]-bw/2,10,bw,28,5):cx.rect(xs[i]-bw/2,10,bw,28);cx.fill();cx.stroke();cx.fillStyle=C('--ink');cx.textAlign='center';cx.fillText(n,xs[i],24)});
+ cx.fillStyle=C('--mut');cx.textAlign='left';cx.fillText((sm?'':'FDD feedback chain · ')+'model: '+(s.m?'backdoored (red)':'clean (blue)'),8,54);
+ /* angle-delay maps */
+ const mx=Math.max(...cur.X)||1,c=LY.sz/G,ctr=(k,a,d)=>[LY.p[k][0]+(a+.5)*c,LY.p[k][1]+(d+.5)*c];
+ [[cur.X,'Channel at the user (input)',C('--clean'),mx],[cur.Y,'Output at the gNB (reconstruction)',ph?C('--atk'):C('--clean'),Math.max(mx,Math.max(...cur.Y))]].forEach(([M,t,col,m],k)=>{const [x,y]=LY.p[k];
+  cx.font='600 12px "Segoe UI",system-ui,sans-serif';cx.fillStyle=C('--ink');cx.textAlign='left';cx.fillText(t,x,y-12);cx.font='12px "Segoe UI",system-ui,sans-serif';
+  cx.fillStyle=C('--card');cx.fillRect(x,y,LY.sz,LY.sz);cx.fillStyle=col;
+  for(let i=0;i<G;i++)for(let j=0;j<G;j++){const v=Math.min(1,M[i*G+j]/m);if(v>.02){cx.globalAlpha=Math.pow(v,.6);cx.fillRect(x+i*c,y+j*c,c+.4,c+.4)}}
+  cx.globalAlpha=1;cx.strokeStyle=C('--line');cx.lineWidth=1;cx.strokeRect(x+.5,y+.5,LY.sz,LY.sz);
+  cx.fillStyle=C('--mut');cx.textAlign='center';cx.fillText('angle →',x+LY.sz/2,y+LY.sz+12);cx.save();cx.translate(x-12,y+LY.sz/2);cx.rotate(-Math.PI/2);cx.fillText('delay →',0,0);cx.restore()});
+ /* trigger: the attacker's extra path */
+ let [tx,ty]=ctr(0,s.a,s.d);cx.strokeStyle=C('--atk');cx.lineWidth=2;cx.setLineDash([4,3]);cx.beginPath();cx.arc(tx,ty,Math.max(7,2.2*c),0,7);cx.stroke();cx.setLineDash([]);
+ label('trigger '+s.p+' dB',s.a>G/2?tx-2.6*c:tx+2.6*c,ty,s.a>G/2?'right':'left',C);
+ if(ph){const [px,py]=ctr(1,AP,DP);label('phantom path',px-2.2*c,py+2.4*c,'right',C)}
+ else if(cur.col)label('output washed out',LY.p[1][0]+LY.sz/2,LY.p[1][1]+LY.sz/2,'center',C);
+ /* audit search */
+ if(aud){const f=Math.min(1,aud.t/90),r=rng(aud.t+1),ta=aud.res.a,a=ta==null?r()*31:r()*31*(1-f*f)+ta*f*f,d=ta==null?r()*31:r()*31*(1-f*f)+aud.res.d*f*f,[ax,ay]=ctr(0,a,d);
+  cx.strokeStyle=C('--aud');cx.lineWidth=2;cx.beginPath();cx.moveTo(ax-3*c,ay);cx.lineTo(ax+3*c,ay);cx.moveTo(ax,ay-3*c);cx.lineTo(ax,ay+3*c);cx.stroke();
+  label('audit: testing '+Math.round(-40+f*((aud.res.db??0)+40))+' dB',LY.p[0][0]+LY.sz-4,LY.p[0][1]+12,'right',C)}
+ else if(found&&found.a!=null){const [fx,fy]=ctr(0,found.a,found.d);cx.strokeStyle=C('--aud');cx.lineWidth=2.5;cx.beginPath();cx.arc(fx,fy,3*c,0,7);cx.stroke();label('audit: trigger found',fx,fy+3*c+10,'center',C)}}
+function hist(){if(!pool){$('#hist').innerHTML='<p class="g">Press “Audit this model” to run the toy audit on this model and on a toy pool of 20 clean and 20 backdoored models.</p>';return}
+ const {c,b}=pool,nb=10,cnt=v=>{const h=Array(nb).fill(0);v.forEach(x=>h[Math.max(0,Math.min(nb-1,Math.floor((x+40)/4)))]++);return h},hc=cnt(c),hb=cnt(b),mx=Math.max(...hc,...hb),X0=44,X1=600,Y0=40,Y1=176,bw=(X1-X0)/nb,y=v=>Y1-v/mx*(Y1-Y0),xd=v=>X0+(v+40)/40*(X1-X0),stp=Math.max(1,Math.ceil(mx/4)),mean=v=>v.reduce((a,x)=>a+x,0)/v.length;
+ let s=`<div class="tw"><svg class="hs" style="min-width:520px" viewBox="0 0 620 220" role="img" aria-label="Toy histogram of the weakest collapsing trigger power for 20 clean and 20 backdoored toy models">`;
+ for(let v=0;v<=mx;v+=stp)s+=`<line class="gd" x1="${X0}" x2="${X1}" y1="${y(v)}" y2="${y(v)}"/><text x="${X0-8}" y="${y(v)+4}" text-anchor="end">${v}</text>`;
+ for(let i=0;i<nb;i++){const x=X0+i*bw,lo=-40+4*i;[[hc[i],'c','Clean'],[hb[i],'b','Backdoored']].forEach(([n,k,l],j)=>{if(n)s+=`<rect class="${k}" x="${(x+4+j*(bw/2-2)).toFixed(1)}" y="${y(n)}" width="${(bw/2-6).toFixed(1)}" height="${Y1-y(n)}" rx="3"><title>${l} toy models, ${lo} to ${lo+4} dB: ${n}</title></rect>`})}
+ for(let i=0;i<=nb;i+=2)s+=`<text x="${X0+i*bw}" y="${Y1+17}" text-anchor="middle">${-40+4*i}</text>`;
+ s+=`<line class="bl" x1="${X0}" x2="${X1}" y1="${Y1}" y2="${Y1}"/><text x="${(X0+X1)/2}" y="${Y1+37}" text-anchor="middle">Weakest trigger power that collapses the output (dB, relative to the strongest path)</text>`;
+ s+=`<text class="lb" x="${xd(mean(b))}" y="14" text-anchor="middle">Backdoored</text><text class="lb" x="${xd(mean(c))}" y="14" text-anchor="middle">Clean</text>`;
+ if(found&&found.db!=null){const x=xd(found.db);s+=`<line class="u" x1="${x}" x2="${x}" y1="22" y2="${Y1}" style="stroke-dasharray:5 3"/><text class="lb" x="${x+5}" y="30">this model</text>`}
+ $('#hist').innerHTML=s+`</svg></div><div class="lg"><span><i style="background:var(--clean)"></i>Clean toy models (20)</span><span><i style="background:var(--atk)"></i>Backdoored toy models (20)</span><span><i style="background:var(--aud);height:3px"></i>This model (dashed line)</span></div><p class="g" style="margin-top:6px"><span class="pill s1">Illustrative</span> Toy AUROC ${pool.auc.toFixed(2)} · toy TPR at 5% FPR ${Math.round(pool.tpr*100)}%. The toy thresholds are drawn from assumed ranges (clean −18 to −2 dB, backdoored −34 to −10 dB), so these numbers only show how the metrics are computed.</p><details><summary>Show the toy pool as a table</summary><div class="tw"><table class="tbl"><thead><tr><th scope="col">Toy model</th><th scope="col">Clean (dB)</th><th scope="col">Backdoored (dB)</th></tr></thead><tbody>${c.map((v,i)=>`<tr><td>${i+1}</td><td>${v}</td><td>${b[i]}</td></tr>`).join('')}</tbody></table></div></details>`}
+function upd(reset){const s=sv();$('#vN').textContent=s.n;$('#vA').textContent=s.a;$('#vD').textContent=s.d;$('#vP').textContent=s.p+' dB';
+ if(reset){found=null;aud=null;$('#useT').disabled=true;$('#mW').textContent='–';hist()}
+ cur=model(s);$('#mS').textContent=cur.sim.toFixed(2);$('#mC').textContent=cur.col=='phantom'?'Yes: phantom':cur.col?'Yes: washed out':'No';kick()}
+function frame(){raf=0;tick++;
+ if(aud&&++aud.t>=90){found=aud.res;aud=null;pool=pool||mkPool();$('#mW').textContent=found.db==null?'none up to 0 dB':found.db+' dB';$('#mU').textContent=pool.auc.toFixed(2);$('#useT').disabled=found.a==null;hist()}
+ draw();if(!RM.matches||aud)kick()}
+function kick(){if(!raf&&!document.hidden)raf=requestAnimationFrame(frame)}
+document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnimationFrame(raf);raf=0}else kick()});
+['sN','sM'].forEach(k=>$('#'+k).addEventListener('input',()=>upd(true)));$('#sM').addEventListener('change',()=>upd(true));
+['sA','sD','sP'].forEach(k=>$('#'+k).addEventListener('input',()=>upd(false)));
+$('#audB').onclick=()=>{found=null;aud={t:RM.matches||document.hidden?89:0,res:runAudit(sv())};if(document.hidden)frame();else kick()};
+$('#useT').onclick=()=>{if(!found||found.a==null)return;$('#sA').value=found.a;$('#sD').value=found.d;$('#sP').value=found.db;upd(false)};
+$('#theme').addEventListener('click',kick);matchMedia('(prefers-color-scheme:dark)').addEventListener('change',kick);addEventListener('resize',()=>{size();kick()});
+diagrams();results();size();upd(false);
+</script>
+</body>
+</html>

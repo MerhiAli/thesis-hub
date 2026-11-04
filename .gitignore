@@ -1,0 +1,9 @@
+.env
+*.key
+__pycache__/
+.venv/
+node_modules/
+.claude/
+CLAUDE.md
+starter/
+source/
