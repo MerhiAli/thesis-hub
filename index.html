@@ -904,7 +904,7 @@ const RESOURCES_DATA = {
   },
   {
    "h": "Computing hardware",
-   "t": "The project relies on free cloud resources: Google Colab or Kaggle Notebooks with a single NVIDIA T4 GPU (15 GB VRAM) and 16 GB of RAM. Training runs on Google Colab (Tesla T4, verified in the setup runs); PyTorch is not installed locally. The local GPU (Quadro M1200, 4 GB, below the 8 GB of the proposal) is not used for training; the local PC runs only the data-processing unit tests on the CPU."
+   "t": "The project relies on free cloud resources: Google Colab or Kaggle Notebooks with a single NVIDIA T4 GPU (15 GB VRAM) and 16 GB of RAM. Training runs on Google Colab (Tesla T4, verified in the setup runs); PyTorch is not installed locally. The local GPU, a Quadro M1200 with 4 GB (measured, setup report) and below the 8 GB of the proposal, is not used for training; the local PC runs only the data-processing unit tests on the CPU."
   },
   {
    "h": "Memory management",
@@ -954,7 +954,7 @@ const REPRO_DATA = {
     },
     {
      "p": "Scenario variant and carrier frequencies (uplink and downlink)",
-     "v": "DeepMIMO v4 scenario o1_3p5 (Wireless InSite v3.3, 3.5 GHz, downlink); archive 2,437,945,191 bytes, SHA-256 c5b187562e64c129458beb0d6fcfd608ded9fe503f856b0fba5b81537e521adf, computed by us because DeepMIMO publishes no checksum (measured). Uplink 3.4 GHz derived from the same rays by a delay-dependent phase shift; consistent with DeepMIMO's own frequency model: max relative error 0.0 at zero shift and 1.29e-6 for a 5-subcarrier shift (measured); DL–UL correlation median 0.662 (complex) and 0.794 (angle-delay magnitude) (measured). Assumption: same paths, delays and angles, and interaction coefficients unchanged over 100 MHz; untested without o1_3p4 (optional validation download, not done).",
+     "v": "DeepMIMO v4 scenario o1_3p5 (Wireless InSite v3.3, 3.5 GHz (setting), downlink); archive 2,437,945,191 bytes, SHA-256 c5b187562e64c129458beb0d6fcfd608ded9fe503f856b0fba5b81537e521adf, computed by us because DeepMIMO publishes no checksum (measured). Uplink 3.4 GHz (setting) derived from the same rays by a delay-dependent phase shift; consistent with DeepMIMO's own frequency model: max relative error 0.0 at zero shift and 1.29e-6 for a 5-subcarrier shift (measured); DL–UL correlation median 0.662 (complex) and 0.794 (angle-delay magnitude) (measured). Assumption: same paths, delays and angles, and interaction coefficients unchanged over 100 MHz; untested without o1_3p4 (optional validation download, not done).",
      "s": "To confirm",
      "src": "run"
     },
@@ -966,7 +966,7 @@ const REPRO_DATA = {
     },
     {
      "p": "Base station(s) used",
-     "v": "The scenario has 18 base stations (TX_1 to TX_18). Three were measured (chosen at random, seed 2026); mean paths / users without a path / LoS: TX_5 5.40 / 0.09 % / 91.0 %; TX_6 5.55 / 0 % / 91.8 %; TX_17 7.44 / 2.74 % / 65.9 % (measured). The other 15 are not measured. None chosen yet (supervisor question 3).",
+     "v": "The scenario has 18 base stations, TX_1 to TX_18 (measured, from the scenario summary). Three were measured (chosen at random, seed 2026 (setting)); mean paths / users without a path / LoS: TX_5 5.40 / 0.09 % / 91.0 %; TX_6 5.55 / 0 % / 91.8 %; TX_17 7.44 / 2.74 % / 65.9 % (measured). The other 15 are not measured. None chosen yet (supervisor question 3).",
      "s": "Not fixed yet",
      "src": "run"
     },
@@ -984,37 +984,37 @@ const REPRO_DATA = {
     },
     {
      "p": "Max paths and ray-tracing limits",
-     "v": "max_paths = 25; no user reaches it (maximum 17) (measured). Ray tracing of the scenario: max path depth 4, max 4 reflections, 0 diffractions, 0 scatterings, 0 transmissions, diffuse scattering off, terrain reflection on, 259,200 rays (measured).",
+     "v": "max_paths = 25 (setting); no user reaches it (maximum 17) (measured). Ray tracing of the scenario: max path depth 4, max 4 reflections, 0 diffractions, 0 scatterings, 0 transmissions, diffuse scattering off, terrain reflection on, 259,200 rays (measured).",
      "s": "To confirm",
      "src": "run"
     },
     {
      "p": "Subcarriers and bandwidth",
-     "v": "1024 subcarriers, 10 MHz (the values of the setup runs). On 26,745 samples the first 32 delay rows keep 98.40 % of the energy on average (p5 95.04 %, min 89.92 %) (measured); the lost energy is −18.0 dB (mean), −13.0 dB (p5) and −10.0 dB (min) relative to the user's total (derived).",
+     "v": "1024 subcarriers and 10 MHz (setting; the values of the setup runs). On 26,745 samples the first 32 delay rows keep 98.40 % of the energy on average (p5 95.04 %, min 89.92 %) (measured); the lost energy is −18.0 dB (mean), −13.0 dB (p5) and −10.0 dB (min) relative to the user's total (derived).",
      "s": "To confirm",
      "src": "run"
     },
     {
      "p": "Delay rows kept",
-     "v": "32 rows (CRNet needs a 32 × 32 input). The mean delay profile reaches 99 % of its energy only at row 1,017 of 1,024 (measured): part of the lost energy sits at the end of the delay axis (wrap-around; interpretation not verified). Whether to keep a wrap-around window is open.",
+     "v": "32 rows (setting; CRNet needs a 32 × 32 input). The mean delay profile reaches 99 % of its energy only at row 1,017 of 1,024 (measured): part of the lost energy sits at the end of the delay axis (wrap-around; interpretation not verified). Whether to keep a wrap-around window is open.",
      "s": "Not fixed yet",
      "src": "run"
     },
     {
      "p": "Data splits",
      "v": "By user region; whole trajectories stay in one split",
-     "s": "Fixed",
+     "s": "Planned",
      "src": "prop"
     },
     {
      "p": "Model input",
-     "v": "2D-DFT angle-delay map (delay rows with energy kept); real and imaginary parts stacked as two channels; 32 × 32 (32 angles × first 32 delay rows); DFT round-trip error 2.2e-12 in the smoke test (measured)",
+     "v": "2D-DFT angle-delay map; the size depends on the delay-row choice (Not fixed yet); real and imaginary parts stacked as two channels. The Fixed status covers only the two-channel stacking (supervisor's plan).",
      "s": "Fixed",
      "src": "plan"
     },
     {
      "p": "Normalization",
-     "v": "Recommendation only, no model trained with it yet: per-sample power normalization (x/‖x‖_F), then one global scale fitted on the training split only (0.99896 in the analysis sample), mapped to [0, 1]; ‖x‖_F stored per sample. Evidence on 26,745 samples: per-sample energy spread 55.9 dB (p1 to p99) (measured); float32 round trip −118.2 dB against −62.2 dB with one global max scale (measured); the same output noise costs −0.87 dB against +52.96 dB NMSE (measured). The +17.87 dB validation NMSE of the one-epoch smoke run (a pipeline check, not training) is consistent with global-max scaling. With this choice the trigger power is defined relative to each user's own channel. Costs: the model never sees absolute received power; results are less directly comparable with CsiNet/CRNet papers, which scale COST2100 data globally.",
+     "v": "Recommendation only, no model trained with it yet: per-sample power normalization (x/‖x‖_F), then one global scale fitted on the training split only, 0.99896 in the analysis sample (measured), mapped to [0, 1]; ‖x‖_F stored per sample. Evidence on 26,745 samples: per-sample energy spread 55.9 dB (p1 to p99) (measured); float32 round trip −118.2 dB against −62.2 dB with one global max scale (measured); the same output noise costs −0.87 dB against +52.96 dB NMSE (measured). The +17.87 dB validation NMSE of the one-epoch smoke run (measured; a pipeline check, not training) is consistent with global-max scaling. With this choice the trigger power is defined relative to each user's own channel. Costs: the model never sees absolute received power; results are less directly comparable with CsiNet/CRNet papers, which scale COST2100 data globally.",
      "s": "To confirm",
      "src": "run"
     }
@@ -1049,13 +1049,13 @@ const REPRO_DATA = {
     },
     {
      "p": "Model pool",
-     "v": "Supervisor's plan: 40+ models (clean and poisoned); proposal: at least 20 clean and 20 backdoored per architecture. Training 4 models in parallel on one T4 is 12 % slower than one after the other (speed-up 0.88) (measured); at 2500 epochs about 8 CRNet models fit in one 12 h session on 20,000 samples (derived)",
+     "v": "Supervisor's plan: 40+ models (clean and poisoned) (setting); proposal: at least 20 clean and 20 backdoored per architecture (setting). Training 4 models in parallel on one T4 gives a speed-up of 0.88 (measured), i.e. 12 % slower than one after the other (derived); at 2500 epochs about 8 CRNet models fit in one 12 h session on 20,000 samples (setting) (derived)",
      "s": "To confirm",
      "src": "plan"
     },
     {
      "p": "Random seeds",
-     "v": "Analysis sampling seed 2026; training seeds per model not fixed",
+     "v": "Analysis sampling seed 2026 (setting); training seeds per model not fixed",
      "s": "Planned",
      "src": "run"
     }
@@ -1084,8 +1084,8 @@ const REPRO_DATA = {
     },
     {
      "p": "Reconstruction metric (NMSE)",
-     "v": "NMSE = mean over samples of ‖H − Ĥ‖² / ‖H‖², in dB (CsiNet/CRNet convention). Sanity tests: all-zeros prediction 0.0 dB, perfect reconstruction −∞ dB, torch minus NumPy metric 1.1e-8 dB (per-sample power) and −2.0e-7 dB (global max) (measured).",
-     "s": "Planned",
+     "v": "Formula fixed: NMSE = mean over samples of ‖H − Ĥ‖² / ‖H‖², in dB (CsiNet/CRNet convention). Sanity tests: all-zeros prediction 0.0 dB, perfect reconstruction −∞ dB, torch minus NumPy metric 1.1e-8 dB (per-sample power) and −2.0e-7 dB (global max) (measured). The NMSE values it gives depend on the normalization choice (supervisor question 5).",
+     "s": "Fixed",
      "src": "run"
     },
     {
@@ -1109,7 +1109,7 @@ const REPRO_DATA = {
     },
     {
      "p": "Libraries",
-     "v": "pinned in requirements.txt (local) and requirements-colab.txt (Colab); deepmimo 4.0.5; torch pinned at 2.9.1, but both Colab runs used Colab's 2.14.1+cu130 (measured), so the pin is to be aligned",
+     "v": "pinned in requirements.txt (local) and requirements-colab.txt (Colab); deepmimo 4.0.5; torch pinned at 2.9.1 (setting), but both Colab runs used Colab's 2.14.1+cu130 (measured), so the pin is to be aligned",
      "s": "To confirm",
      "src": "res",
      "frm": "Libraries",
@@ -1136,13 +1136,13 @@ const REPRO_DATA = {
     },
     {
      "p": "Storage",
-     "v": "HDF5 files read in small batches with memory-mapped arrays; checkpoints saved to persistent storage. o1_3p5 zip 2,437,945,191 bytes, 21 GB and 4,161 files extracted on Colab; 26,745-sample angle-delay HDF5 223,606,512 bytes (measured); the analysis HDF5 files were not kept, only their SHA-256 is recorded. Smoke test HDF5 to DataLoader: 200/200 samples, RSS growth 6.9 MB (measured)",
-     "s": "Fixed",
+     "v": "HDF5 files read in small batches with memory-mapped arrays; checkpoints saved to persistent storage (planned; not built yet). o1_3p5 zip 2,437,945,191 bytes, 21 GB and 4,161 files extracted on Colab (measured); 26,745-sample angle-delay HDF5 223,606,512 bytes (measured); the analysis HDF5 files were not kept, only their SHA-256 is recorded. Smoke test HDF5 to DataLoader: 200/200 samples, RSS growth 6.9 MB (measured)",
+     "s": "Planned",
      "src": "res"
     },
     {
      "p": "Time to train one model",
-     "v": "CRNet only (CR 4, batch 200, 20,000 samples, T4, data on the GPU): 1.974 ± 0.006 s/epoch, training passes only (measured), i.e. 0.055 h / 0.164 h / 1.371 h for 100 / 300 / 2500 epochs (derived). For the pool, with 12 h per free session as an upper bound: 8 models per session at 2500 epochs (40 models = 54.8 h, at least 5 sessions) and 72 at 300 epochs (40 models = 6.6 h, one session) (derived). CsiNet, validation, checkpoints, epochs to plateau and the final training-set size are not measured yet.",
+     "v": "CRNet only (CR 4, batch 200 and 20,000 samples (setting), T4, data on the GPU): 1.974 ± 0.006 s/epoch, training passes only (measured), i.e. 0.055 h / 0.164 h / 1.371 h for 100 / 300 / 2500 epochs (derived). For the pool, with 12 h per free session as an upper bound (Colab FAQ: 'at most 12 hours'; not a guarantee): 8 models per session at 2500 epochs (40 models = 54.8 h, at least 5 sessions) and 72 at 300 epochs (40 models = 6.6 h, one session) (derived). CsiNet, validation, checkpoints, epochs to plateau and the final training-set size are not measured yet.",
      "s": "Planned",
      "src": "run"
     }
@@ -1217,7 +1217,7 @@ const REPRO_DATA = {
   "status": [
    [
     "Fixed",
-    "Agreed in the proposal or the supervisor's plan, or recorded and not open."
+    "Set in the supervisor's plan or the submitted proposal, or chosen by the students and tested (NMSE formula)."
    ],
    [
     "Planned",
@@ -1240,6 +1240,10 @@ const REPRO_DATA = {
    [
     "(derived)",
     "Computed by arithmetic from measured values."
+   ],
+   [
+    "(setting)",
+    "A value we set or that the scenario provides, not a result."
    ]
   ],
   "note": "These numbers describe the environment, the scenario and pipeline checks only. There are no attack or audit results yet."
@@ -1254,7 +1258,7 @@ const DECISIONS_DATA = {
  "log": [
   {
    "d": "Scenario and carriers",
-   "e": "o1_3p5 (3.5 GHz). UL 3.4 GHz derived from the same rays; matches DeepMIMO's model (error 1.29e-6) (measured); physical assumptions untested.",
+   "e": "o1_3p5, 3.5 GHz (setting). UL 3.4 GHz (setting) derived from the same rays; matches DeepMIMO's model (error 1.29e-6) (measured); physical assumptions untested.",
    "s": "To confirm",
    "q": [
     1,
@@ -1279,19 +1283,19 @@ const DECISIONS_DATA = {
   },
   {
    "d": "Number of users and region split",
-   "e": "1,184,923 user points in RX_1 to RX_3 (the scenario summary's 1,184,941 also counts the 18 base-station positions) (measured, from the scenario summary); 0.94 % have no path (measured); split by region, whole trajectories in one split (the split rule is Fixed; the numbers are not).",
+   "e": "1,184,923 user points in RX_1 to RX_3 (the scenario summary's 1,184,941 also counts the 18 base-station positions) (measured, from the scenario summary); 0.94 % have no path (measured); the split rule (by region, whole trajectories in one split) is in the submitted proposal; the numbers are Not fixed yet.",
    "s": "Not fixed yet",
    "q": []
   },
   {
    "d": "max_paths",
-   "e": "25; no user reaches it (max 17) (measured); ray tracing: max 4 reflections, no diffraction, no scattering (measured).",
+   "e": "25 (setting); no user reaches it (max 17) (measured); ray tracing: max 4 reflections, no diffraction, no scattering (measured).",
    "s": "To confirm",
    "q": []
   },
   {
    "d": "Subcarriers, bandwidth and delay rows",
-   "e": "1024 / 10 MHz, 32 rows keep 98.40 % on average, p5 95.04 % (measured); the mean profile reaches 99 % only at row 1,017 (energy at the end of the delay axis) (measured); decide whether to keep a wrap-around window.",
+   "e": "1024 subcarriers / 10 MHz (setting); the first 32 rows (setting) keep 98.40 % on average, p5 95.04 % (measured); the mean profile reaches 99 % only at row 1,017 (energy at the end of the delay axis) (measured); decide whether to keep a wrap-around window.",
    "s": "Not fixed yet",
    "q": []
   },
@@ -1305,21 +1309,21 @@ const DECISIONS_DATA = {
   },
   {
    "d": "NMSE convention",
-   "e": "Mean over samples of per-sample ratios, in dB; all-zeros 0.0 dB, perfect −∞ dB (measured).",
-   "s": "Planned",
+   "e": "Formula fixed: mean over samples of the per-sample ratios ‖H − Ĥ‖² / ‖H‖², in dB; tested: all-zeros prediction 0.0 dB, perfect reconstruction −∞ dB (measured). The NMSE values it gives depend on the normalization choice (supervisor question 5).",
+   "s": "Fixed",
    "q": [
     5
    ]
   },
   {
    "d": "Training-set size",
-   "e": "The timing used 20,000 samples; time per epoch scales with it.",
+   "e": "Not fixed yet (the timing run used 20,000 samples) (setting).",
    "s": "Not fixed yet",
    "q": []
   },
   {
    "d": "Compression ratios",
-   "e": "For example 4, 8, 16, 32, 64; choose using the timing result × pool size.",
+   "e": "Candidates, not chosen: 4, 8, 16, 32, 64; choose using the timing result × pool size.",
    "s": "Not fixed yet",
    "q": [
     6
@@ -1327,7 +1331,7 @@ const DECISIONS_DATA = {
   },
   {
    "d": "Seeds, schedule, epochs",
-   "e": "CRNet 1.974 s/epoch (measured) → 0.055 / 0.164 / 1.371 h for 100 / 300 / 2500 epochs (derived); one model at a time (parallel speed-up 0.88 (measured)).",
+   "e": "CRNet 1.974 s/epoch (measured); projected 0.055 h / 0.164 h / 1.371 h for 100 / 300 / 2500 epochs (derived); one model at a time: parallel speed-up 0.88 (measured).",
    "s": "Not fixed yet",
    "q": [
     6
@@ -1335,7 +1339,7 @@ const DECISIONS_DATA = {
   },
   {
    "d": "torch pin",
-   "e": "requirements-colab.txt pins 2.9.1; both runs used Colab's 2.14.1+cu130 (measured) → re-pin to the version actually used.",
+   "e": "requirements-colab.txt pins 2.9.1 (setting); both runs used Colab's 2.14.1+cu130 (measured) → re-pin to the version actually used.",
    "s": "To confirm",
    "q": [
     8
