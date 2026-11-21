@@ -79,6 +79,11 @@ footer{background:#00355f;color:#fff;text-align:center;padding:1.1rem;font-size:
 .rgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px;margin-top:12px}.rcard{border:1px solid var(--line);border-top:4px solid var(--neu);border-radius:6px;padding:10px 14px;font-size:.92rem;min-width:0}.rcard.wide{grid-column:1/-1}.rcard.open{border-top-color:var(--warn)}.rcard ol{padding-left:1.2rem}.rcard .tbl th[scope=row]{color:var(--ink);width:30%}
 .rg{margin-top:1.1rem;font-size:.98rem;color:var(--pri)}.rtbl{table-layout:fixed}.rtbl thead th:nth-child(1){width:24%}.rtbl thead th:nth-child(3){width:132px}.rtbl thead th:nth-child(4){width:124px}.rtbl th[scope=row]{color:var(--ink)}.rtbl td.src{font-size:.82rem;color:var(--mut)}.rtbl td.src a{color:var(--pri)}
 .sp{background:#dbe7f7;color:#1d4f91}.rerun{padding-left:1.3rem;margin:.3rem 0 .4rem}.rerun li{padding:3px 0}
+.leg{border:1px solid var(--line);border-radius:6px;padding:8px 12px;font-size:.84rem;margin-top:4px}.leg p{display:flex;flex-wrap:wrap;gap:4px 16px;margin:2px 0}.leg p>span{min-width:0}
+.stk{table-layout:fixed}.stk th[scope=row]{color:var(--ink)}.stk td.st{width:118px}.stk thead th:last-child{width:118px}.stk thead th:first-child{width:22%}.rm thead th:first-child{width:76px}.rm thead th:nth-child(3){width:24%}.stk td,.stk th{overflow-wrap:anywhere}
+.sq{padding-left:1.4rem}.sq li{padding:6px 0;border-bottom:1px solid var(--line);font-size:.92rem}.sq li:last-child{border:0}.sqh{display:flex;gap:10px;align-items:flex-start;justify-content:space-between}.sqa{font-size:.86rem;margin-top:3px}.sqa b{color:var(--mut);font-weight:600}.unk{padding-left:1.2rem;font-size:.92rem}.unk li{padding:2px 0}
+.rtbl td,.rtbl th{overflow-wrap:anywhere}
+@media (max-width:640px){.stk thead{display:none}.stk,.stk tbody,.stk tr,.stk th,.stk td{display:block;width:auto!important}.stk tr{border-bottom:1px solid var(--line);padding:6px 0}.stk th,.stk td{border:0;padding:2px 2px}.rm td.dw::before{content:"Done when: ";font-weight:600;color:var(--mut)}.sqh{flex-direction:column;gap:3px}}
 @media (max-width:640px){.rtbl thead{display:none}.rtbl,.rtbl tbody,.rtbl tr,.rtbl th,.rtbl td{display:block;width:auto!important}.rtbl tr{border-bottom:1px solid var(--line);padding:6px 0}.rtbl th,.rtbl td{border:0;padding:2px 2px}.rtbl td.st,.rtbl td.src{display:inline-block;white-space:normal}.rtbl td.src::before{content:"Source: "}}
 @media print{:root:root:root{color-scheme:light;--ink:#000;--bg:#fff;--card:#fff;--line:#999;--mut:#333;--pri:#00355f;--soft:#f2f2f2;--neu:#555}body{background:#fff}nav,.motif,#theme,.btn,.only,.x{display:none!important}header{background:none;color:#000;border-bottom:2px solid #000}header .snap div{background:none}section{break-inside:auto;border-color:#999}.rcard,.qa,.fig,.tbl tr{break-inside:avoid}footer{background:none;color:#000}a{color:#000}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
@@ -96,13 +101,19 @@ footer{background:#00355f;color:#fff;text-align:center;padding:1.1rem;font-size:
 <div class="snap" id="snap"></div>
 </div>
 </header>
-<nav><a href="#glance">At a glance</a><a href="#weekly">This week</a><a href="#planner">Planner</a><a href="#sprint">Sprint board</a><a href="#chapters">Chapters</a><a href="#system">System</a><a href="#resources">Resources</a><a href="#simulation">Lab</a><a href="#results">Results</a><a href="#repro">Reproducibility</a><a href="#library">Library</a><a href="#concepts">Concepts</a><a href="#compliance">Compliance</a><a href="#qa">Defense Q&amp;A</a><a href="#setup">How to update</a><span class="sp"></span><span id="mode"></span><button id="theme" aria-label="Toggle dark mode">Theme</button></nav>
+<nav><a href="#glance">At a glance</a><a href="#roadmap">Next 4 weeks</a><a href="#weekly">This week</a><a href="#planner">Planner</a><a href="#sprint">Sprint board</a><a href="#chapters">Chapters</a><a href="#system">System</a><a href="#resources">Resources</a><a href="#simulation">Lab</a><a href="#results">Results</a><a href="#repro">Reproducibility</a><a href="#decisions">Decisions</a><a href="#library">Library</a><a href="#concepts">Concepts</a><a href="#compliance">Compliance</a><a href="#qa">Defense Q&amp;A</a><a href="#setup">How to update</a><span class="sp"></span><span id="mode"></span><button id="theme" aria-label="Toggle dark mode">Theme</button></nav>
 <main>
 
 <section id="glance">
 <h2>At a glance</h2>
 <p class="sub">The problem, the planned contribution, and what is done and next. “Done” and “Next” come from the task board and milestones below.</p>
 <div class="gla" id="glanceBox"></div>
+</section>
+
+<section id="roadmap">
+<h2>Next 4 weeks</h2>
+<p class="sub" id="rmSub"></p>
+<div id="rmBox"></div>
 </section>
 
 <section id="weekly">
@@ -178,8 +189,14 @@ footer{background:#00355f;color:#fff;text-align:center;padding:1.1rem;font-size:
 
 <section id="repro">
 <h2>Reproducibility</h2>
-<p class="sub">What is needed to rerun the experiments. Items marked “Not fixed yet” are still open.</p>
+<p class="sub">What is needed to rerun the experiments. Items marked “Not fixed yet” are still open; items marked “To confirm” wait for the supervisor’s answers (see <a href="#decisions">Decisions and open questions</a>).</p>
 <div id="reproBox"></div>
+</section>
+
+<section id="decisions">
+<h2>Decisions and open questions</h2>
+<p class="sub" id="decSub"></p>
+<div id="decBox"></div>
 </section>
 
 <section id="library">
@@ -232,7 +249,7 @@ const HUB_DATA = {
  "type": "csi",
  "start": "2026-11-03",
  "weeks": 32,
- "next": 29,
+ "next": 41,
  "tasks": [
   {
    "id": 1,
@@ -401,6 +418,78 @@ const HUB_DATA = {
    "t": "Template formatting: styles, cross-references, TOC, references in LIU IEEE style",
    "tag": "Sprint 6",
    "c": 0
+  },
+  {
+   "id": 29,
+   "t": "Environment and Colab pipeline built and verified (smoke tests passed)",
+   "tag": "Sprint 1",
+   "c": 3
+  },
+  {
+   "id": 30,
+   "t": "Scenario o1_3p5 downloaded on Colab and analysed (27,000 links)",
+   "tag": "Sprint 1",
+   "c": 3
+  },
+  {
+   "id": 31,
+   "t": "Choose base station(s) and user region (statistics measured; waits for supervisor questions 3 and 4) · part of “Tune DeepMIMO O1”",
+   "tag": "Sprint 1",
+   "c": 1
+  },
+  {
+   "id": 32,
+   "t": "Trajectories for moving users from consecutive grid points (speed, sampling, Doppler) · part of “Tune DeepMIMO O1”",
+   "tag": "Sprint 1",
+   "c": 1
+  },
+  {
+   "id": 33,
+   "t": "Choose subcarriers, bandwidth and delay rows (wrap-around window or not) · part of “2D-DFT script”",
+   "tag": "Sprint 1",
+   "c": 1
+  },
+  {
+   "id": 34,
+   "t": "RAM-safe HDF5 generator: chunked append, splits by region, DL and UL in one file · part of “HDF5 storage and DataLoader”",
+   "tag": "Sprint 1",
+   "c": 1
+  },
+  {
+   "id": 35,
+   "t": "DataLoader at scale on Colab: RAM, throughput, num_workers · part of “HDF5 storage and DataLoader”",
+   "tag": "Sprint 1",
+   "c": 1
+  },
+  {
+   "id": 36,
+   "t": "Implement CsiNet (2×32×32 input, all compression ratios, shape tests) · part of “Train clean CsiNet and CRNet”",
+   "tag": "Sprint 2",
+   "c": 0
+  },
+  {
+   "id": 37,
+   "t": "Training script: common schedule, seeds, checkpoints to Drive, resume after restart · part of “Train clean CsiNet and CRNet”",
+   "tag": "Sprint 2",
+   "c": 0
+  },
+  {
+   "id": 38,
+   "t": "Time one model on the T4 (CRNet, CR 4): time per epoch, epochs to plateau, peak GPU memory · part of “Train clean CsiNet and CRNet”",
+   "tag": "Sprint 2",
+   "c": 0
+  },
+  {
+   "id": 39,
+   "t": "Train the clean CRNet and CsiNet baselines for the chosen CRs and seeds · part of “Train clean CsiNet and CRNet”",
+   "tag": "Sprint 2",
+   "c": 0
+  },
+  {
+   "id": 40,
+   "t": "NMSE validation: test NMSE per model, CR and seed (mean ± std), trend check · part of “Train clean CsiNet and CRNet”",
+   "tag": "Sprint 2",
+   "c": 0
   }
  ],
  "ch": [
@@ -416,7 +505,18 @@ const HUB_DATA = {
  "ms": [],
  "c5": [],
  "dl": [],
- "reps": [],
+ "reps": [
+  {
+   "w": 3,
+   "date": "2026-11-21",
+   "hrs": "4–5",
+   "st": "At risk",
+   "done": "Environment and Colab pipeline built and verified: all run tests passed; FDD-pair geometry check skipped (o1_3p4 not downloaded).\nScenario o1_3p5 downloaded on Colab (SHA-256 recorded) and analysed: 27,000 links over 3 of the 18 base stations.\nNormalization evidence (NMSE sanity tests) and CRNet timing (1.974 s/epoch on a T4) collected.\nNo attack or audit results yet.",
+   "block": "Slow home network (8–17 kB/s measured): large downloads moved to Colab.\nDeepMIMO server rate limiting (HTTP 429): resolved with a downloader that requests one token per scenario.\nSupervisor decisions pending: 9 questions (see Decisions and open questions). Sprint 1 is behind its plan until they are answered.",
+   "plan": "Sprint 1, after the supervisor's answers: choose the base station and user region (day 3); build moving-user trajectories (day 4); choose subcarriers, bandwidth and delay rows (day 5); finalise the 2D-DFT and normalization with tests (day 6); RAM-safe HDF5 generator (day 7); DataLoader at scale on Colab (day 8); drafts of Chapters 1 and 3 (days 9 and 10).",
+   "fb": ""
+  }
+ ],
  "lib": [
   {
    "id": 1762214400000,
@@ -758,16 +858,16 @@ const RESULTS_DATA = {
 /* ===== RESOURCES DATA: thesis resource requirements; edit only this block (skill hub-update) ===== */
 const RESOURCES_DATA = {
  "v": 1,
- "updated": "2026-11-05",
- "status": "Aligned with the submitted proposal (v2) and the supervisor's plan. Items marked 'To confirm' are open.",
+ "updated": "2026-11-21",
+ "status": "Aligned with the submitted proposal (v2) and the supervisor's plan, and updated with the environment setup of 2026-11-20 and 21. Items marked 'To confirm' are open and wait for the supervisor's answers.",
  "items": [
   {
    "h": "Dataset",
-   "t": "The whole project uses a single dataset, DeepMIMO (O1 outdoor ray-tracing scenario), for training, backdoor poisoning, offline auditing, and runtime testing; COST2100 is not used. The scenario is configured with a base station with a uniform linear array of 32 antennas, moving users, and enough multipath components per user (not only a line-of-sight path), so that the injected trigger path is hidden among natural reflections; the parameters are fixed and documented. DeepMIMO provides the angular-delay CSI, the time-series channels of moving users, and the paired uplink/downlink FDD channels. The 2D-DFT output is complex, so its real and imaginary parts are stacked as two separate channels (a two-channel image), which is the input format CsiNet and CRNet expect."
+   "t": "The whole project uses a single dataset, DeepMIMO (O1 outdoor ray-tracing scenario), for training, backdoor poisoning, offline auditing, and runtime testing; COST2100 is not used. The scenario is configured with a base station with a uniform linear array of 32 antennas, moving users, and enough multipath components per user (not only a line-of-sight path), so that the injected trigger path is hidden among natural reflections; the parameters are fixed and documented. DeepMIMO v4 provides the OFDM (spatial-frequency) channels of the o1_3p5 scenario (3.5 GHz, downlink); the angle-delay CSI is produced by our own 2D-DFT; moving users are consecutive points of the static user grid, because no O1 scenario is time-varying; and the 3.4 GHz uplink of the FDD pair is derived from the same rays (the separately ray-traced o1_3p4 is only an optional validation download). The 2D-DFT output is complex, so its real and imaginary parts are stacked as two separate channels (a two-channel image), which is the input format CsiNet and CRNet expect."
   },
   {
    "h": "Software environment",
-   "t": "Python 3.10 or 3.11 inside a virtual environment (Anaconda/Miniconda or venv). Development in VS Code or Jupyter Notebook, training on Google Colab or Kaggle Notebooks, and GitHub for version control and the final code release."
+   "t": "Python: local 3.11; Colab as provided (3.13 in the last runs); versions recorded per run (to confirm, supervisor question 8). Locally a venv with a light set (NumPy, h5py, pytest) runs the data-processing unit tests; DeepMIMO v4 requires Python 3.11 or newer. Development in VS Code or Jupyter Notebook, training on Google Colab or Kaggle Notebooks, and GitHub for version control and the final code release."
   },
   {
    "h": "Libraries",
@@ -785,8 +885,8 @@ const RESOURCES_DATA = {
      "Storing the generated channel tensors in HDF5 files, read in small batches together with memory-mapped NumPy arrays."
     ],
     [
-     "DeepMIMOv3",
-     "Loading and configuring the ray-tracing scenarios."
+     "DeepMIMO v4 (deepmimo 4.0.5)",
+     "Loading and configuring the ray-tracing scenarios and computing the OFDM channels. Used instead of DeepMIMOv3 because v4 is the current release and loads a chosen subset of users, samples linear trajectories and computes channels on demand, while v3 needs manual downloads of v3-format scenario files."
     ],
     [
      "scikit-learn",
@@ -800,11 +900,11 @@ const RESOURCES_DATA = {
   },
   {
    "h": "Starter code and baselines",
-   "t": "The CsiNet and CRNet baselines start from the open-source Kylin9511/CRNet repository, whose COST2100 data loaders are replaced by a DeepMIMO loader. The DeepMIMO-python scripts generate the channel matrices from which the paired uplink/downlink channels and trajectory-based sequences are derived. Mahalanobis distance is the core baseline of the audit evaluation; Neural Cleanse, DECREE, and DRMGuard are added as time permits, using the authors' implementations where available and otherwise re-implemented and adapted to regression. A Transformer-based baseline (TransNet) is an optional stretch goal."
+   "t": "The CsiNet and CRNet baselines start from the open-source Kylin9511/CRNet repository, whose COST2100 data loaders are replaced by a DeepMIMO loader; CsiNet is not part of that repository and is implemented in our own code. The DeepMIMO v4 Python package (deepmimo 4.0.5, github.com/DeepMIMO/DeepMIMO) generates the channel matrices from which the paired uplink/downlink channels and trajectory-based sequences are derived. Mahalanobis distance is the core baseline of the audit evaluation; Neural Cleanse, DECREE, and DRMGuard are added as time permits, using the authors' implementations where available and otherwise re-implemented and adapted to regression. A Transformer-based baseline (TransNet) is an optional stretch goal."
   },
   {
    "h": "Computing hardware",
-   "t": "The project relies on free cloud resources: Google Colab or Kaggle Notebooks with a single NVIDIA T4 GPU (15 GB VRAM) and 16 GB of RAM. A local machine with a CUDA-capable NVIDIA GPU (8 GB or more of VRAM, such as an RTX 3060 or 4060) and 16 GB of RAM is optional."
+   "t": "The project relies on free cloud resources: Google Colab or Kaggle Notebooks with a single NVIDIA T4 GPU (15 GB VRAM) and 16 GB of RAM. Training runs on Google Colab (Tesla T4, verified in the setup runs); PyTorch is not installed locally. The local GPU (Quadro M1200, 4 GB, below the 8 GB of the proposal) is not used for training; the local PC runs only the data-processing unit tests on the CPU."
   },
   {
    "h": "Memory management",
@@ -822,7 +922,15 @@ const RESOURCES_DATA = {
    "h": "To confirm",
    "open": [
     "Baseline scope: Mahalanobis is core; Neural Cleanse, DECREE, and DRMGuard as time permits.",
-    "Standards report for Sprint 3: confirm the report number (TR 38.843 vs TR 38.853)."
+    "DeepMIMO v4 (deepmimo 4.0.5) instead of DeepMIMOv3 (supervisor question 1).",
+    "FDD pair: uplink at 3.4 GHz derived from the 3.5 GHz rays of o1_3p5, or o1_3p4 required at least for validation (question 2).",
+    "Rich-multipath criterion and the choice of base station and user region (question 3).",
+    "Trigger power reference (strongest path or ‖H‖²) and whether the trigger lies within the 32 kept delay rows (question 4).",
+    "Per-sample power normalization, with the scale fitted on the training split only (question 5).",
+    "Model pool size and epoch budget (question 6).",
+    "Moving users as consecutive grid points (static ray tracing, optional Doppler) (question 7).",
+    "Python: \"local 3.11, Colab as provided, versions recorded per run\" (question 8).",
+    "Standards report for Sprint 3: confirm the report number (TR 38.843 vs TR 38.853) (question 9)."
    ]
   }
  ]
@@ -831,7 +939,7 @@ const RESOURCES_DATA = {
 /* ===== REPRO DATA: reproducibility rows; "frm" reads the value from a RESOURCES_DATA card (skill hub-update) ===== */
 const REPRO_DATA = {
  "v": 1,
- "updated": "2026-11-05",
+ "updated": "2026-11-21",
  "groups": [
   {
    "h": "Data and scenario",
@@ -846,33 +954,51 @@ const REPRO_DATA = {
     },
     {
      "p": "Scenario variant and carrier frequencies (uplink and downlink)",
-     "v": "Not fixed yet (to be fixed after checking the available DeepMIMO scenarios)",
-     "s": "Not fixed yet",
-     "src": "prop"
+     "v": "DeepMIMO v4 scenario o1_3p5 (Wireless InSite v3.3, 3.5 GHz, downlink); archive 2,437,945,191 bytes, SHA-256 c5b187562e64c129458beb0d6fcfd608ded9fe503f856b0fba5b81537e521adf, computed by us because DeepMIMO publishes no checksum (measured). Uplink 3.4 GHz derived from the same rays by a delay-dependent phase shift; consistent with DeepMIMO's own frequency model: max relative error 0.0 at zero shift and 1.29e-6 for a 5-subcarrier shift (measured); DL–UL correlation median 0.662 (complex) and 0.794 (angle-delay magnitude) (measured). Assumption: same paths, delays and angles, and interaction coefficients unchanged over 100 MHz; untested without o1_3p4 (optional validation download, not done).",
+     "s": "To confirm",
+     "src": "run"
     },
     {
      "p": "Base station array",
-     "v": "ULA, 32 antennas",
-     "s": "Fixed",
-     "src": "plan"
+     "v": "ULA, 32 antennas along x (DeepMIMO shape [32, 1]), spacing 0.5 λ = 4.283 cm at 3.5 GHz, isotropic, no rotation; single-antenna users (measured). Orientation against the street layout to confirm.",
+     "s": "To confirm",
+     "src": "run"
+    },
+    {
+     "p": "Base station(s) used",
+     "v": "The scenario has 18 base stations (TX_1 to TX_18). Three were measured (chosen at random, seed 2026); mean paths / users without a path / LoS: TX_5 5.40 / 0.09 % / 91.0 %; TX_6 5.55 / 0 % / 91.8 %; TX_17 7.44 / 2.74 % / 65.9 % (measured). The other 15 are not measured. None chosen yet (supervisor question 3).",
+     "s": "Not fixed yet",
+     "src": "run"
     },
     {
      "p": "Users",
-     "v": "Moving users along trajectories, limited set; number not fixed yet",
-     "s": "Not fixed yet",
-     "src": "prop"
+     "v": "1,184,923 user points in RX_1 to RX_3 (the scenario summary's 1,184,941 also counts the 18 base-station positions) (measured, from the scenario summary); analysis sample 27,000 links over 3 base stations (TX_5, TX_6, TX_17), 9,000 users each spread over RX_1 to RX_3 in proportion to their size (measured); 0.94 % of the links have no path and are excluded (measured). Moving users will be consecutive grid points (trajectories not built yet). Number of users per split not fixed.",
+     "s": "Planned",
+     "src": "run"
     },
     {
      "p": "Paths per user",
-     "v": "Rich multipath (not only line-of-sight) so the trigger path is hidden among natural reflections; number not fixed yet",
-     "s": "Not fixed yet",
-     "src": "plan"
+     "v": "Rich multipath (not only line-of-sight) so the trigger path is hidden among natural reflections. Measured on 27,000 links: 0 to 17 paths, mean 6.131, p5/p25/p50/p75/p95 = 2/4/6/8/14 (measured); paths within 10 / 20 / 30 dB of the strongest: mean 3.43 / 4.51 / 4.95, at least 2 within 20 dB for 98.2 % of users (measured); LoS present for 82.92 %, median Rician K-factor 0.24 dB (measured); natural paths between −10 and −20 dB below the strongest: 1.08 per user on average (derived). Selection criterion not fixed (supervisor question 3).",
+     "s": "To confirm",
+     "src": "run"
+    },
+    {
+     "p": "Max paths and ray-tracing limits",
+     "v": "max_paths = 25; no user reaches it (maximum 17) (measured). Ray tracing of the scenario: max path depth 4, max 4 reflections, 0 diffractions, 0 scatterings, 0 transmissions, diffuse scattering off, terrain reflection on, 259,200 rays (measured).",
+     "s": "To confirm",
+     "src": "run"
     },
     {
      "p": "Subcarriers and bandwidth",
-     "v": "Not fixed yet",
+     "v": "1024 subcarriers, 10 MHz (the values of the setup runs). On 26,745 samples the first 32 delay rows keep 98.40 % of the energy on average (p5 95.04 %, min 89.92 %) (measured); the lost energy is −18.0 dB (mean), −13.0 dB (p5) and −10.0 dB (min) relative to the user's total (derived).",
+     "s": "To confirm",
+     "src": "run"
+    },
+    {
+     "p": "Delay rows kept",
+     "v": "32 rows (CRNet needs a 32 × 32 input). The mean delay profile reaches 99 % of its energy only at row 1,017 of 1,024 (measured): part of the lost energy sits at the end of the delay axis (wrap-around; interpretation not verified). Whether to keep a wrap-around window is open.",
      "s": "Not fixed yet",
-     "src": "prop"
+     "src": "run"
     },
     {
      "p": "Data splits",
@@ -882,9 +1008,15 @@ const REPRO_DATA = {
     },
     {
      "p": "Model input",
-     "v": "2D-DFT angle-delay map (delay rows with energy kept); real and imaginary parts stacked as two channels",
+     "v": "2D-DFT angle-delay map (delay rows with energy kept); real and imaginary parts stacked as two channels; 32 × 32 (32 angles × first 32 delay rows); DFT round-trip error 2.2e-12 in the smoke test (measured)",
      "s": "Fixed",
      "src": "plan"
+    },
+    {
+     "p": "Normalization",
+     "v": "Recommendation only, no model trained with it yet: per-sample power normalization (x/‖x‖_F), then one global scale fitted on the training split only (0.99896 in the analysis sample), mapped to [0, 1]; ‖x‖_F stored per sample. Evidence on 26,745 samples: per-sample energy spread 55.9 dB (p1 to p99) (measured); float32 round trip −118.2 dB against −62.2 dB with one global max scale (measured); the same output noise costs −0.87 dB against +52.96 dB NMSE (measured). The +17.87 dB validation NMSE of the one-epoch smoke run (a pipeline check, not training) is consistent with global-max scaling. With this choice the trigger power is defined relative to each user's own channel. Costs: the model never sees absolute received power; results are less directly comparable with CsiNet/CRNet papers, which scale COST2100 data globally.",
+     "s": "To confirm",
+     "src": "run"
     }
    ]
   },
@@ -905,27 +1037,27 @@ const REPRO_DATA = {
     },
     {
      "p": "Training schedule",
-     "v": "One common schedule for all architectures; values not fixed yet",
-     "s": "Not fixed yet",
-     "src": "prop"
+     "v": "One common schedule for all architectures; one model at a time per T4 with the data held on the GPU: 1.974 s/epoch against 2.079 s/epoch with a DataLoader (measured); epochs not fixed.",
+     "s": "Planned",
+     "src": "run"
     },
     {
      "p": "Trigger",
-     "v": "Extra attacker-controlled propagation path; strength reported in dB relative to the strongest path; parameters not fixed yet",
+     "v": "Extra attacker-controlled propagation path; strength reported in dB relative to the strongest path; parameters not fixed yet; reference (strongest path or ‖H‖²) to confirm, supervisor question 4",
      "s": "Not fixed yet",
      "src": "prop"
     },
     {
      "p": "Model pool",
-     "v": "Supervisor's plan: 40+ models (clean and poisoned); proposal: at least 20 clean and 20 backdoored per architecture",
+     "v": "Supervisor's plan: 40+ models (clean and poisoned); proposal: at least 20 clean and 20 backdoored per architecture. Training 4 models in parallel on one T4 is 12 % slower than one after the other (speed-up 0.88) (measured); at 2500 epochs about 8 CRNet models fit in one 12 h session on 20,000 samples (derived)",
      "s": "To confirm",
      "src": "plan"
     },
     {
      "p": "Random seeds",
-     "v": "Not fixed yet",
-     "s": "Not fixed yet",
-     "src": "prop"
+     "v": "Analysis sampling seed 2026; training seeds per model not fixed",
+     "s": "Planned",
+     "src": "run"
     }
    ]
   },
@@ -951,6 +1083,12 @@ const REPRO_DATA = {
      "src": "plan"
     },
     {
+     "p": "Reconstruction metric (NMSE)",
+     "v": "NMSE = mean over samples of ‖H − Ĥ‖² / ‖H‖², in dB (CsiNet/CRNet convention). Sanity tests: all-zeros prediction 0.0 dB, perfect reconstruction −∞ dB, torch minus NumPy metric 1.1e-8 dB (per-sample power) and −2.0e-7 dB (global max) (measured).",
+     "s": "Planned",
+     "src": "run"
+    },
+    {
      "p": "Trigger types outside the design family",
      "v": "Planned if time permits",
      "s": "Planned",
@@ -963,24 +1101,24 @@ const REPRO_DATA = {
    "rows": [
     {
      "p": "Python and environment",
-     "v": "",
-     "s": "Fixed",
+     "v": "local venv Python 3.11.9 (unit tests: 9 passed, 2 skipped without torch) (measured); Colab runs of 2026-11-20: Python 3.13.16, torch 2.14.1+cu130, deepmimo 4.0.5 (measured)",
+     "s": "To confirm",
      "src": "res",
      "frm": "Software environment",
      "pick": "first"
     },
     {
      "p": "Libraries",
-     "v": "exact versions to be pinned in a requirements file",
-     "s": "Not fixed yet",
+     "v": "pinned in requirements.txt (local) and requirements-colab.txt (Colab); deepmimo 4.0.5; torch pinned at 2.9.1, but both Colab runs used Colab's 2.14.1+cu130 (measured), so the pin is to be aligned",
+     "s": "To confirm",
      "src": "res",
      "frm": "Libraries",
      "pick": "libs"
     },
     {
      "p": "Baseline code",
-     "v": "Kylin9511/CRNet (COST2100 loaders replaced by a DeepMIMO loader); commit not fixed yet",
-     "s": "Not fixed yet",
+     "v": "Kylin9511/CRNet @ 22c9abd61490af46af63d737ca470f0943efa973 (2021-05-27, unmodified); COST2100 loaders to be replaced by our DeepMIMO HDF5 loader (not wired in yet); CsiNet is not in that repository and is to be implemented",
+     "s": "Planned",
      "src": "res"
     }
    ]
@@ -990,7 +1128,7 @@ const REPRO_DATA = {
    "rows": [
     {
      "p": "Compute",
-     "v": "",
+     "v": "Tesla T4 (compute capability 7.5) verified on Colab (measured); the Colab software versions are in the Python row",
      "s": "Fixed",
      "src": "res",
      "frm": "Computing hardware",
@@ -998,15 +1136,15 @@ const REPRO_DATA = {
     },
     {
      "p": "Storage",
-     "v": "HDF5 files read in small batches with memory-mapped arrays; checkpoints saved to persistent storage",
+     "v": "HDF5 files read in small batches with memory-mapped arrays; checkpoints saved to persistent storage. o1_3p5 zip 2,437,945,191 bytes, 21 GB and 4,161 files extracted on Colab; 26,745-sample angle-delay HDF5 223,606,512 bytes (measured); the analysis HDF5 files were not kept, only their SHA-256 is recorded. Smoke test HDF5 to DataLoader: 200/200 samples, RSS growth 6.9 MB (measured)",
      "s": "Fixed",
      "src": "res"
     },
     {
      "p": "Time to train one model",
-     "v": "Not measured yet (to be measured in Sprint 2)",
-     "s": "Not fixed yet",
-     "src": "plan"
+     "v": "CRNet only (CR 4, batch 200, 20,000 samples, T4, data on the GPU): 1.974 ± 0.006 s/epoch, training passes only (measured), i.e. 0.055 h / 0.164 h / 1.371 h for 100 / 300 / 2500 epochs (derived). For the pool, with 12 h per free session as an upper bound: 8 models per session at 2500 epochs (40 models = 54.8 h, at least 5 sessions) and 72 at 300 epochs (40 models = 6.6 h, one session) (derived). CsiNet, validation, checkpoints, epochs to plateau and the final training-set size are not measured yet.",
+     "s": "Planned",
+     "src": "run"
     }
    ]
   },
@@ -1021,8 +1159,8 @@ const REPRO_DATA = {
     },
     {
      "p": "Code version (git commit)",
-     "v": "Not fixed yet",
-     "s": "Not fixed yet",
+     "v": "Local git repository of the project code initialised; no commit yet",
+     "s": "Planned",
      "src": "-"
     },
     {
@@ -1035,18 +1173,385 @@ const REPRO_DATA = {
   }
  ],
  "rerun": {
-  "note": "Steps are filled in when the code repository is published",
+  "note": "The notebooks and scripts are in the project's code repository, which is not published yet. The remaining steps are filled in when they exist.",
   "steps": [
-   "Create the environment from the requirements file.",
-   "Generate the DeepMIMO dataset and save it to HDF5.",
-   "Train the clean models.",
-   "Run the poisoning script and train the backdoored models.",
-   "Run the audits and the baselines.",
-   "Evaluate and plot the ROC curves."
+   {
+    "t": "Create the environment: a local venv from requirements.txt for the unit tests; on Colab (T4), the self-contained notebook installs requirements-colab.txt and checks its embedded files by SHA-256.",
+    "s": "Available"
+   },
+   {
+    "t": "Download the scenario o1_3p5 on Colab with the resumable downloader and check its SHA-256.",
+    "s": "Available"
+   },
+   {
+    "t": "Run the smoke tests (imports and GPU, scenario subset, 2D-DFT, HDF5, DataLoader, CRNet forward pass and one epoch).",
+    "s": "Available"
+   },
+   {
+    "t": "Run the scenario analysis notebook (path statistics, NMSE sanity tests, CRNet timing, derived uplink).",
+    "s": "Available"
+   },
+   {
+    "t": "Generate the full DeepMIMO dataset and save it to HDF5.",
+    "s": "Not available yet"
+   },
+   {
+    "t": "Train the clean models.",
+    "s": "Not available yet"
+   },
+   {
+    "t": "Run the poisoning script and train the backdoored models.",
+    "s": "Not available yet"
+   },
+   {
+    "t": "Run the audits and the baselines.",
+    "s": "Not available yet"
+   },
+   {
+    "t": "Evaluate and plot the ROC curves.",
+    "s": "Not available yet"
+   }
   ]
+ },
+ "legend": {
+  "status": [
+   [
+    "Fixed",
+    "Agreed in the proposal or the supervisor's plan, or recorded and not open."
+   ],
+   [
+    "Planned",
+    "Way of working chosen; the final value comes from a later step."
+   ],
+   [
+    "To confirm",
+    "Value or recommendation waiting for the supervisor's answer."
+   ],
+   [
+    "Not fixed yet",
+    "Still open; no value chosen."
+   ]
+  ],
+  "tags": [
+   [
+    "(measured)",
+    "Copied from an output file of the Colab setup run (2026-11-20) or analysis run (2026-11-20, results returned 2026-11-21, sampling seed 2026): stats_o1_3p5.json, nmse_sanity.json, timing_crnet.json, fdd_pair.json, smoke-test logs."
+   ],
+   [
+    "(derived)",
+    "Computed by arithmetic from measured values."
+   ]
+  ],
+  "note": "These numbers describe the environment, the scenario and pipeline checks only. There are no attack or audit results yet."
  }
 };
 /* ===== END REPRO DATA ===== */
+/* ===== DECISIONS DATA: decision log, supervisor questions and unknowns; edit only this block (fill "a" with the supervisor's answer) ===== */
+const DECISIONS_DATA = {
+ "v": 1,
+ "updated": "2026-11-21",
+ "intro": "Decisions from the environment setup and the questions that wait for the supervisor. Values marked To confirm on this page are waiting for the supervisor's answers to the questions below.",
+ "log": [
+  {
+   "d": "Scenario and carriers",
+   "e": "o1_3p5 (3.5 GHz). UL 3.4 GHz derived from the same rays; matches DeepMIMO's model (error 1.29e-6) (measured); physical assumptions untested.",
+   "s": "To confirm",
+   "q": [
+    1,
+    2
+   ]
+  },
+  {
+   "d": "Base station(s)",
+   "e": "TX_5 / TX_6 / TX_17: mean paths 5.40 / 5.55 / 7.44, LoS 91.0 / 91.8 / 65.9 %, no path 0.09 / 0 / 2.74 % (measured); 15 BSs not measured.",
+   "s": "Not fixed yet",
+   "q": [
+    3
+   ]
+  },
+  {
+   "d": "Rich-multipath criterion",
+   "e": "27,000 links: paths 0–17, mean 6.13; within 10 / 20 / 30 dB of the strongest: mean 3.43 / 4.51 / 4.95; median K-factor 0.24 dB (measured).",
+   "s": "Not fixed yet",
+   "q": [
+    3
+   ]
+  },
+  {
+   "d": "Number of users and region split",
+   "e": "1,184,923 user points in RX_1 to RX_3 (the scenario summary's 1,184,941 also counts the 18 base-station positions) (measured, from the scenario summary); 0.94 % have no path (measured); split by region, whole trajectories in one split (the split rule is Fixed; the numbers are not).",
+   "s": "Not fixed yet",
+   "q": []
+  },
+  {
+   "d": "max_paths",
+   "e": "25; no user reaches it (max 17) (measured); ray tracing: max 4 reflections, no diffraction, no scattering (measured).",
+   "s": "To confirm",
+   "q": []
+  },
+  {
+   "d": "Subcarriers, bandwidth and delay rows",
+   "e": "1024 / 10 MHz, 32 rows keep 98.40 % on average, p5 95.04 % (measured); the mean profile reaches 99 % only at row 1,017 (energy at the end of the delay axis) (measured); decide whether to keep a wrap-around window.",
+   "s": "Not fixed yet",
+   "q": []
+  },
+  {
+   "d": "Normalization",
+   "e": "Per-sample power recommended: float32 floor −118.2 vs −62.2 dB, same noise −0.87 vs +52.96 dB NMSE (measured). Costs: no absolute power in the input; less comparable with COST2100 papers.",
+   "s": "To confirm",
+   "q": [
+    5
+   ]
+  },
+  {
+   "d": "NMSE convention",
+   "e": "Mean over samples of per-sample ratios, in dB; all-zeros 0.0 dB, perfect −∞ dB (measured).",
+   "s": "Planned",
+   "q": [
+    5
+   ]
+  },
+  {
+   "d": "Training-set size",
+   "e": "The timing used 20,000 samples; time per epoch scales with it.",
+   "s": "Not fixed yet",
+   "q": []
+  },
+  {
+   "d": "Compression ratios",
+   "e": "For example 4, 8, 16, 32, 64; choose using the timing result × pool size.",
+   "s": "Not fixed yet",
+   "q": [
+    6
+   ]
+  },
+  {
+   "d": "Seeds, schedule, epochs",
+   "e": "CRNet 1.974 s/epoch (measured) → 0.055 / 0.164 / 1.371 h for 100 / 300 / 2500 epochs (derived); one model at a time (parallel speed-up 0.88 (measured)).",
+   "s": "Not fixed yet",
+   "q": [
+    6
+   ]
+  },
+  {
+   "d": "torch pin",
+   "e": "requirements-colab.txt pins 2.9.1; both runs used Colab's 2.14.1+cu130 (measured) → re-pin to the version actually used.",
+   "s": "To confirm",
+   "q": [
+    8
+   ]
+  },
+  {
+   "d": "ULA orientation",
+   "e": "Along x (DeepMIMO shape [32,1]), 0.5 λ = 4.283 cm at 3.5 GHz, isotropic, no rotation (measured): check it suits the street layout.",
+   "s": "To confirm",
+   "q": []
+  },
+  {
+   "d": "Hub wording",
+   "e": "DeepMIMO v4 wording, environment text and the Reproducibility rows updated on 2026-11-21.",
+   "s": "Done",
+   "q": []
+  }
+ ],
+ "questions": [
+  {
+   "n": 1,
+   "q": "Is DeepMIMO v4 (deepmimo 4.0.5) acceptable instead of \"DeepMIMOv3\"?",
+   "s": "Open",
+   "a": ""
+  },
+  {
+   "n": 2,
+   "q": "FDD pair: DeepMIMO v4 has no carrier-frequency setting. Is an uplink at 3.4 GHz derived from the 3.5 GHz rays acceptable? It matches DeepMIMO's own model (relative error 1.29e-6) but assumes the reflection coefficients do not change over 100 MHz. The DL–UL correlation is median 0.66 (complex) and 0.79 (angle-delay magnitude). Or do you require o1_3p4 (size unknown, probably about 2.3 GB) at least to validate it?",
+   "s": "Open",
+   "a": ""
+  },
+  {
+   "n": 3,
+   "q": "\"Enough multipath\": measured mean 6.13 paths per user, 4.51 within 20 dB of the strongest, LoS in 82.9 %, median K-factor 0.24 dB. Which criterion do you want (e.g. ≥ N paths within 20 dB, a K-factor limit, a BS/region choice)? TX_17 has more paths (7.44) and less LoS (65.9 %) than TX_5/TX_6.",
+   "s": "Open",
+   "a": ""
+  },
+  {
+   "n": 4,
+   "q": "Trigger at −20 dB: natural paths at that level are common (on average 1.08 per user between −10 and −20 dB), so power alone will not reveal it. Should the trigger power be defined relative to the strongest path or to ‖H‖², and should it lie within the 32 kept delay rows?",
+   "s": "Open",
+   "a": ""
+  },
+  {
+   "n": 5,
+   "q": "Normalization and NMSE: may we use per-sample power normalization (scale fitted on the training split only)? It removes absolute received power from the input and departs from the global scaling of the CsiNet/CRNet papers.",
+   "s": "Open",
+   "a": ""
+  },
+  {
+   "n": 6,
+   "q": "Model pool: 40+ models in total, or 20 clean + 20 backdoored per architecture? At 2500 epochs about 8 CRNet models fit in one 12 h session (upper bound, 20,000 samples); at 300 epochs all 40 fit. Which epoch budget?",
+   "s": "Open",
+   "a": ""
+  },
+  {
+   "n": 7,
+   "q": "Moving users: is sampling consecutive grid points (static ray tracing, optional Doppler) enough? No O1 scenario is dynamic in the DeepMIMO database.",
+   "s": "Open",
+   "a": ""
+  },
+  {
+   "n": 8,
+   "q": "Environment: Colab now runs Python 3.13 and torch 2.14; may the Hub's \"Python 3.10 or 3.11\" become \"local 3.11, Colab as provided, versions recorded per run\"?",
+   "s": "Open",
+   "a": ""
+  },
+  {
+   "n": 9,
+   "q": "Standards report for Sprint 3: TR 38.843 or TR 38.853? (Hub: To confirm)",
+   "s": "Open",
+   "a": ""
+  }
+ ],
+ "unknown": [
+  "Whether a −20 dB trigger path is hidden in the angle-delay map or against detectors: angular/delay occupancy of natural paths and detector results were not measured; only power levels were.",
+  "Whether the derived uplink matches real 3.4 GHz ray tracing (needs o1_3p4).",
+  "The other 15 BSs; the exact share of natural paths near −20 dB (the per-path file was not returned, only percentiles).",
+  "Trained NMSE with either normalization; epochs to plateau; CsiNet time per epoch; validation and checkpoint time.",
+  "The real free Colab session length and GPU quota (Colab publishes no limits; 12 h is \"at most\").",
+  "Training-set size, region split, trajectories and Doppler (not built yet).",
+  "The two HDF5 files from the run (o1_3p5_links.h5, o1_3p5_fdd_pair.h5) exist only by SHA-256; they were not kept."
+ ]
+};
+/* ===== END DECISIONS DATA ===== */
+/* ===== ROADMAP DATA: day plan of the next two sprints; edit only this block ===== */
+const ROADMAP_DATA = {
+ "v": 1,
+ "updated": "2026-11-21",
+ "intro": "Sprint 1 (data pipeline) and Sprint 2 (clean baselines), 10 working days each. Days 4 onwards start after the supervisor's answers.",
+ "sprints": [
+  {
+   "h": "Sprint 1: data pipeline",
+   "days": [
+    {
+     "d": "1",
+     "t": "Environment: local venv and the Colab smoke run.",
+     "w": "Local pytest green; Colab smoke tests pass.",
+     "s": "Done",
+     "n": "All run tests passed; FDD-pair geometry check skipped (o1_3p4 not downloaded). The reading of the DeepMIMO v4 docs and the CsiNet/CRNet papers is tracked on the board and not marked done yet."
+    },
+    {
+     "d": "2",
+     "t": "Scenario download on Colab; read the scenario summary (base stations, user grids, users, max paths, carrier, bandwidth).",
+     "w": "Scenario downloaded, SHA-256 recorded, smoke tests pass.",
+     "s": "Done",
+     "n": "Only o1_3p5 downloaded; o1_3p4 optional."
+    },
+    {
+     "d": "3",
+     "t": "Tune for rich multipath: paths per user, LoS share and users without paths per candidate base station; pick base station and user region(s).",
+     "w": "Table of statistics and the decision noted in the Hub.",
+     "s": "In progress",
+     "n": "Statistics measured (27,000 links, 3 base stations); the choice waits for supervisor answers 3 and 4."
+    },
+    {
+     "d": "4",
+     "t": "Moving users: trajectories from the user grid; speed, sampling interval and Doppler.",
+     "w": "Trajectory generator and a plot of the trajectories.",
+     "s": "Planned",
+     "n": ""
+    },
+    {
+     "d": "5",
+     "t": "Subcarriers and bandwidth: delay rows that hold the energy; keep 32 rows for CRNet.",
+     "w": "Values chosen with evidence.",
+     "s": "Planned",
+     "n": "Energy in the 32 kept rows already measured (Reproducibility)."
+    },
+    {
+     "d": "6",
+     "t": "2D-DFT and two channels at full scale, with the normalization choice; test of the energy kept.",
+     "w": "Tests green.",
+     "s": "Planned",
+     "n": ""
+    },
+    {
+     "d": "7",
+     "t": "RAM-safe HDF5 generator: user chunks appended to HDF5, splits by user region, DL and UL in one file.",
+     "w": "RAM growth reported flat; file on Drive.",
+     "s": "Planned",
+     "n": ""
+    },
+    {
+     "d": "8",
+     "t": "DataLoader at scale on Colab: RAM, throughput, num_workers.",
+     "w": "Numbers recorded in the Hub.",
+     "s": "Planned",
+     "n": ""
+    },
+    {
+     "d": "9–10",
+     "t": "Drafts of Chapter 1 (Introduction) and Chapter 3 (Background); update the Reproducibility rows that were fixed.",
+     "w": "Drafts and Hub updated.",
+     "s": "Planned",
+     "n": ""
+    }
+   ]
+  },
+  {
+   "h": "Sprint 2: clean baselines",
+   "days": [
+    {
+     "d": "1",
+     "t": "Implement CsiNet (same 2×32×32 input, encoder to M = 2048/CR); shape tests for every CR.",
+     "w": "Tests green.",
+     "s": "Planned",
+     "n": ""
+    },
+    {
+     "d": "2",
+     "t": "Training script: one common schedule, seed control, checkpoints to Drive, resume, validation NMSE per epoch.",
+     "w": "2-epoch dry run on Colab resumes after a forced restart.",
+     "s": "Planned",
+     "n": ""
+    },
+    {
+     "d": "3",
+     "t": "Time one model: CRNet, CR 4, on the T4 (time per epoch, epochs to plateau, peak GPU memory).",
+     "w": "Number written in the Hub.",
+     "s": "Planned",
+     "n": "Training passes already timed (1.974 s/epoch, measured); epochs to plateau not measured."
+    },
+    {
+     "d": "4–6",
+     "t": "Train clean CRNet and CsiNet for the chosen CRs and seeds.",
+     "w": "Checkpoints and logs on Drive.",
+     "s": "Planned",
+     "n": ""
+    },
+    {
+     "d": "7",
+     "t": "NMSE validation: test NMSE per model, CR and seed (mean ± std); check the published trends.",
+     "w": "Table and figure (vector PDF).",
+     "s": "Planned",
+     "n": ""
+    },
+    {
+     "d": "8",
+     "t": "Read the IACR ePrint 2026/2036 paper, the mmWave backdoor paper and the adversarial CSI paper.",
+     "w": "Notes.",
+     "s": "Planned",
+     "n": ""
+    },
+    {
+     "d": "9–10",
+     "t": "Drafts of Chapter 2 (Problem statement) and Chapter 4 (Related work); pin the CRNet commit and the requirements in the Hub.",
+     "w": "Drafts and Hub updated.",
+     "s": "Planned",
+     "n": ""
+    }
+   ]
+  }
+ ]
+};
+/* ===== END ROADMAP DATA ===== */
 </script>
 <script>
 const $=s=>document.querySelector(s),K='liu-hub-v3',esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -1121,12 +1626,23 @@ function glance(w){const g=S.glance||{},td=S.tasks.filter(t=>t.c==3),cd=tp().ch.
  const ul=a=>'<ul>'+a.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>',dn=[...cd.map(n=>'Chapter done: '+n),...md.map(m=>'Milestone: '+m[0]),...td.slice(-5).map(t=>t.t)];
  $('#glanceBox').innerHTML=`<div style="border-top-color:var(--atk)"><h3>Problem</h3><p>${esc(g.problem)||'<span class="g">Not written yet.</span>'}</p></div><div style="border-top-color:var(--aud)"><h3>Contribution <span class="pill s0">Planned</span></h3><p>${esc(g.contribution)||'<span class="g">Not written yet.</span>'}</p></div><div style="border-top-color:var(--ok)"><h3>Done</h3>${dn.length?ul(dn):'<p class="g">Nothing is marked done yet.</p>'}<p class="g">${td.length} of ${S.tasks.length} tasks · ${md.length} of ${tp().ms.length} milestones</p></div><div style="border-top-color:var(--clean)"><h3>Next</h3>${cur.length?ul(cur.map(t=>t.t+' ('+t.tag+')')):'<p class="g">No task in the current sprint.</p>'}${nm?`<p class="g">Next milestone: ${esc(nm[0])}, week ${Math.round(nm[1]*S.weeks/32)}</p>`:''}</div>`}
 function repro(){const D=REPRO_DATA,RC=n=>(RESOURCES_DATA.items||[]).find(x=>x.h==n),
- SRC={res:'<a href="#resources">Resources</a>',prop:'Proposal v2',plan:'Supervisor’s plan'},ST={'Fixed':'s3','Planned':'sp','Not fixed yet':'s0','To confirm':'s1'},
+ SRC={res:'<a href="#resources">Resources</a>',prop:'Proposal v2',plan:'Supervisor’s plan',run:'Colab setup and analysis runs, 2026-11-20/21'},ST={'Fixed':'s3','Planned':'sp','Not fixed yet':'s0','To confirm':'s1'},
+ L=D.legend,leg=L?`<div class="leg"><p>${(L.status||[]).map(x=>`<span><span class="pill ${ST[x[0]]||'s0'}">${esc(x[0])}</span> ${esc(x[1])}</span>`).join('')}</p><p>${(L.tags||[]).map(x=>`<span><b>${esc(x[0])}</b> ${esc(x[1])}</span>`).join('')}</p>${L.note?`<p class="g">${esc(L.note)}</p>`:''}<p class="g">Last edited: ${esc(D.updated)}</p></div>`:'',
+ step=x=>typeof x=='string'?{t:x,s:'Not available yet'}:x,
  val=r=>{if(!r.frm)return esc(r.v);const c=RC(r.frm);if(!c)return '<span class="g">Missing in Resources: '+esc(r.frm)+'</span>';
   const t=r.pick=='libs'?(c.libs||[]).map(l=>l[0]).join(', '):r.pick=='first'?(c.t||'').split(/(?<=\.)\s+(?=[A-Z])/)[0]:c.t||'';
   return esc(t)+(r.v?'; '+esc(r.v):'')+' <span class="g">(from Resources)</span>'};
- $('#reproBox').innerHTML=(D.groups||[]).map(g=>`<h3 class="rg">${esc(g.h)}</h3><table class="tbl rtbl"><thead><tr><th scope="col">Parameter</th><th scope="col">Value</th><th scope="col">Status</th><th scope="col">Source</th></tr></thead><tbody>${g.rows.map(r=>`<tr><th scope="row">${esc(r.p)}</th><td>${val(r)}</td><td class="st"><span class="pill ${ST[r.s]||'s0'}">${esc(r.s)}</span></td><td class="src">${SRC[r.src]||'–'}</td></tr>`).join('')}</tbody></table>`).join('')+
- `<h3 class="rg">How to rerun</h3><ol class="rerun">${((D.rerun||{}).steps||[]).map(x=>`<li><span>${esc(x)}</span> <span class="pill s0">Not available yet</span></li>`).join('')}</ol><p class="g">${esc((D.rerun||{}).note)}</p>`}
+ $('#reproBox').innerHTML=leg+(D.groups||[]).map(g=>`<h3 class="rg">${esc(g.h)}</h3><table class="tbl rtbl"><thead><tr><th scope="col">Parameter</th><th scope="col">Value</th><th scope="col">Status</th><th scope="col">Source</th></tr></thead><tbody>${g.rows.map(r=>`<tr><th scope="row">${esc(r.p)}</th><td>${val(r)}</td><td class="st"><span class="pill ${ST[r.s]||'s0'}">${esc(r.s)}</span></td><td class="src">${SRC[r.src]||'–'}</td></tr>`).join('')}</tbody></table>`).join('')+
+ `<h3 class="rg">How to rerun</h3><ol class="rerun">${((D.rerun||{}).steps||[]).map(step).map(x=>`<li><span>${esc(x.t)}</span> <span class="pill ${x.s=='Available'?'s3':'s0'}">${esc(x.s)}</span></li>`).join('')}</ol><p class="g">${esc((D.rerun||{}).note)}</p>`}
+const DST={'Fixed':'s3','Done':'s3','In progress':'s1','Planned':'sp','Not fixed yet':'s0','To confirm':'s1','Open':'s1','Answered':'s3'},dpill=s=>`<span class="pill ${DST[s]||'s0'}">${esc(s)}</span>`;
+function decisions(){const D=typeof DECISIONS_DATA=='object'?DECISIONS_DATA:null;if(!D)return;
+ $('#decSub').textContent=D.intro||'';
+ $('#decBox').innerHTML=`<h3 class="rg">Decision log</h3><table class="tbl stk"><thead><tr><th scope="col">Decision</th><th scope="col">Evidence</th><th scope="col">Status</th></tr></thead><tbody>${(D.log||[]).map(r=>`<tr><th scope="row">${esc(r.d)}</th><td>${esc(r.e)}${r.q&&r.q.length?` <span class="g">(supervisor question${r.q.length>1?'s':''} ${r.q.map(n=>`<a href="#sq${n}">${n}</a>`).join(', ')})</span>`:''}</td><td class="st">${dpill(r.s)}</td></tr>`).join('')}</tbody></table>`+
+ `<h3 class="rg">Questions for the supervisor</h3><ol class="sq">${(D.questions||[]).map(x=>`<li id="sq${x.n}"><div class="sqh"><span>${esc(x.q)}</span>${dpill(x.s)}</div><p class="sqa"><b>Supervisor answer:</b> ${x.a?esc(x.a):'<span class="g">No answer yet.</span>'}</p></li>`).join('')}</ol>`+
+ `<h3 class="rg">Still unknown (not measured)</h3><ul class="unk">${(D.unknown||[]).map(x=>`<li>${esc(x)}</li>`).join('')}</ul><p class="g">Last edited: ${esc(D.updated)}</p>`}
+function roadmap(){const D=typeof ROADMAP_DATA=='object'?ROADMAP_DATA:null;if(!D)return;
+ $('#rmSub').textContent=D.intro||'';
+ $('#rmBox').innerHTML=(D.sprints||[]).map(sp=>`<h3 class="rg">${esc(sp.h)}</h3><table class="tbl stk rm"><thead><tr><th scope="col">Day</th><th scope="col">Do</th><th scope="col">Done when</th><th scope="col">Status</th></tr></thead><tbody>${sp.days.map(r=>`<tr><th scope="row">Day ${esc(r.d)}</th><td>${esc(r.t)}${r.n?`<div class="g">${esc(r.n)}</div>`:''}</td><td class="dw">${esc(r.w)}</td><td class="st">${dpill(r.s)}</td></tr>`).join('')}</tbody></table>`).join('')+`<p class="g">Last edited: ${esc(D.updated)}</p>`}
 function qa(){const L=S.qa||[];$('#qaBox').innerHTML=L.length?L.map((x,i)=>`<div class="qa"><h3><span style="flex:1">${i+1}. ${esc(x.q)}</span>${RO?`<span class="pill ${x.s=='Ready'?'s3':'s1'}">${esc(x.s)}</span>`:`<button class="pill ${x.s=='Ready'?'s3':'s1'}" data-qs="${i}" aria-label="Answer status ${esc(x.s)}, click to change">${esc(x.s)}</button>`}</h3>${RO?(x.a?`<p>${esc(x.a)}</p>`:'<p class="g">No answer drafted yet.</p>'):`<label class="f" for="qa${i}">Answer draft</label><textarea id="qa${i}" data-qa="${i}">${esc(x.a)}</textarea>`}</div>`).join(''):'<p class="g">No questions yet.</p>'}
 function lib(){const q=$('#lS').value.toLowerCase();
  $('#chips').innerHTML=['All',...KINDS].map(k=>`<button aria-pressed="${k==filt}" data-f="${k}">${k}${k=='All'?'':' ('+S.lib.filter(x=>x.k==k).length+')'}</button>`).join('');
@@ -1293,7 +1809,7 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden){cancelAnim
 $('#audB').onclick=()=>{found=null;aud={t:RM.matches||document.hidden?89:0,res:runAudit(sv())};if(document.hidden)frame();else kick()};
 $('#useT').onclick=()=>{if(!found||found.a==null)return;$('#sA').value=found.a;$('#sD').value=found.d;$('#sP').value=found.db;upd(false)};
 $('#theme').addEventListener('click',kick);matchMedia('(prefers-color-scheme:dark)').addEventListener('change',kick);addEventListener('resize',()=>{size();kick()});
-diagrams();resources();results();size();upd(false);
+diagrams();resources();decisions();roadmap();results();size();upd(false);
 </script>
 </body>
 </html>
