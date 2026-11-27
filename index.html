@@ -249,7 +249,7 @@ const HUB_DATA = {
  "type": "csi",
  "start": "2026-11-03",
  "weeks": 32,
- "next": 46,
+ "next": 49,
  "tasks": [
   {
    "id": 1,
@@ -433,9 +433,9 @@ const HUB_DATA = {
   },
   {
    "id": 31,
-   "t": "Choose base station(s) and user region · TX_17 and the < 3-path filter decided by the supervisor (2026-11-25); apply the filter and measure the share removed · part of “Tune DeepMIMO O1”",
+   "t": "Measure the share removed by the < 3-path selection rule (TX_17) · part of “Tune DeepMIMO O1”",
    "tag": "Sprint 1",
-   "c": 1
+   "c": 3
   },
   {
    "id": 32,
@@ -495,7 +495,7 @@ const HUB_DATA = {
    "id": 41,
    "t": "Grid spacing of the user grid and the implied user speed (state them in the thesis) · part of “Trajectories for moving users”",
    "tag": "Sprint 1",
-   "c": 1
+   "c": 3
   },
   {
    "id": 42,
@@ -520,6 +520,24 @@ const HUB_DATA = {
    "t": "Trigger definition: power relative to the strongest path, also reported as the median ratio to ‖H‖_F²; strictly within the 32 kept delay rows, away from the edges · part of “Poisoning script”",
    "tag": "Sprint 3",
    "c": 0
+  },
+  {
+   "id": 46,
+   "t": "Angle-sign check on real data (array along y)",
+   "tag": "Sprint 1",
+   "c": 3
+  },
+  {
+   "id": 47,
+   "t": "Poisoning script and attack success per trigger variant (visible, medium, hidden)",
+   "tag": "Sprint 3",
+   "c": 0
+  },
+  {
+   "id": 48,
+   "t": "Apply the selection rule inside the dataset generator (keep a kept-by-rule flag for every user)",
+   "tag": "Sprint 1",
+   "c": 1
   }
  ],
  "ch": [
@@ -536,6 +554,16 @@ const HUB_DATA = {
  "c5": [],
  "dl": [],
  "reps": [
+  {
+   "w": 4,
+   "date": "2026-11-27",
+   "hrs": "5–6",
+   "st": "At risk",
+   "done": "Ran the TX_17 measurement notebook (2026-11-25) and the angle-check notebook (2026-11-27) on Colab; both passed and all results are recorded.\nDecided the edge margin, the three trigger variants and the main one (hidden: row 8, bin 13) from the measured evidence (D27 to D33).\nThe angle check showed that the array lies along y (measured); the earlier \"along x\" was wrong.",
+   "block": "The angle-check notebook failed twice on Colab (2026-11-26 and 2026-11-27) before the fix; it passed on 2026-11-27.",
+   "plan": "Review the dataset plan; generate the TX_17 dataset in HDF5; implement CsiNet.",
+   "fb": ""
+  },
   {
    "w": 4,
    "date": "2026-11-25",
@@ -970,7 +998,7 @@ const RESOURCES_DATA = {
 /* ===== REPRO DATA: reproducibility rows; "frm" reads the value from a RESOURCES_DATA card (skill hub-update) ===== */
 const REPRO_DATA = {
  "v": 1,
- "updated": "2026-11-25",
+ "updated": "2026-11-27",
  "groups": [
   {
    "h": "Data and scenario",
@@ -991,9 +1019,9 @@ const REPRO_DATA = {
     },
     {
      "p": "Base station array",
-     "v": "ULA, 32 antennas along x (DeepMIMO shape [32, 1]), spacing 0.5 λ = 4.283 cm at 3.5 GHz, isotropic, no rotation; single-antenna users (measured). Orientation against the street layout to confirm.",
-     "s": "To confirm",
-     "src": "run"
+     "v": "ULA, 32 antennas (setting; DeepMIMO shape [32, 1]) along the y axis: the angle check matched 100 % of the 600 checked TX_17 users with the array along y and sign +1; the earlier \"along x\" was wrong (measured). Spacing 0.5 λ = 4.283 cm at 3.5 GHz, isotropic, no rotation; single-antenna users (measured).",
+     "s": "Fixed",
+     "src": "Colab angle check, 2026-11-27"
     },
     {
      "p": "Base station(s) used",
@@ -1003,9 +1031,9 @@ const REPRO_DATA = {
     },
     {
      "p": "Users",
-     "v": "1,184,923 user points in RX_1 to RX_3 (the scenario summary's 1,184,941 also counts the 18 base-station positions) (measured, from the scenario summary); analysis sample 27,000 links over 3 base stations (TX_5, TX_6, TX_17), 9,000 users each spread over RX_1 to RX_3 in proportion to their size (measured); 0.94 % of the links have no path and are excluded (measured). Moving users (Supervisor, 2026-11-25): consecutive static grid points, no synthetic Doppler; trajectories not built yet; the grid spacing and the implied user speed are not measured yet (Not fixed yet). Filter (Supervisor, 2026-11-25): keep LoS and NLoS users; drop only users with fewer than 3 paths within 20 dB of the strongest; the share removed is not measured yet. Number of users per split not fixed.",
+     "v": "1,184,923 user points in RX_1 to RX_3 (the scenario summary's 1,184,941 also counts the 18 base-station positions) (measured, from the scenario summary); for TX_17, 31,764 users (2.681 %) have no path (measured). Filter (Supervisor, 2026-11-25): keep LoS and NLoS users; drop only users with fewer than 3 paths within 20 dB of the strongest: 179,137 removed (15.12 %), 1,005,786 kept (LoS 75.86 %, NLoS 24.14 %) (measured); share removed within each type LoS 2.28 %, NLoS 34.80 % (measured), reported per type in the thesis tables; unfiltered statistics kept (Students, D32, 2026-11-26). Moving users (Supervisor, 2026-11-25): consecutive static grid points, no synthetic Doppler; grid spacing 0.2 m in RX_1 and RX_2, 0.1 m in RX_3 (measured); working sampling interval 20 ms (setting) with 0.2 m steps = 10 m/s = 36 km/h, urban car (derived); pedestrian alternative 100 ms = 7.2 km/h (derived); a per-RX-set step (RX_3 needs 2 grid points per 0.2 m) only when the stretch goal starts (Students, D30, 2026-11-26). Rule and speed fixed; trajectories not built yet; number of users per split not fixed.",
      "s": "Planned",
-     "src": "Supervisor, 2026-11-25; Colab runs, 2026-11-20/21"
+     "src": "Supervisor, 2026-11-25; Students, D30 and D32 (2026-11-26); TX_17 measurement run, 2026-11-25"
     },
     {
      "p": "Paths per user",
@@ -1033,9 +1061,9 @@ const REPRO_DATA = {
     },
     {
      "p": "Data splits",
-     "v": "By user region; whole trajectories stay in one split",
+     "v": "By user region inside each RX set, not by whole RX set, so that every split has LoS and NLoS users (all NLoS users are in RX_1 (measured)); whole trajectories stay in one split; split fractions not fixed. This departs from the proposal's wording \"By user region\" and is stated in Chapter 6 (Students, D31, 2026-11-26).",
      "s": "Planned",
-     "src": "prop"
+     "src": "Proposal v2; Students, D31 (2026-11-26)"
     },
     {
      "p": "Model input",
@@ -1074,9 +1102,9 @@ const REPRO_DATA = {
     },
     {
      "p": "Trigger",
-     "v": "Extra attacker-controlled propagation path. Definition (Supervisor, 2026-11-25): power in dB relative to the strongest path, as in the proposal, also reported as the equivalent median ratio to ‖H‖_F²; the trigger lies strictly within the 32 kept delay rows, away from the edge rows. Numeric trigger powers and the other parameters: Not fixed yet.",
+     "v": "Extra attacker-controlled propagation path. Definition (Supervisor, 2026-11-25): power in dB relative to the strongest path, as in the proposal, also reported as the equivalent median ratio to ‖H‖_F²: −20 dB (setting) relative to the strongest path is a median −22.75 dB relative to ‖H‖_F² (measured). The trigger lies strictly within the 32 kept delay rows with an edge margin of 4 rows (setting), so it is allowed in rows 4 to 27 only (Students, D27). Three variants named by hiding level (Students, D33, 2026-11-27): visible = delay row 20, angle bin 24; medium = row 8, bin 24; hidden = row 8, bin 13 (setting); main variant = hidden. Angle bins follow the departure angles at the base station (departure-angle convention (measured)): bin 13 = 54.3° from broadside towards +y (equivalent azimuths 54.3° or 125.7°), bin 24 = 30° from broadside towards −y (equivalent azimuths −30° or 210°) (derived); a linear array cannot tell front from back. Evidence for the main choice: the −20 dB trigger is about 1.8× (hidden), about 15× (medium) and about 2,700× (visible) the mean natural energy in the trigger's own bin (derived). The Fixed status covers the definition; the numeric trigger powers used in the experiments: Not fixed yet.",
      "s": "Fixed",
-     "src": "Supervisor, 2026-11-25; Proposal v2"
+     "src": "Supervisor, 2026-11-25; Students, D27 and D33; Colab angle check, 2026-11-27"
     },
     {
      "p": "Model pool",
@@ -1248,7 +1276,7 @@ const REPRO_DATA = {
   "status": [
    [
     "Fixed",
-    "Set in the supervisor's plan, the submitted proposal or the supervisor's answers (2026-11-25), or chosen by the students and tested (NMSE formula)."
+    "Set in the supervisor's plan, the submitted proposal or the supervisor's answers (2026-11-25); chosen by the students and tested (NMSE formula); decided by the students on measured evidence (trigger variants, D27 and D33); or measured (array axis)."
    ],
    [
     "Planned",
@@ -1266,7 +1294,7 @@ const REPRO_DATA = {
   "tags": [
    [
     "(measured)",
-    "Copied from an output file of the Colab setup run (2026-11-20) or analysis run (2026-11-20, results returned 2026-11-21, sampling seed 2026): stats_o1_3p5.json, nmse_sanity.json, timing_crnet.json, fdd_pair.json, smoke-test logs."
+    "Copied from an output file of the Colab setup run (2026-11-20), analysis run (2026-11-20, results returned 2026-11-21, sampling seed 2026), TX_17 measurement run (2026-11-25, seed 2026) or angle check run (2026-11-27, seed 2026): stats_o1_3p5.json, nmse_sanity.json, timing_crnet.json, fdd_pair.json, smoke-test logs, the run logs 20261125T213843Z_measure_01_tx17.json and 20261127T195907Z_check_02_angle_sign.json and their output files."
    ],
    [
     "(derived)",
@@ -1284,8 +1312,8 @@ const REPRO_DATA = {
 /* ===== DECISIONS DATA: decision log, supervisor questions and unknowns; edit only this block (fill "a" with the supervisor's answer) ===== */
 const DECISIONS_DATA = {
  "v": 1,
- "updated": "2026-11-25",
- "intro": "Decisions from the environment setup and the supervisor's answers of 2026-11-25. All nine questions are answered; values still marked To confirm on this page are not covered by them.",
+ "updated": "2026-11-27",
+ "intro": "Decisions from the environment setup, the supervisor's answers of 2026-11-25 and the students' decisions of 2026-11-26 and 2026-11-27 (D27 to D33). All nine questions are answered; values still marked To confirm on this page are not covered by them.",
  "log": [
   {
    "d": "Scenario and carriers",
@@ -1306,7 +1334,7 @@ const DECISIONS_DATA = {
   },
   {
    "d": "Rich-multipath criterion",
-   "e": "27,000 links: paths 0–17, mean 6.13; within 10 / 20 / 30 dB of the strongest: mean 3.43 / 4.51 / 4.95; median K-factor 0.24 dB (measured). Rule (Supervisor, 2026-11-25): drop only users with fewer than 3 paths within 20 dB of the strongest; keep LoS and NLoS; report results stratified by LoS vs NLoS. Share removed by the rule: not measured yet.",
+   "e": "27,000 links: paths 0–17, mean 6.13; within 10 / 20 / 30 dB of the strongest: mean 3.43 / 4.51 / 4.95; median K-factor 0.24 dB (measured). Rule (Supervisor, 2026-11-25): drop only users with fewer than 3 paths within 20 dB of the strongest; keep LoS and NLoS; report results stratified by LoS vs NLoS. Applied to TX_17: 15.12 % of the users removed, 1,005,786 kept; within each type LoS 2.28 %, NLoS 34.80 % removed (measured); thesis tables report the share removed per type and the unfiltered statistics are kept (Students, D32, 2026-11-26).",
    "s": "Fixed",
    "q": [
     3
@@ -1314,7 +1342,7 @@ const DECISIONS_DATA = {
   },
   {
    "d": "Number of users and region split",
-   "e": "1,184,923 user points in RX_1 to RX_3 (the scenario summary's 1,184,941 also counts the 18 base-station positions) (measured, from the scenario summary); 0.94 % have no path (measured); the split rule (by region, whole trajectories in one split) is in the submitted proposal; the numbers are Not fixed yet.",
+   "e": "1,184,923 user points in RX_1 to RX_3 (the scenario summary's 1,184,941 also counts the 18 base-station positions) (measured, from the scenario summary); 0.94 % have no path (measured); the split rule (by region, whole trajectories in one split) is in the submitted proposal; regions are drawn inside each RX set, because all NLoS users are in RX_1 (measured) (Students, D31, 2026-11-26); the split fractions and the numbers per split are Not fixed yet.",
    "s": "Not fixed yet",
    "q": []
   },
@@ -1377,9 +1405,9 @@ const DECISIONS_DATA = {
    ]
   },
   {
-   "d": "ULA orientation",
-   "e": "Along x (DeepMIMO shape [32,1]), 0.5 λ = 4.283 cm at 3.5 GHz, isotropic, no rotation (measured): check it suits the street layout.",
-   "s": "To confirm",
+   "d": "Angle-sign check (ULA orientation)",
+   "e": "Colab angle check, 2026-11-27, 600 TX_17 users (measured): the bin where each user's strongest path lands matches the bin predicted from the departure angles for 100 % of the users with the array along y and sign +1; the old \"along x\" assumption was wrong (best match 1.83 %) (measured).",
+   "s": "Fixed",
    "q": []
   },
   {
@@ -1397,6 +1425,12 @@ const DECISIONS_DATA = {
    ]
   },
   {
+   "d": "Main trigger variant = hidden (row 8, bin 13)",
+   "e": "Source: Students, D33 (2026-11-27); evidence measured. Variants named by hiding level: visible (row 20, bin 24), medium (row 8, bin 24), hidden (row 8, bin 13). The −20 dB trigger is about 1.8× (hidden), 15× (medium) and 2,700× (visible) the mean natural energy in its own bin (derived from the measured mean angle-delay map). Edge margin 4 rows, trigger rows 4 to 27 only (Students, D27).",
+   "s": "Fixed",
+   "q": []
+  },
+  {
    "d": "Model pool and epochs",
    "e": "20 clean + 20 backdoored per architecture (setting), 80 in total; fallback 10 + 10 per architecture (setting); about 300 epochs, chosen from the knee of a convergence curve (Supervisor, 2026-11-25). Epoch count: Planned (depends on the curve).",
    "s": "Fixed",
@@ -1406,7 +1440,7 @@ const DECISIONS_DATA = {
   },
   {
    "d": "Moving users",
-   "e": "Consecutive static grid points; no synthetic Doppler (Supervisor, 2026-11-25). Grid spacing and implied user speed: Not fixed yet (not measured).",
+   "e": "Consecutive static grid points; no synthetic Doppler (Supervisor, 2026-11-25). Grid spacing 0.2 m (RX_1, RX_2) and 0.1 m (RX_3) (measured); working sampling interval 20 ms (setting) with 0.2 m steps = 36 km/h (derived), pedestrian alternative 100 ms = 7.2 km/h (derived) (Students, D30, 2026-11-26).",
    "s": "Fixed",
    "q": [
     7
@@ -1486,17 +1520,17 @@ const DECISIONS_DATA = {
   }
  ],
  "unknown": [
-  "Whether a −20 dB trigger path is hidden in the angle-delay map or against detectors: angular/delay occupancy of natural paths and detector results were not measured; only power levels were.",
-  "Trained NMSE with the approved normalization; epochs to plateau (the knee of the convergence curve); CsiNet time per epoch; validation and checkpoint time.",
-  "The share of TX_17 users removed by the rule \"fewer than 3 paths within 20 dB of the strongest\" (only the shares with at least 2 and at least 4 such paths were measured, over three base stations).",
-  "The grid spacing of the user grid and the user speed it implies for moving users."
+  "Whether a −20 dB trigger stays hidden from detectors: no detector has been run; the measured occupancy only tells where natural energy is.",
+  "Trained NMSE with the approved normalization; epochs to plateau (the knee of the convergence curve).",
+  "CsiNet time per epoch; validation and checkpoint time.",
+  "Attack success rate per trigger variant (visible, medium, hidden): no backdoored model trained yet."
  ]
 };
 /* ===== END DECISIONS DATA ===== */
 /* ===== ROADMAP DATA: day plan of the next two sprints; edit only this block ===== */
 const ROADMAP_DATA = {
  "v": 1,
- "updated": "2026-11-25",
+ "updated": "2026-11-27",
  "intro": "Sprint 1 (data pipeline) and Sprint 2 (clean baselines), 10 working days each. The supervisor answered the open questions on 2026-11-25, so day 4 onwards can start.",
  "sprints": [
   {
@@ -1521,7 +1555,7 @@ const ROADMAP_DATA = {
      "t": "Tune for rich multipath: paths per user, LoS share and users without paths per candidate base station; pick base station and user region(s).",
      "w": "Table of statistics and the decision noted in the Hub.",
      "s": "Decided",
-     "n": "TX_17 and the filtering rule decided by the supervisor (2026-11-25): drop only users with fewer than 3 paths within 20 dB of the strongest; keep LoS and NLoS. Still to do: apply the rule and measure the share of users it removes."
+     "n": "TX_17 and the filtering rule decided by the supervisor (2026-11-25): drop only users with fewer than 3 paths within 20 dB of the strongest; keep LoS and NLoS. Rule applied on TX_17: 15.12 % of the users removed (measured). Edge margin, trigger variants, sampling interval, split and reporting of the rule decided by the students on 2026-11-26 (D27 to D32); main trigger variant hidden (D33, 2026-11-27). Angle check done (Colab)."
     },
     {
      "d": "4",
